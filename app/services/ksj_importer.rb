@@ -51,9 +51,9 @@ class KsjImporter
         bus_stop.xpath("ksj:busRouteInformation//ksj:BusRouteInformation").each do |bus_route_information|
           bus_type = bus_route_information.xpath("ksj:busType").first.text.to_i
           bus_operation_company = bus_route_information.xpath("ksj:busOperationCompany").first.text
-          bus_operation_company_object = BusOperationCompany.where(name: bus_operation_company, prefecture_id: prefecture_id).first
+          bus_operation_company_object = BusOperationCompany.where(name: bus_operation_company).first
           unless bus_operation_company_object
-            bus_operation_company_object = BusOperationCompany.create(name: bus_operation_company, prefecture_id: prefecture_id)
+            bus_operation_company_object = BusOperationCompany.create(name: bus_operation_company)
           end
           bus_line_name = bus_route_information.xpath("ksj:busLineName").first.text
           bus_route_information_object = BusRouteInformation.where(bus_type_id: bus_type, bus_operation_company: bus_operation_company_object, bus_line_name: bus_line_name).first

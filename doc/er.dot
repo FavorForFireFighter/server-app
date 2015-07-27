@@ -10,7 +10,7 @@ digraph busmap {
   // prefecture
   prefecture [label="[prefecture(都道府県)]|{{id|name}|{Int|String}}"];
   // bus_operation_company
-  bus_operation_company [label="[bus_operation_company(バス運営会社)]|{{id|name|prefecture_id}|{Int|String|Int}}"];
+  bus_operation_company [label="[bus_operation_company(バス運営会社)]|{{id|name}|{Int|String}}"];
   // bus_route_information
   bus_route_information [label="[bus_route_information(路線情報)]|{{id|bus_type_id|bus_operation_company_id|bus_line_name}|{Int|Int|Int|String}}"];
   //
@@ -24,7 +24,6 @@ digraph busmap {
 
   // エッジ
   prefecture -> bus_stop [label="id=prefecture_id 1..n"];
-  prefecture -> bus_operation_company [label="id=prefecture_id 1..n"];
   bus_stop -> bus_stop_bus_route_information [label="id=bus_stop_id n..n"];
   bus_operation_company -> bus_route_information [label="id=bus_operation_company_id 1..n"];
   bus_route_information -> bus_stop_bus_route_information [label="id=bus_route_information_id n..n"];

@@ -19,12 +19,9 @@ ActiveRecord::Schema.define(version: 20150725075851) do
 
   create_table "bus_operation_companies", force: :cascade do |t|
     t.string   "name"
-    t.integer  "prefecture_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
-
-  add_index "bus_operation_companies", ["prefecture_id"], name: "index_bus_operation_companies_on_prefecture_id", using: :btree
 
   create_table "bus_route_informations", force: :cascade do |t|
     t.integer  "bus_type_id"
@@ -89,7 +86,6 @@ ActiveRecord::Schema.define(version: 20150725075851) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
 
-  add_foreign_key "bus_operation_companies", "prefectures"
   add_foreign_key "bus_route_informations", "bus_operation_companies"
   add_foreign_key "bus_stop_photos", "bus_stops"
   add_foreign_key "bus_stop_photos", "users"
