@@ -4,7 +4,10 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.3'
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+# gem 'sqlite3'
+gem 'pg'
+gem 'activerecord-postgis-adapter'
+gem 'rgeo-geojson'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -24,10 +27,10 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 # Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+gem 'bcrypt', '~> 3.1.7'
 
 # Use Unicorn as the app server
-# gem 'unicorn'
+gem 'unicorn'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
@@ -41,5 +44,43 @@ group :development, :test do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+
+  # For test
+  gem 'rspec-rails'
+  gem 'database_cleaner'
+  gem 'rb-fsevent', :require => false
+  gem 'rb-inotify', :require => false
+  gem 'rb-fchange', :require => false
+  gem 'guard-rspec'
+  gem 'pry-rails'
+  gem 'pry-doc'
+  gem 'factory_girl_rails', '~> 4.0'
+  gem 'json_expressions'
 end
 
+group :development do
+  gem 'i18n_generators'
+end
+
+group :test do
+  gem "faker"
+end
+
+# api
+gem 'grape'
+gem 'grape-jbuilder'
+
+# db seed
+gem 'seed-fu', '~> 2.3'
+
+# validate
+gem 'validates_email_format_of'
+
+# versioning
+gem 'paper_trail', '~> 4.0.0.rc'
+
+# xml
+gem 'nokogiri'
+
+# photo
+gem 'paperclip'

@@ -6,11 +6,13 @@ digraph busmap {
 
   // ノード
   // bus_stop
-  bus_stop [label="[bus_stop(停留所)]|{{id|name|prefecture_id|location}|{Int|String|Int|Point|last_modify_user_id}}"];
+  bus_stop [label="[bus_stop(停留所)]|{{id|name|prefecture_id|location|location_updated_at|last_modify_user_id}|{Int|String|Int|Point|Datetime|Int}}"];
   // prefecture
   prefecture [label="[prefecture(都道府県)]|{{id|name}|{Int|String}}"];
+  // bus_operation_company
+  bus_operation_company [label="[bus_operation_company(バス運営会社)]|{{id|name|prefecture_id}|{Int|String|Int}}"];
   // bus_route_information
-  bus_route_information [label="[bus_route_information(路線情報)]|{{id|bus_type_id|bus_operation_company|bus_line_name}|{Int|Int|String|String}}"];
+  bus_route_information [label="[bus_route_information(路線情報)]|{{id|bus_type_id|bus_operation_company_id|bus_line_name}|{Int|Int|Int|String}}"];
   //
   bus_stop_bus_route_information [label="[bus_stop_bus_route_information(停留所と路線情報の中間テーブル)]|{{id|bus_stop_id|bus_route_information_id}|{Int|Int|Int}}"];
 
@@ -18,11 +20,13 @@ digraph busmap {
   user [label="[user(ユーザ)]|{{id|email|password_digest|name|admin_flag}|{Int|String|String|String|Bool}}"];
 
   // bus_stop_photo
-  bus_stop_photo [label="[bus_stop_photo(バス停の写真)]|{{id|photo|bus_stop_id|user_id}|{Int|String|Int|Int}}"];
+  bus_stop_photo [label="[bus_stop_photo(バス停の写真)]|{{id|photo|bus_stop_id|user_id|title}|{Int|String|Int|Int|String}}"];
 
   // エッジ
   prefecture -> bus_stop [label="id=prefecture_id 1..n"];
+  prefecture -> bus_operation_company [label="id=prefecture_id 1..n"];
   bus_stop -> bus_stop_bus_route_information [label="id=bus_stop_id n..n"];
+  bus_operation_company -> bus_route_information [label="id=bus_operation_company_id 1..n"];
   bus_route_information -> bus_stop_bus_route_information [label="id=bus_route_information_id n..n"];
   user -> bus_stop [label="id=last_modify_user_id 1..n"];
   user -> bus_stop_photo [label="id=user_id 1..n"];
