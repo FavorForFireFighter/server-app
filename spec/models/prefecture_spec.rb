@@ -1,5 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe Prefecture, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  before do
+    @prefecture = FactoryGirl.build(:prefecture)
+  end
+
+  subject { @prefecture }
+
+  it { should respond_to(:name) }
+  it { should respond_to(:location) }
+  it { should be_valid }
 end
