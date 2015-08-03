@@ -1,0 +1,15 @@
+= render partial: 'common/flash_messages'
+
+= form_for(@user, url: {action: 'login'}) do |f|
+
+  .form-group
+    = f.label :username, class: 'control-label'
+    .controls
+      = f.text_field :username, class: 'form-control', required: true
+
+  .form-group
+    = f.label :password, class: 'control-label'
+    .controls
+      = f.password_field :password, class: 'form-control', required: true
+
+  = f.submit t('application.login'), class: "btn btn-large btn-primary", name: nil
