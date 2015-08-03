@@ -1,0 +1,7 @@
+- flash.each do |key, value|
+  - if key == "error" || key == "alert"
+    .alert.alert-danger= value
+  - elsif key == "notice"
+    .alert.alert-info= value
+  - else
+    %div.alert{class: "alert-#{key}"}= value

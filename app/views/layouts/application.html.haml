@@ -32,24 +32,22 @@
         .navbar-collapse.collapse.navbar-responsive-collapse
           %ul.nav.navbar-nav
             %li= link_to t('application.search_bus'), "#"
-            -# TODO Replace Devise method
-            - if defined? user_signed_in?
+            - if signed_in?
               %li= link_to t('application.create_bus'), "#"
           %ul.nav.navbar-nav.navbar-right
-            -# TODO Replace Devise method
-            - if defined? user_signed_in?
-              - if current_user.admin
+            - if signed_in?
+              - if current_user.admin_flag
                 %li= link_to t('application.create_account'), "#"
               %li.dropdown
                 %a.dropdown-toggle{"data-toggle": "dropdown", role: "button", "aria-haspopup": "true", "aria-expanded": "false"}
-                  #{current_user.name} 様
+                  #{current_user.username} 様
                   %span.caret
                 %ul.dropdown-menu
                   %li= link_to t('application.user_info'), '#'
                   %li= link_to t('application.posted_photo'), '#'
                   %li= link_to t('application.logout'), '#'
             -else
-              %li= link_to t('application.create_account'), "#"
+              %li= link_to t('application.create_account'), new_user_path
               %li= link_to t('application.login'), "#"
 
     .container
