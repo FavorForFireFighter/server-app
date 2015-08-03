@@ -1,0 +1,12 @@
+---
+ja:
+  application:
+    header_title: BusMap
+    title: BusMap
+    search_bus: 探す
+    create_account: 新規作成
+    login: ログイン
+    create_bus: 新規作成
+    user_info: ユーザ情報
+    posted_photo: 投稿写真
+    logout: ログアウト
