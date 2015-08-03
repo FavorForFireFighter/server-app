@@ -56,6 +56,7 @@ group :development, :test do
   gem 'pry-doc'
   gem 'factory_girl_rails', '~> 4.0'
   gem 'json_expressions'
+  gem 'spring-commands-rspec'
 end
 
 group :development do

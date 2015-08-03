@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :bus_stop_bus_route_information do
-    bus_stop_id 1
-bus_route_information_id 1
+    association :bus_stop, factory: :bus_stop, strategy: :build
+    association :bus_route_information, factory: :bus_route_information, strategy: :build
   end
 
 end
