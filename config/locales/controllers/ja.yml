@@ -3,5 +3,9 @@ ja:
     common:
       not_login: ログインが必要です
       logout: ログアウトしました
+      updated: 更新が完了しました
     session:
       login_error: ログインできませんでした。ユーザ名とパスワードを確認してください。
+    users:
+      create_account: アカウントを作成しました
+      login_error: 現在のパスワードが違います

@@ -1,2 +1,29 @@
-%h1 User#edit
-%p Find me in app/views/user/edit.html.haml
+%h1.page-header= t('.title')
+
+= render partial: 'common/flash_messages'
+= render partial: 'common/error_message', locals: {model:@user}
+
+= form_for(@user, url:{action:'update'}) do |f|
+  = render partial: 'common/show_key_value', locals: {key: User.human_attribute_name(:username), value:@user.username}
+
+  .form-group
+    = f.label :email, class: 'control-label'
+    .controls
+      = f.text_field :email, class: 'form-control'
+
+  .form-group
+    = label_tag :current_password,t('.current_password'), class: 'control-label'
+    .controls
+      = password_field_tag :current_password,"", class: 'form-control', required: true
+
+  .form-group
+    = f.label :password,t('.new_password'), class: 'control-label'
+    .controls
+      = f.password_field :password, class: 'form-control', placeholder:"#{t('.password_prompt')}"
+
+  .form-group
+    = f.label :password_confirmation,t('.new_password_confirmation'), class: 'control-label'
+    .controls
+      = f.password_field :password_confirmation, class: 'form-control', placeholder:"#{t('.password_prompt')}"
+
+  = f.submit t('helpers.submit.update'), class: "btn btn-large btn-primary", name: nil

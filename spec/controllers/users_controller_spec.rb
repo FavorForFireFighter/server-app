@@ -5,10 +5,35 @@ RSpec.describe UsersController, type: :controller do
     @user = FactoryGirl.create(:user)
   end
 
+  describe "before_action" do
+    describe "user not login" do
+      it "redirect to login page" do
+        get :show, id: @user.id
+        expect(response).to redirect_to session_index_path
+      end
+    end
+    describe "user access other user page" do
+      it "show access denied" do
+        other = FactoryGirl.create(:user)
+        session[:id] = @user.id
+        get :show, id: other.id
+        expect(response).to render_template 'common/access_denied'
+      end
+    end
+  end
+
   describe "GET #show" do
+    before do
+      session[:id] = @user.id
+    end
     it "returns http success" do
       get :show, id: @user.id
       expect(response).to have_http_status(:success)
+    end
+    it "render show template" do
+      get :show, id: @user.id
+      expect(response).to render_template :show
+      expect(assigns[:user]).to eq @user
     end
   end
 
@@ -51,20 +76,56 @@ RSpec.describe UsersController, type: :controller do
   end
 
   describe "GET #edit" do
+    before do
+      session[:id] = @user.id
+    end
     it "returns http success" do
       get :edit, id: @user.id
       expect(response).to have_http_status(:success)
     end
+    it "render edit template" do
+      get :edit, id: @user.id
+      expect(response).to render_template :edit
+      expect(assigns[:user]).to eq @user
+    end
   end
 
   describe "PUT #update" do
-    it "returns http success" do
-      put :update, id: @user.id
-      expect(response).to redirect_to root_path
+    before do
+      session[:id] = @user.id
+      @valid_params = {email: Faker::Internet.email}
+      @invalid_params = {email: "Invalid"}
+    end
+    it "redirect to #show" do
+      put :update, id: @user.id, current_password: @user.password, user: @valid_params
+      expect(response).to redirect_to user_path(@user.id)
+    end
+    it "update attribute" do
+      put :update, id: @user.id, current_password: @user.password, user: @valid_params
+      expect(@user.reload.email).to eq @valid_params[:email]
+    end
+    context "with new password" do
+      it "authorized new password" do
+        password = Faker::Internet.password(8)+"a1"
+        @valid_params.merge!({password: password, password_confirmation: password})
+        put :update, id: @user.id, current_password: @user.password, user: @valid_params
+        expect(@user.reload.authenticate(password)).to be_truthy
+      end
+    end
+
+    context "invalid pattern" do
+      it "render edit template" do
+        put :update, id: @user.id, current_password: @user.password, user: @invalid_params
+        expect(response).to render_template :edit
+        expect(assigns[:user].errors).to be_truthy
+      end
     end
   end
 
   describe "GET #photos" do
+    before do
+      session[:id] = @user.id
+    end
     it "returns http success" do
       get :photos, id: @user.id
       expect(response).to have_http_status(:success)
