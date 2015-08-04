@@ -17,7 +17,7 @@ class UsersController < ApplicationController
     if user.save
       reset_session
       session[:id] = user.id
-      redirect_to user
+      redirect_to user, notice: t('controller.users.create_account')
     else
       @user = user
       render :new
