@@ -1,0 +1,11 @@
+---
+ja:
+  users:
+    show:
+      title: ユーザ情報
+    edit:
+      title: ユーザ情報編集
+      current_password: 現在のパスワード
+      new_password: 新しいパスワード
+      new_password_confirmation: 新しいパスワードの確認
+      password_prompt: パスワードを変更する場合は入力してください
