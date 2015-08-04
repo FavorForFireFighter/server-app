@@ -60,6 +60,8 @@ group :development, :test do
   gem 'factory_girl_rails', '~> 4.0'
   gem 'json_expressions'
   gem 'spring-commands-rspec'
+  gem "rspec-request_describer"
+  gem 'json_spec'
 end
 
 group :development do

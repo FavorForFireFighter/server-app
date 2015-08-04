@@ -152,6 +152,9 @@ GEM
       thor (>= 0.14, < 2.0)
     json (1.8.3)
     json_expressions (0.8.3)
+    json_spec (1.1.4)
+      multi_json (~> 1.0)
+      rspec (>= 2.0, < 4.0)
     kgio (2.9.3)
     listen (3.0.3)
       rb-fsevent (>= 0.9.3)
@@ -272,6 +275,7 @@ GEM
       rspec-expectations (~> 3.3.0)
       rspec-mocks (~> 3.3.0)
       rspec-support (~> 3.3.0)
+    rspec-request_describer (0.0.8)
     rspec-support (3.3.0)
     ruby_parser (3.7.0)
       sexp_processor (~> 4.1)
@@ -355,6 +359,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   json_expressions
+  json_spec
   nokogiri
   paper_trail (~> 4.0.0.rc)
   paperclip
@@ -367,6 +372,7 @@ DEPENDENCIES
   rb-inotify
   rgeo-geojson
   rspec-rails
+  rspec-request_describer
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   seed-fu (~> 2.3)
