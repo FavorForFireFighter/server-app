@@ -2,12 +2,17 @@ Rails.application.routes.draw do
 
   root "top#index"
 
-  resources :users,:except => [:index, :destroy]
-  get 'users/:id/photos', to:"users#photos", as:"user_photos"
+  resources :users, :except => [:index, :destroy]
+  get 'users/:id/photos', to: "users#photos", as: "user_photos"
 
   get 'session/index'
   post 'session/login'
   get 'session/logout'
+
+  resources :bus_stops, :except => [:destroy]
+  get 'bus_stops/:id/photos/new', to: "bus_stops#photos_new"
+  post 'bus_stops/:id/photos/create', to: "bus_stops#photos_create"
+  delete 'bus_stops/:id/photos/:photo_id', to: "bus_stops#photos_destroy"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
