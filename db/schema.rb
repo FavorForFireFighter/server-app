@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150803090909) do
+ActiveRecord::Schema.define(version: 20150805030542) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -66,6 +66,7 @@ ActiveRecord::Schema.define(version: 20150803090909) do
   end
 
   add_index "bus_stops", ["location"], name: "index_bus_stops_on_location", using: :gist
+  add_index "bus_stops", ["name"], name: "index_bus_stops_on_name", using: :btree
   add_index "bus_stops", ["prefecture_id"], name: "index_bus_stops_on_prefecture_id", using: :btree
 
   create_table "prefectures", force: :cascade do |t|

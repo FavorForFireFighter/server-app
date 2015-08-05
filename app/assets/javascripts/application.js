@@ -16,3 +16,6 @@
 //= require bootstrap
 //= require bootstrap-sprockets
 //= require common
+//= require bootstrap-select
+//= require bootstrap/alert
+//= require bootstrap/dropdown

@@ -1,0 +1,9 @@
+---
+ja:
+  bus_stops:
+    index:
+      title: バス停一覧
+      submit: 検索
+      prefecture: 都道府県
+      keyword: バス停名で絞り込み
+      stop_name: バス停名

@@ -17,4 +17,8 @@ class BusStop < ActiveRecord::Base
     includes(:bus_route_informations)
   }
 
+  scope :search_by_keyword, ->(keyword) {
+    where("name LIKE :keyword", {keyword: "%"+keyword.gsub(/[\\%_]/) { |m| "\\#{m}" }+"%"}) unless keyword.blank?
+  }
+
 end

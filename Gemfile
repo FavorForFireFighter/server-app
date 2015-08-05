@@ -90,3 +90,5 @@ gem 'nokogiri'
 
 # photo
 gem 'paperclip'
+
+gem 'bootstrap-select-rails'

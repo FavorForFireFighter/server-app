@@ -1,3 +1,18 @@
 // Place all the styles related to the bus_stops controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+#bus_stop_list_map, #bus_stop_list_list {
+  height: 500px;
+}
+
+#bus_stop_list_list {
+  overflow-y: auto;
+}
+
+#bus_stop_list_search {
+  margin: 10px 0;
+  input[type=text] {
+    width: 80%;
+  }
+}
