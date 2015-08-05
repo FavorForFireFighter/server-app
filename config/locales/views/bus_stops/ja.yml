@@ -7,3 +7,14 @@ ja:
       prefecture: 都道府県
       keyword: バス停名で絞り込み
       stop_name: バス停名
+      action: アクション
+    show:
+      title: バス停情報
+      company_name: バス運営会社
+      line_name: 路線名
+      basic_info: 基本情報
+      location_info: 位置情報
+      route_info: 路線情報
+      photo_info: 投稿写真
+      update_info: 更新情報
+      not_register: 登録なし

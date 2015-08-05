@@ -2,6 +2,7 @@ class BusStop < ActiveRecord::Base
   has_many :bus_stop_bus_route_informations
   has_many :bus_route_informations, through: :bus_stop_bus_route_informations
   belongs_to :prefecture
+  belongs_to :user, :foreign_key => :last_modify_user_id
   has_many :bus_stop_photos
 
   scope :distance_sphere, -> (longitude, latitude, meter) {
