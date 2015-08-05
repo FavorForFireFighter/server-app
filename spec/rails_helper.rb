@@ -51,6 +51,9 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
 
   Faker::Config.locale = :en
+  config.include RSpec::RequestDescriber, type: :request
+  config.include JsonSpec::Helpers
+
   config.before(:suite) do
     SeedFu.seed
     seed_table = %w(prefectures spatial_ref_sys)
