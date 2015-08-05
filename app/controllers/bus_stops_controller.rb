@@ -5,6 +5,17 @@ class BusStopsController < ApplicationController
   end
 
   def show
+    @bus_stop = BusStop.find_by(id: params[:id])
+
+    @information = {}
+    @bus_stop.bus_route_informations.each do |route_information|
+      company = route_information.bus_operation_company
+      if @information.has_key?(company.id)
+        @information[company.id][:routes].concat [route_information]
+      else
+        @information[company.id] = {company: company, routes: [route_information]}
+      end
+    end
   end
 
   def new

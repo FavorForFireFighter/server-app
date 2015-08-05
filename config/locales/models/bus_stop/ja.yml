@@ -1,0 +1,11 @@
+---
+ja:
+  activerecord:
+    models:
+      bus_stop: バス停
+    attributes:
+      bus_stop:
+        name: バス停名
+        location_updated_at: 位置情報更新日
+        updated_at: 最終更新日
+        last_modify_user: 最終更新者

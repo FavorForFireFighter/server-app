@@ -8,6 +8,15 @@
 
 #bus_stop_list_list {
   overflow-y: auto;
+  table {
+    width: 100%;
+    table-layout: fixed;
+
+    .action {
+      width: 30%;
+      text-align: center;
+    }
+  }
 }
 
 #bus_stop_list_search {
@@ -15,4 +24,8 @@
   input[type=text] {
     width: 80%;
   }
+}
+
+#bus_stop_show_map {
+  height: 400px;
 }
