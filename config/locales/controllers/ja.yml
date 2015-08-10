@@ -9,3 +9,8 @@ ja:
     users:
       create_account: アカウントを作成しました
       login_error: 現在のパスワードが違います
+    bus_stops:
+      no_route_information: 路線情報が入力してください
+      invalid_location: 位置情報が不適切です
+      create: 新規作成しました
+      edit: 更新が完了しました

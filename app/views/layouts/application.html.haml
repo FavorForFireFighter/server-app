@@ -35,7 +35,7 @@
           %ul.nav.navbar-nav
             %li= link_to t('application.search_bus'), bus_stops_path
             - if signed_in?
-              %li= link_to t('application.create_bus'), "#"
+              %li= link_to t('application.create_bus'), new_bus_stop_path
           %ul.nav.navbar-nav.navbar-right
             - if signed_in?
               - if current_user.admin_flag

@@ -2,7 +2,7 @@ class BusStop < ActiveRecord::Base
   has_many :bus_stop_bus_route_informations
   has_many :bus_route_informations, through: :bus_stop_bus_route_informations
   belongs_to :prefecture
-  belongs_to :user, :foreign_key => :last_modify_user_id
+  belongs_to :last_modify_user, :class_name => User, :foreign_key => :last_modify_user_id
   has_many :bus_stop_photos
 
   scope :distance_sphere, -> (longitude, latitude, meter) {
@@ -21,5 +21,24 @@ class BusStop < ActiveRecord::Base
   scope :search_by_keyword, ->(keyword) {
     where("name LIKE :keyword", {keyword: "%"+keyword.gsub(/[\\%_]/) { |m| "\\#{m}" }+"%"}) unless keyword.blank?
   }
+
+  validates :name, presence: true
+
+  def set_location(latitude, longitude)
+    if latitude.blank? || longitude.blank?
+      return false
+    end
+
+    _latitude = latitude.to_f
+    _longitude = longitude.to_f
+    if -90 < _latitude and _latitude < 90
+      if -180 < _longitude and _longitude < 180
+        self.location = "POINT(#{_longitude} #{_latitude})"
+        return true
+      end
+    end
+    return false
+  end
+
 
 end

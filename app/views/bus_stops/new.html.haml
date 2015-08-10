@@ -1,2 +1,5 @@
-%h1 BusStops#new
-%p Find me in app/views/bus_stops/new.html.haml
+%h1.page-header= t('.title')
+
+= render partial: 'common/flash_messages'
+= render partial: 'common/error_message', locals: {model: @bus_stop}
+= render partial: 'bus_stops/bus_stop_form'

@@ -4,5 +4,6 @@ module API
     format :json
     formatter :json, Grape::Formatter::Jbuilder
     mount BusStopsApi
+    mount BusRoutesApi
   end
 end
