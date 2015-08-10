@@ -12,4 +12,10 @@ class BusRouteInformation < ActiveRecord::Base
     5 => "その他"
   }
 
+
+  validates :bus_line_name, presence: true
+
+  scope :with_bus_operation_company, -> () {
+    includes(:bus_operation_company).references(:bus_operation_company)
+  }
 end

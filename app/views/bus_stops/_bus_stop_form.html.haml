@@ -1,0 +1,115 @@
+= form_for(@bus_stop, class: "form form-horizontal") do |f|
+
+  .panel.panel-default
+    .panel-heading
+      .panel-title= t('bus_stops.common.basic_info')
+    .panel-body
+      .form-group
+        = f.label :name, class: 'control-label'
+        .controls
+          = f.text_field :name, class: 'form-control', required: true
+      .form-group
+        = f.label :prefecture, class: 'control-label'
+        .controls
+          -# TODO fix selectpicker bug
+          = f.select :prefecture_id, @prefectures.map{|e| [e.name, e.id]}, {prompt: t('helpers.select.prompt')}, {class: 'selectpicker2', required: true}
+
+  .panel.panel-default#bus_stop_route_information_panel
+    .panel-heading
+      .panel-title= t('bus_stops.common.route_info')
+    %table.table
+      %thead
+        %th
+        %th= t('bus_stops.common.company_name')
+        %th= t('bus_stops.common.line_name')
+      %tbody#route_informations
+        - @route_information.each do |route|
+          %tr
+            %td.route_delete
+              %span.glyphicon.glyphicon-remove(aria-hidden=true)
+            %td= route.bus_operation_company.try(:name)
+            %td= route.bus_line_name
+            = hidden_field_tag 'bus_route_information[id][]', route.id
+      %tfoot
+        %tr
+          %td#add_route_information.text-center(colspan=3)
+            %span.glyphicon.glyphicon-plus(aria-hidden=true)
+            = t('bus_stops.common.add_route_information')
+    .panel-body.hide#route_information_inputs
+      .row
+        .col-md-12
+          .form-group
+            = label_tag :search_company_name, t('bus_stops.common.search_bus_operation_company'), class: 'control-label'
+            .controls
+              = text_field_tag :search_company_name, "", class: 'form-control', name: nil
+          %button#search_company.btn.btn-primary= t('bus_stops.common.search')
+      %hr
+      .row
+        .col-md-6
+          .form-group
+            = label_tag :bus_operation_company_id, t('bus_stops.common.bus_operation_company'), class: 'control-label'
+            .controls
+              = select_tag :bus_operation_company_id, "", {prompt: t('helpers.select.prompt'), class: "selectpicker2 form-control", size: 4, name: nil}
+        .col-md-6
+          .form-group
+            = label_tag :bus_operation_company_name, t('bus_stops.common.new_bus_operation_company_name'), class: 'control-label'
+            .controls
+              = text_field_tag :bus_operation_company_name,"", class: 'form-control', name: nil
+          %button#add_company.btn.btn-primary= t('bus_stops.common.add')
+      %hr
+      .row
+        .col-md-6
+          .form-group
+            = label_tag :bus_route_information_id, t('bus_stops.common.bus_route_information'), class: 'control-label'
+            .controls
+              = select_tag :bus_route_information_id, "", {prompt: t('helpers.select.prompt'), class: "selectpicker2 form-control", size: 4, name: nil}
+        .col-md-6
+          .form-group
+            = label_tag :bus_route_line_name, t('bus_stops.common.new_bus_line_name'), class: 'control-label'
+            .controls
+              = text_field_tag :bus_route_line_name, "", class: 'form-control', name: nil
+          %button#add_line.btn.btn-primary= t('bus_stops.common.add')
+      %hr
+      .row
+        .col-md-12
+          .form-group
+            = label_tag :bus_type_id, t('bus_stops.common.bus_type'), class: 'control-label'
+            .radio
+              %label
+                = radio_button_tag :bus_type_id, 1, true, {disabled: true}
+                = BusRouteInformation::BusTypes[1]
+            .radio
+              %label
+                = radio_button_tag :bus_type_id, 2, false, {disabled: true}
+                = BusRouteInformation::BusTypes[2]
+            .radio
+              %label
+                = radio_button_tag :bus_type_id, 3, false, {disabled: true}
+                = BusRouteInformation::BusTypes[3]
+            .radio
+              %label
+                = radio_button_tag :bus_type_id, 4, false, {disabled: true}
+                = BusRouteInformation::BusTypes[4]
+            .radio
+              %label
+                = radio_button_tag :bus_type_id, 5, false, {disabled: true}
+                = BusRouteInformation::BusTypes[5]
+      %hr
+        %button#add_route_cancel.btn.btn-default= t('bus_stops.common.cancel')
+        %button#add_route.btn.btn-primary= t('bus_stops.common.add_route')
+
+
+
+  .panel.panel-default
+    .panel-heading
+      .panel-title= t('bus_stops.common.location_info')
+    .panel-body
+      %button#get_current_position.btn.btn-primary= t('bus_stops.common.current_position')
+      #bus_stop_new_map
+      = hidden_field_tag :latitude, @bus_stop.location.try(:y)
+      = hidden_field_tag :longitude, @bus_stop.location.try(:x)
+      = hidden_field_tag :location_updated_at, @bus_stop.location_updated_at
+    - @prefectures.each do |prefecture|
+      .hide(id="prefecture_location_#{prefecture.id}" data-latitude="#{prefecture.location.y}" data-longitude="#{prefecture.location.x}")
+
+  = f.submit nil, name: nil, class: "btn btn-primary"

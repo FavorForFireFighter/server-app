@@ -26,6 +26,27 @@
   }
 }
 
-#bus_stop_show_map {
+#bus_stop_show_map, #bus_stop_new_map {
   height: 400px;
+}
+
+#bus_operation_company_id, #bus_route_information_id {
+  width: 100%;
+}
+
+#add_route_information:hover {
+  background-color: #e7e8e8;
+}
+
+.route_delete {
+  color: red;
+  width: 5rem;
+  text-align: center;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+#get_current_position {
+  margin-bottom: 2rem;
 }
