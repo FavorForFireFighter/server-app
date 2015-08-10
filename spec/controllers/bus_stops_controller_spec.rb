@@ -170,4 +170,75 @@ RSpec.describe BusStopsController, type: :controller do
     end
   end
 
+  describe "GET #photos_new" do
+    before do
+      login
+    end
+    it "returns http success" do
+      get :photos_new, id: @stop.id
+      expect(response).to have_http_status(:success)
+    end
+    it "render photos_new template" do
+      get :photos_new, id: @stop.id
+      expect(response).to render_template :photos_new
+      expect(assigns[:bus_stop_photo]).to be_a_new(BusStopPhoto)
+    end
+  end
+
+  describe "POST #photos_create" do
+    before do
+      login
+      photo = fixture_file_upload("rails.png", "image/png", true)
+      @valid_params = {title: "Test Photo", photo: photo}
+      @invalid_params = {title: "", photo: nil}
+    end
+    context "valid params" do
+      it "redirect to show" do
+        post :photos_create, id: @stop.id, bus_stop_photo: @valid_params
+        expect(response).to redirect_to @stop
+      end
+      it "create BusStopPhoto" do
+        post :photos_create, id: @stop.id, bus_stop_photo: @valid_params
+        photo = @stop.reload.bus_stop_photos
+        expect(photo.count).to eq 1
+        expect(photo.first.title).to eq @valid_params[:title]
+      end
+    end
+    context "invalid params" do
+      it "render photos_new template" do
+        post :photos_create, id: @stop.id, bus_stop_photo: @invalid_params
+        expect(response).to render_template :photos_new
+      end
+    end
+  end
+
+  describe "DELETE #photos_destroy" do
+    before do
+      login
+      @photo = FactoryGirl.create(:bus_stop_photo_with_photo, bus_stop_id: @stop.id, user_id: @user.id)
+    end
+
+    context "valid params" do
+      it "redirect to show" do
+        delete :photos_destroy, id: @stop.id, photo_id: @photo.id
+        expect(response).to redirect_to @stop
+        expect(flash[:notice]).to be_present
+      end
+      it "delete photo" do
+        delete :photos_destroy, id: @stop.id, photo_id: @photo.id
+        photos = @stop.reload.bus_stop_photos
+        expect(photos).to be_empty
+      end
+    end
+    context "invalid params" do
+      it "other user's photo" do
+        user = FactoryGirl.create(:user)
+        session[:id] = user.id
+        delete :photos_destroy, id: @stop.id, photo_id: @photo.id
+        expect(response).to redirect_to @stop
+        expect(flash[:alert]).to be_present
+      end
+    end
+  end
+
 end

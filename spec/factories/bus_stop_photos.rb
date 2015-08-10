@@ -8,7 +8,7 @@ FactoryGirl.define do
     photo nil
 
     factory :bus_stop_photo_with_photo do
-      photo { fixture_file_upload("#{Rails.root}/spec/files/rails.png", "image/png") }
+      photo { fixture_file_upload("#{Rails.root}/spec/fixtures/rails.png", "image/png") }
     end
   end
 

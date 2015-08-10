@@ -45,10 +45,11 @@ class UsersController < ApplicationController
       return
     end
 
-    redirect_to user_path(user.id),{notice: t('controller.common.updated')}
+    redirect_to user_path(user.id), {notice: t('controller.common.updated')}
   end
 
   def photos
+    @bus_stop_photos = BusStopPhoto.where(user_id: current_user.id).order(:id).includes(:bus_stop).references(:bus_stop)
   end
 
   private

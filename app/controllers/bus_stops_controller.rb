@@ -18,6 +18,7 @@ class BusStopsController < ApplicationController
         @information[company.id] = {company: company, routes: [route_information]}
       end
     end
+    @photos = @bus_stop.bus_stop_photos.includes(:user).references(:user).order("bus_stop_photos.created_at DESC")
   end
 
   def new
@@ -115,16 +116,49 @@ class BusStopsController < ApplicationController
   end
 
   def photos_new
+    @bus_stop_photo = BusStopPhoto.new(bus_stop_id: params[:id])
   end
 
   def photos_create
+    bus_stop_photo = BusStopPhoto.new new_photo_params
+    bus_stop_photo.bus_stop_id = params[:id]
+    bus_stop_photo.user_id = current_user.id
+    unless bus_stop_photo.save
+      @bus_stop_photo = bus_stop_photo
+      render :photos_new
+      return
+    end
+    redirect_to bus_stop_path(params[:id]), {notice: t('controller.bus_stops.add_photo')}
   end
 
   def photos_destroy
+    bus_stop_photo = BusStopPhoto.find_by(id: params[:photo_id], bus_stop_id: params[:id])
+    if bus_stop_photo.user.id != current_user.id
+      redirect_to_back alert: t('controller.bus_stops.not_allow_delete')
+      return
+    end
+
+    unless bus_stop_photo.destroy
+      redirect_to_back alert: t('controller.bus_stops.cant_delete')
+      return
+    end
+    redirect_to_back notice: t('controller.bus_stops.delete')
   end
 
   private
   def new_params
     params.require(:bus_stop).permit(:name, :prefecture_id)
+  end
+
+  def new_photo_params
+    params.require(:bus_stop_photo).permit(:photo, :title)
+  end
+
+  def redirect_to_back(message)
+    if request.referer
+      redirect_to :back, message
+    else
+      redirect_to bus_stop_path(params[:id]), message
+    end
   end
 end

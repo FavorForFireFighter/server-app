@@ -50,3 +50,17 @@
 #get_current_position {
   margin-bottom: 2rem;
 }
+
+#bus_stop_show_photos_list {
+  overflow-x: auto;
+  width: 100%;
+  white-space: nowrap;
+  margin-bottom: 1rem;
+  .photo {
+    vertical-align: top;
+  }
+  .photo img {
+    border: solid 1px #0078A8;
+    margin-bottom: 2rem;
+  }
+}

@@ -36,8 +36,22 @@
   .panel-heading
     .panel-title= t('.photo_info')
   .panel-body
-    -# TODO link to photo
-    Photo List
+    %ul#bus_stop_show_photos_list.list-inline
+      - @photos.each do |bus_stop_photo|
+        %li.photo
+          %a(href="#{bus_stop_photo.photo.url}" target="_blank" )
+            = image_tag bus_stop_photo.photo.url(:medium)
+          %p.text-center
+            %strong
+              = bus_stop_photo.title
+          %p.text-center
+            = "#{t('.photo_user')} : #{bus_stop_photo.user.try(:username)}"
+          %p.text-center
+            - if current_user.try(:id) == bus_stop_photo.user.id
+              = link_to t('.delete_photo'), destroy_bus_stop_photos_path(@bus_stop.id, bus_stop_photo.id), method:'delete', data:{confirm: t('.delete_confirm')}, class:"btn btn-danger"
+    %hr
+    - if signed_in?
+      = link_to t('.add_photo'), new_bus_stop_photos_path(@bus_stop.id), class: 'btn btn-primary'
 
 .panel.panel-default
   .panel-heading

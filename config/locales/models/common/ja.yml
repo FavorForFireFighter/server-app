@@ -1,5 +1,8 @@
 ---
 ja:
+  attributes:
+    created_at: 作成日時
+    updated_at: 最終更新日
   errors:
     attributes:
       email:

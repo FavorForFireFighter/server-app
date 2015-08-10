@@ -44,7 +44,13 @@ ja:
       photo_info: 投稿写真
       update_info: 更新情報
       not_register: 登録なし
+      add_photo: 写真の追加
+      delete_photo: 削除
+      photo_user: 投稿者
+      delete_confirm: この写真を削除してもよろしいですか？
     new:
       title: バス停情報登録
     edit:
       title: バス停情報編集
+    photos_new:
+      title: バス停写真登録

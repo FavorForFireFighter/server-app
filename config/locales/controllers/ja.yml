@@ -14,3 +14,7 @@ ja:
       invalid_location: 位置情報が不適切です
       create: 新規作成しました
       edit: 更新が完了しました
+      add_photo: 写真のアップロードが完了しました
+      not_allow_delete: 違う投稿者の写真は削除できません
+      cant_delete: 削除できませんでした
+      delete: 写真を削除しました

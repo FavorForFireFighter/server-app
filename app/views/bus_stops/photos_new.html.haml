@@ -1,2 +1,11 @@
-%h1 BusStops#photos_new
-%p Find me in app/views/bus_stops/photos_new.html.haml
+%h1.page-header= t('.title')
+
+= form_for(@bus_stop_photo) do |f|
+  .form-group
+    = f.label :title, class: 'control-label'
+    .controls
+      = f.text_field :title, class: 'form-control'
+  .form-group
+    = f.label :photo, class: 'control-label'
+    = f.file_field :photo, required: true
+  = f.submit nil, class:"btn btn-primary", name: nil

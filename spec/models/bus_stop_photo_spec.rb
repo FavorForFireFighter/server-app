@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe BusStopPhoto, type: :model do
   before do
-    @photo = FactoryGirl.build(:bus_stop_photo)
+    @photo = FactoryGirl.build(:bus_stop_photo_with_photo)
   end
 
   subject { @photo }

@@ -10,9 +10,9 @@ Rails.application.routes.draw do
   get 'session/logout'
 
   resources :bus_stops, :except => [:destroy]
-  get 'bus_stops/:id/photos/new', to: "bus_stops#photos_new"
-  post 'bus_stops/:id/photos/create', to: "bus_stops#photos_create"
-  delete 'bus_stops/:id/photos/:photo_id', to: "bus_stops#photos_destroy"
+  get 'bus_stops/:id/photos/new', to: "bus_stops#photos_new", as: "new_bus_stop_photos"
+  post 'bus_stops/:id/photos/create', to: "bus_stops#photos_create", as: "bus_stop_photos"
+  delete 'bus_stops/:id/photos/:photo_id', to: "bus_stops#photos_destroy", as: "destroy_bus_stop_photos"
 
   mount API::Base => '/'
 

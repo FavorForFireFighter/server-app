@@ -130,6 +130,11 @@ RSpec.describe UsersController, type: :controller do
       get :photos, id: @user.id
       expect(response).to have_http_status(:success)
     end
+    it "render photos template" do
+      get :photos, id: @user.id
+      expect(response).to render_template :photos
+      expect(assigns[:bus_stop_photos]).to be_truthy
+    end
   end
 
 end
