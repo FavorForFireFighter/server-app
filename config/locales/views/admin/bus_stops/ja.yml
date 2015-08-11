@@ -1,0 +1,7 @@
+ja:
+  admin:
+    bus_stops:
+      index:
+        title: バス停一覧
+      show:
+        title: バス停詳細

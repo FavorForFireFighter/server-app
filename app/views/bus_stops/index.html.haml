@@ -1,23 +1,2 @@
 %h1.page-header= t('.title')
-.row
-  #bus_stop_list_search.col-md-12
-    = form_tag('/api/bus_stops/list', remote: true, method: 'get', id: "bus_stop_list_form", class:"form-inline") do
-      -#.form-group.col-md-3
-        = label_tag "prefecture_id",t('.prefecture'), class: 'control-label'
-        = select_tag 'prefecture_id', options_from_collection_for_select(Prefecture.all, :id, :name), {prompt: t('helpers.select.prompt'),class: "selectpicker"}
-      .form-group.col-md-10
-        = label_tag "keyword",t('.keyword'), class: 'control-label'
-        = text_field_tag "keyword","", class: "form-control"
-      = hidden_field_tag "latitude", ""
-      = hidden_field_tag "longitude", ""
-      = submit_tag "#{t('.submit')}", class: "btn btn-large btn-primary", name: nil
-.row
-  .col-md-8
-    #bus_stop_list_map
-  #bus_stop_list_list.col-md-4
-    %table.table.table-hover
-      %thead
-        %tr
-          %th.stop_name= t('.stop_name')
-          %th.action= t('.action')
-      %tbody#stop_list
+= render partial: 'common/bus_stop_list_map'

@@ -27,27 +27,28 @@ ja:
       bus_type_5: 以上に含まれないもの
       prefecture: 都道府県
       current_position: 現在地の取得
+      index:
+        keyword: バス停名で絞り込み
+        stop_name: バス停名
+        action: アクション
+        submit: 検索
+      show:
+        basic_info: 基本情報
+        location_info: 位置情報
+        route_info: 路線情報
+        photo_info: 投稿写真
+        update_info: 更新情報
+        company_name: バス運営会社
+        line_name: 路線名
+        add_photo: 写真の追加
+        delete_photo: 削除
+        photo_user: 投稿者
+        delete_confirm: この写真を削除してもよろしいですか？
+        not_register: 登録なし
     index:
       title: バス停一覧
-      submit: 検索
-      prefecture: 都道府県
-      keyword: バス停名で絞り込み
-      stop_name: バス停名
-      action: アクション
     show:
       title: バス停情報
-      company_name: バス運営会社
-      line_name: 路線名
-      basic_info: 基本情報
-      location_info: 位置情報
-      route_info: 路線情報
-      photo_info: 投稿写真
-      update_info: 更新情報
-      not_register: 登録なし
-      add_photo: 写真の追加
-      delete_photo: 削除
-      photo_user: 投稿者
-      delete_confirm: この写真を削除してもよろしいですか？
     new:
       title: バス停情報登録
     edit:

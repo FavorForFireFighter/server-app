@@ -1,0 +1,67 @@
+.panel.panel-default
+  .panel-heading
+    .panel-title= t('bus_stops.common.show.basic_info')
+  .panel-body
+    = render partial: 'common/show_key_value', locals: {key: BusStop.human_attribute_name(:name), value: bus_stop.name}
+    = render partial: 'common/show_key_value', locals: {key: BusStop.human_attribute_name(:prefecture), value: bus_stop.prefecture.try(:name)}
+
+.panel.panel-default
+  .panel-heading
+    .panel-title= t('bus_stops.common.show.route_info')
+  %table.table
+    %thead
+      %th= t('bus_stops.common.show.company_name')
+      %th= t('bus_stops.common.show.line_name')
+    %tbody
+      - information.each do |id, info|
+        - info[:routes].each_with_index do |route, index|
+          %tr
+            -if index==0
+              %td(rowspan="#{info[:routes].length}")= info[:company].name
+            %td= route.bus_line_name
+
+.panel.panel-default
+  .panel-heading
+    .panel-title= t('bus_stops.common.show.location_info')
+  .panel-body
+    #bus_stop_show_map
+    #bus_stop_latitude.hide(data-location="#{bus_stop.location.try(:y)}")
+    #bus_stop_longitude.hide(data-location="#{bus_stop.location.try(:x)}")
+    #bus_stop_location_update.hide(data-update="#{bus_stop.location_updated_at}")
+
+.panel.panel-default
+  .panel-heading
+    .panel-title= t('bus_stops.common.show.photo_info')
+  .panel-body
+    %ul#bus_stop_show_photos_list.list-inline
+      - photos.each do |bus_stop_photo|
+        %li.photo
+          %a(href="#{bus_stop_photo.photo.url}" target="_blank" )
+            = image_tag bus_stop_photo.photo.url(:medium)
+          %p.text-center
+            %strong
+              = bus_stop_photo.title
+          %p.text-center
+            = "#{t('bus_stops.common.show.photo_user')} : #{bus_stop_photo.user.try(:username)}"
+          %p.text-center
+            - if is_admin_layout? && is_admin?
+              - destroy_photo_path = admin_destroy_bus_stop_photos_path(bus_stop.id, bus_stop_photo.id)
+            - elsif current_user.try(:id) == bus_stop_photo.user.id
+              - destroy_photo_path = destroy_bus_stop_photos_path(bus_stop.id, bus_stop_photo.id)
+            - if defined? destroy_photo_path
+              = link_to t('bus_stops.common.show.delete_photo'), destroy_photo_path, method:'delete', data:{confirm: t('bus_stops.common.show.delete_confirm')}, class:"btn btn-danger"
+      - unless is_admin_layout?
+        %hr
+        - if signed_in?
+          = link_to t('bus_stops.common.show.add_photo'), new_bus_stop_photos_path(bus_stop.id), class: 'btn btn-primary'
+
+.panel.panel-default
+  .panel-heading
+    .panel-title= t('bus_stops.common.show.update_info')
+  .panel-body
+    = render partial: 'common/show_key_value', locals: {key: BusStop.human_attribute_name(:location_updated_at), value: bus_stop.location_updated_at || t('bus_stops.common.show.not_register')}
+    = render partial: 'common/show_key_value', locals: {key: BusStop.human_attribute_name(:last_modify_user), value: bus_stop.last_modify_user.try(:username) || t('bus_stops.common.show.not_register')}
+    = render partial: 'common/show_key_value', locals: {key: BusStop.human_attribute_name(:updated_at), value: bus_stop.updated_at}
+
+-unless is_admin_layout?
+  = link_to t('helpers.submit.edit'), edit_bus_stop_path(bus_stop.id), class: "btn btn-primary"

@@ -1,7 +1,7 @@
 module AdminHelper
 
   def sidebar_activate(path)
-    if path.include?("#{params[:controller]}/")
+    if path.include?("#{params[:controller]}")
       ' class="active"'
     else
       ''
@@ -12,7 +12,7 @@ module AdminHelper
     current_url = request.headers['PATH_INFO']
     items = [
         {:text => "#{t('admin.sidebar.user')}", :path => ""},
-        {:text => "#{t('admin.sidebar.bus_stop')}", :path => ""},
+        {:text => "#{t('admin.sidebar.bus_stop')}", :path => admin_bus_stops_path},
         {:text => "#{t('admin.sidebar.photos')}", :path => ""},
     ]
 
@@ -23,5 +23,9 @@ module AdminHelper
       html = html + %Q(<li#{sidebar_activate(path)}><a href="#{path}">#{text}</a></li>)
     end
     raw(html)
+  end
+
+  def is_admin_layout?
+    params[:controller].include?("admin")
   end
 end

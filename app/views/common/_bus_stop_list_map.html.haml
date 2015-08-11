@@ -1,0 +1,19 @@
+.row
+  #bus_stop_list_search.col-md-12
+    = form_tag('/api/bus_stops/list', remote: true, method: 'get', id: "bus_stop_list_form", class:"form-inline") do
+      .form-group.col-md-8
+        = label_tag "keyword",t('bus_stops.common.index.keyword'), class: 'control-label'
+        = text_field_tag "keyword","", class: "form-control"
+      = hidden_field_tag "latitude", ""
+      = hidden_field_tag "longitude", ""
+      = submit_tag "#{t('bus_stops.common.index.submit')}", class: "btn btn-large btn-primary", name: nil
+.row
+  .col-md-8
+    #bus_stop_list_map
+  #bus_stop_list_list.col-md-4
+    %table.table.table-hover
+      %thead
+        %tr
+          %th.stop_name= t('bus_stops.common.index.stop_name')
+          %th.action= t('bus_stops.common.index.action')
+      %tbody#stop_list
