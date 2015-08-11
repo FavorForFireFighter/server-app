@@ -14,3 +14,8 @@ ja:
       delete_photo: 削除
       delete_confirm: この写真を削除してもよろしいですか？
       bus_stop_detail: バス停詳細ページ
+    common:
+      photos:
+        delete_photo: 削除
+        delete_confirm: この写真を削除してもよろしいですか？
+        bus_stop_detail: バス停詳細ページ

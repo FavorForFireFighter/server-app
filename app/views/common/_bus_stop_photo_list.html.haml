@@ -1,0 +1,19 @@
+#photos
+  - bus_stop_photos.each do |bus_stop_photo|
+    .row.photo_list
+      .col-md-5
+        = image_tag bus_stop_photo.photo.url(:medium)
+      .col-md-4
+        = render partial: 'common/show_key_value', locals: {key: BusStop.human_attribute_name(:name), value: bus_stop_photo.bus_stop.try(:name)}
+        = render partial: 'common/show_key_value', locals: {key: BusStop.human_attribute_name(:prefecture), value: bus_stop_photo.bus_stop.try(:prefecture).try(:name)}
+        = render partial: 'common/show_key_value', locals: {key: BusStopPhoto.human_attribute_name(:created_at), value: bus_stop_photo.created_at}
+      .col-md-3
+        - if is_admin_layout? && is_admin?
+          - destroy_photo_path = admin_destroy_bus_stop_photos_path(bus_stop_photo.bus_stop.id, bus_stop_photo.id)
+          - detail_bus_stop_path = admin_bus_stop_path(bus_stop_photo.bus_stop.id)
+        - else
+          - destroy_photo_path = destroy_bus_stop_photos_path(bus_stop_photo.bus_stop.id, bus_stop_photo.id)
+          - detail_bus_stop_path = bus_stop_path(bus_stop_photo.bus_stop.id)
+        = link_to t('users.common.photos.bus_stop_detail'), detail_bus_stop_path, class: "btn btn-default"
+        = link_to t('users.common.photos.delete_photo'), destroy_photo_path, method: 'delete', data:{confirm: t('users.common.photos.delete_confirm')}, class: "btn btn-danger"
+    %hr

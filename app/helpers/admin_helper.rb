@@ -13,7 +13,7 @@ module AdminHelper
     items = [
         {:text => "#{t('admin.sidebar.user')}", :path => ""},
         {:text => "#{t('admin.sidebar.bus_stop')}", :path => admin_bus_stops_path},
-        {:text => "#{t('admin.sidebar.photos')}", :path => ""},
+        {:text => "#{t('admin.sidebar.photos')}", :path => admin_photos_index_path},
     ]
 
     html = ''
