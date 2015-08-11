@@ -6,7 +6,7 @@ FactoryGirl.define do
     admin_flag false
 
     factory :admin do
-      admin_glag true
+      admin_flag true
     end
   end
 

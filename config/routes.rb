@@ -14,6 +14,10 @@ Rails.application.routes.draw do
   post 'bus_stops/:id/photos/create', to: "bus_stops#photos_create", as: "bus_stop_photos"
   delete 'bus_stops/:id/photos/:photo_id', to: "bus_stops#photos_destroy", as: "destroy_bus_stop_photos"
 
+  namespace :admin do
+    get 'top/index'
+  end
+
   mount API::Base => '/'
 
   # The priority is based upon order of creation: first created -> highest priority.

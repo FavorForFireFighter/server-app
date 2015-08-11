@@ -38,8 +38,8 @@
               %li= link_to t('application.create_bus'), new_bus_stop_path
           %ul.nav.navbar-nav.navbar-right
             - if signed_in?
-              - if current_user.admin_flag
-                %li= link_to t('application.create_account'), "#"
+              - if is_admin?
+                %li= link_to t('application.to_admin'), admin_top_index_path
               %li.dropdown
                 %a.dropdown-toggle{"data-toggle": "dropdown", role: "button", "aria-haspopup": "true", "aria-expanded": "false"}
                   #{current_user.username} 様

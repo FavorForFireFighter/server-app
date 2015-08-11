@@ -11,3 +11,10 @@ ja:
     posted_photo: 投稿写真
     logout: ログアウト
     bus_stop_list: バス停一覧
+    to_admin: 管理画面へ
+    to_normal: 一般画面へ
+  admin:
+    sidebar:
+      user: ユーザ一覧
+      bus_stop: バス停一覧
+      photos: 投稿写真一覧

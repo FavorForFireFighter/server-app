@@ -4,6 +4,7 @@ ja:
       not_login: ログインが必要です
       logout: ログアウトしました
       updated: 更新が完了しました
+      not_admin: 管理者以外はアクセスできません
     session:
       login_error: ログインできませんでした。ユーザ名とパスワードを確認してください。
     users:

@@ -17,4 +17,7 @@ module SessionHelper
     current_user.present?
   end
 
+  def is_admin?
+    current_user.admin_flag
+  end
 end
