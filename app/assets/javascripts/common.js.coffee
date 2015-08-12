@@ -34,6 +34,11 @@ $ ->
     longitude = $('#bus_stop_longitude').data('location')
     L.marker([latitude, longitude]).addTo(map)
     map.fitBounds([[latitude, longitude], [latitude, longitude]])
+
+  $('#pager').on 'ajax:success', (e, result, status, xht)->
+    $('#pager').html result.paginator
+    $('#list').html result.list
+    return
   return
 ##
 # Global functions

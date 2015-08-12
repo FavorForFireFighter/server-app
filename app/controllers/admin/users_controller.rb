@@ -1,6 +1,19 @@
 class Admin::UsersController < Admin::ApplicationController
   def index
-    @users = User.all.order(:id)
+    if request.xhr?
+      session[:admin_user_list_page] = params[:page]
+      users = User.order(:id).page(params[:page])
+      paginator = view_context.create_pager_with_entries(users, nil, true)
+      list = render_to_string partial: 'user_list', locals: {users: users}
+      render json: {paginator: paginator, list: list}
+      return
+    end
+    if request.referer.present? && request.referer.include?("/admin/users") && !request.referer.include?("/admin/users/index")
+      @users = User.order(:id).page(session[:admin_user_list_page])
+    else
+      session[:admin_user_list_page] = nil
+      @users = User.order(:id).page(params[:page])
+    end
   end
 
   def show

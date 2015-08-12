@@ -1,0 +1,8 @@
+- users.each do |user|
+  %tr{class:(current_user.id == user.id ? "info": "")}
+    %td= user.username
+    %td= user.email
+    %td= user.admin_flag ? t('admin.users.index.is_admin'):t('admin.users.index.isnt_admin')
+    %td
+      = link_to t('admin.users.index.detail'), admin_user_path(user.id), class: "btn btn-default"
+      = link_to t('admin.users.index.delete'), admin_destroy_user_path(user.id), method: 'delete', data:{confirm: t('admin.users.index.delete_confirm')}, class: "btn btn-danger"

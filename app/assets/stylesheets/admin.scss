@@ -106,15 +106,18 @@
     h1 {
       font-size: 26px;
     }
-    ul {
-      margin-top: 14px;
+    & > ul {
+      margin-top: 18px;
       margin-right: 10px;
       float: right;
       list-style: none;
-      li {
+      & > li {
         display: inline-block;
         margin-right: 10px;
       }
+    }
+    .pagination {
+      margin: 5px 0;
     }
   }
 
@@ -150,4 +153,15 @@
     }
   }
 
+  .pager_with_entries {
+    display: table;
+    float: right;
+    div {
+      display: table-cell;
+    }
+    #entries_info {
+      vertical-align: middle;
+      padding-right: 20px;
+    }
+  }
 }

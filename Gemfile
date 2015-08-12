@@ -92,3 +92,5 @@ gem 'nokogiri'
 gem 'paperclip'
 
 gem 'bootstrap-select-rails'
+
+gem 'kaminari'

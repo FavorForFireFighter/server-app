@@ -1,0 +1,8 @@
+
+- unless defined? remote
+  - remote = false
+- unless defined? params
+  - params = {}
+
+%div#entries_info= page_entries_info collection
+%div= paginate(collection, { params: params, remote: remote})
