@@ -1,5 +1,12 @@
 .page-header
+  %ul
+    %li
+      .pager_with_entries#pager= render partial: 'common/pager_with_entries', locals: { collection: @bus_stop_photos, remote: true }
+      #pager_page.hide(data-page="")
   %h1 #{t('.title')}
 
-.page-content
+.page-content#list
   = render partial: 'common/bus_stop_photo_list', locals: {bus_stop_photos: @bus_stop_photos}
+
+= form_tag "" do
+  = hidden_field_tag :page_link, ""

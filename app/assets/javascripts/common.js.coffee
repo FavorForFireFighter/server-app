@@ -35,8 +35,16 @@ $ ->
     L.marker([latitude, longitude]).addTo(map)
     map.fitBounds([[latitude, longitude], [latitude, longitude]])
 
-  $('#pager').on 'ajax:success', (e, result, status, xht)->
+  $('#pager').on 'ajax:success', (e, result, status, xhr)->
     $('#pager').html result.paginator
+    $('#pager').find('a').each (index,dom)->
+      href = dom.href
+      if href isnt "" and href.indexOf("page=") is -1
+        if href.indexOf("?") is -1
+          dom.href = href + "?page=1"
+        else
+          dom.href = href + "&page=1"
+      return
     $('#list').html result.list
     return
   return
