@@ -1,0 +1,17 @@
+ja:
+  admin:
+    users:
+      index:
+        title: ユーザ一覧
+        is_admin: 有り
+        isnt_admin: 無し
+        detail: 詳細情報
+        delete: 削除
+        delete_confirm: このユーザを削除してもよろしいですか？
+      show:
+        title: ユーザ情報
+        user_photos: 投稿写真一覧
+      edit:
+        title: ユーザ情報編集
+      photos_index:
+        title: ユーザ投稿写真一覧

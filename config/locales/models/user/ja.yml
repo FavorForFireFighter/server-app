@@ -9,3 +9,4 @@ ja:
         password: パスワード
         password_confirmation: パスワードの確認
         email: メールアドレス
+        admin_flag: 管理者権限

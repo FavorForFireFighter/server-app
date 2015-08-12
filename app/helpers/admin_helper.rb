@@ -9,9 +9,8 @@ module AdminHelper
   end
 
   def sidebar_list_items
-    current_url = request.headers['PATH_INFO']
     items = [
-        {:text => "#{t('admin.sidebar.user')}", :path => ""},
+        {:text => "#{t('admin.sidebar.user')}", :path => admin_users_path},
         {:text => "#{t('admin.sidebar.bus_stop')}", :path => admin_bus_stops_path},
         {:text => "#{t('admin.sidebar.photos')}", :path => admin_photos_index_path},
     ]

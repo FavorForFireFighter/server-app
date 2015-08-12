@@ -1,0 +1,26 @@
+= form_for(user, url:{action: 'update'}) do |f|
+  = render partial: 'common/show_key_value', locals: {key: User.human_attribute_name(:username), value: user.username}
+
+  .form-group
+    = f.label :email, class: 'control-label'
+    .controls
+      = f.text_field :email, class: 'form-control'
+
+  - if is_admin_layout? && is_admin?
+    .form-group
+      = f.label :admin_flag, class: 'control-label'
+      .controls
+        - #TODO fix selectpicker bug
+        = f.select :admin_flag, [[t('admin.users.index.is_admin'),true],[t('admin.users.index.isnt_admin'),false]], {},{class: 'selectpicker2', "data-width": "auto"}
+
+  .form-group
+    = f.label :password,t('users.edit.new_password'), class: 'control-label'
+    .controls
+      = f.password_field :password, class: 'form-control', placeholder:"#{t('users.edit.password_prompt')}"
+
+  .form-group
+    = f.label :password_confirmation,t('users.edit.new_password_confirmation'), class: 'control-label'
+    .controls
+      = f.password_field :password_confirmation, class: 'form-control', placeholder:"#{t('users.edit.password_prompt')}"
+
+  = f.submit t('helpers.submit.update'), class: "btn btn-large btn-primary", name: nil

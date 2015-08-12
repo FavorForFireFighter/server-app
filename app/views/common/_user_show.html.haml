@@ -1,0 +1,8 @@
+= render partial: 'common/show_key_value', locals: {key: User.human_attribute_name(:username), value: user.username}
+= render partial: 'common/show_key_value', locals: {key: User.human_attribute_name(:email), value: user.email}
+- if is_admin_layout? && is_admin?
+  = render partial: 'common/show_key_value', locals: {key: User.human_attribute_name(:admin_flag), value: user.admin_flag ? t('admin.users.index.is_admin'): t('admin.users.index.isnt_admin')}
+  = link_to t('admin.users.show.user_photos'), {action:'photos_index', id:user.id},{class: "btn btn-default", role: "button"}
+
+- unless is_admin_layout?
+  = link_to t('helpers.submit.edit'), {action: 'edit', id: user.id}, {class: "btn btn-primary", role: "button"}

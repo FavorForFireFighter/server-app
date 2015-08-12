@@ -1,4 +1,6 @@
 #photos
+  - if bus_stop_photos.blank?
+    .alert.alert-warning= t('users.photos.no_photos')
   - bus_stop_photos.each do |bus_stop_photo|
     .row.photo_list
       .col-md-5

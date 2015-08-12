@@ -14,6 +14,7 @@ ja:
       delete_photo: 削除
       delete_confirm: この写真を削除してもよろしいですか？
       bus_stop_detail: バス停詳細ページ
+      no_photos: 投稿写真がありません
     common:
       photos:
         delete_photo: 削除

@@ -1,0 +1,9 @@
+---
+ja:
+  activerecord:
+    models:
+      bus_stop_photo: バス停写真
+    attributes:
+      bus_stop_photo:
+        title: タイトル
+        photo: 写真

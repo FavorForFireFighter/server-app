@@ -1,0 +1,9 @@
+.page-header
+  %ul
+    %li
+      %button.btn.btn-default#back_btn=  t('helpers.links.back')
+  %h1 #{t('.title')}
+
+.page-content
+  = render partial: 'common/flash_messages'
+  = render partial: 'common/bus_stop_photo_list', locals: {bus_stop_photos: @bus_stop_photos}

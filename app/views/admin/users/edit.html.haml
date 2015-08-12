@@ -1,0 +1,12 @@
+.page-header
+  %ul
+    %li
+      %button.btn.btn-default#back_btn=  t('helpers.links.back')
+    %li
+      %button.btn.btn-primary#submit_btn #{t('helpers.submit.update')}
+  %h1 #{t('.title')}
+
+.page-content
+  = render partial: 'common/flash_messages'
+  = render partial: 'common/error_message', locals: {model:@user}
+  = render partial: 'common/user_edit', locals: {user: @user}

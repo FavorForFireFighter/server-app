@@ -19,3 +19,6 @@ ja:
       not_allow_delete: 違う投稿者の写真は削除できません
       cant_delete: 削除できませんでした
       delete: 写真を削除しました
+    admin:
+      delete: ユーザを削除しました
+      cant_delete: ユーザを削除できませんでした
