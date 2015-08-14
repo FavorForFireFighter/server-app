@@ -94,3 +94,11 @@ gem 'paperclip'
 gem 'bootstrap-select-rails'
 
 gem 'kaminari'
+
+# deploy
+group :development do
+  gem 'capistrano'
+  gem 'capistrano-rails'
+  gem 'capistrano-rbenv'
+  gem 'capistrano-bundler'
+end
