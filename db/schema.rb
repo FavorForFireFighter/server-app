@@ -61,7 +61,7 @@ ActiveRecord::Schema.define(version: 20150808100351) do
   create_table "bus_stops", force: :cascade do |t|
     t.string    "name"
     t.integer   "prefecture_id"
-    t.geography "location",            limit: {:srid=>4612, :type=>"point", :geographic=>true}
+    t.geography "location",            limit: {:srid=>4326, :type=>"point", :geographic=>true}
     t.datetime  "location_updated_at"
     t.integer   "last_modify_user_id"
     t.datetime  "created_at",                                                                   null: false
@@ -74,7 +74,7 @@ ActiveRecord::Schema.define(version: 20150808100351) do
 
   create_table "prefectures", force: :cascade do |t|
     t.string    "name"
-    t.geography "location",   limit: {:srid=>4612, :type=>"point", :geographic=>true}
+    t.geography "location",   limit: {:srid=>4326, :type=>"point", :geographic=>true}
     t.datetime  "created_at",                                                          null: false
     t.datetime  "updated_at",                                                          null: false
   end
