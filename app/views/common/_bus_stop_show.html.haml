@@ -63,5 +63,5 @@
     = render partial: 'common/show_key_value', locals: {key: BusStop.human_attribute_name(:last_modify_user), value: bus_stop.last_modify_user.try(:username) || t('bus_stops.common.show.not_register')}
     = render partial: 'common/show_key_value', locals: {key: BusStop.human_attribute_name(:updated_at), value: bus_stop.updated_at}
 
--unless is_admin_layout?
+-if !is_admin_layout? && signed_in?
   = link_to t('helpers.submit.edit'), edit_bus_stop_path(bus_stop.id), class: "btn btn-primary"
