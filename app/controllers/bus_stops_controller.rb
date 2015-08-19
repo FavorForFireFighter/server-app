@@ -22,9 +22,21 @@ class BusStopsController < ApplicationController
   end
 
   def new
-    @bus_stop = BusStop.new
+    if params[:id].blank?
+      @bus_stop = BusStop.new
+      @route_information = []
+    else
+      bus_stop_orig = BusStop.find_by(id: params[:id])
+      if bus_stop_orig.blank?
+        @bus_stop = BusStop.new
+        @route_information = []
+      else
+        @bus_stop = bus_stop_orig.dup
+        @route_information = bus_stop_orig.bus_route_informations.with_bus_operation_company
+      end
+    end
+
     @prefectures = Prefecture.all.order(:id)
-    @route_information = []
   end
 
   def create

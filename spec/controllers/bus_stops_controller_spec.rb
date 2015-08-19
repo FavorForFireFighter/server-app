@@ -39,12 +39,21 @@ RSpec.describe BusStopsController, type: :controller do
       expect(response).to have_http_status(:success)
     end
     it "render new template" do
-      login
       get :new
       expect(response).to render_template :new
       expect(assigns[:bus_stop]).to be_a_new(BusStop)
       expect(assigns[:prefectures]).to be_truthy
       expect(assigns[:route_information]).to be_truthy
+    end
+
+    context "when passed id" do
+      it "duplicate stop" do
+        get :new, id: @stop.id
+        expect(response).to render_template :new
+        expect(assigns[:bus_stop].name).to eq @stop.name
+        expect(assigns[:prefectures]).to be_truthy
+        expect(assigns[:route_information]).to be_truthy
+      end
     end
   end
 

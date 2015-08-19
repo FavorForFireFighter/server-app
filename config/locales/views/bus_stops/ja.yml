@@ -45,6 +45,7 @@ ja:
         photo_user: 投稿者
         delete_confirm: この写真を削除してもよろしいですか？
         not_register: 登録なし
+        copy: コピーを作成
     index:
       title: バス停一覧
     show:

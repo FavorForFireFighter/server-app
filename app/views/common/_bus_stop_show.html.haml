@@ -65,3 +65,4 @@
 
 -if !is_admin_layout? && signed_in?
   = link_to t('helpers.submit.edit'), edit_bus_stop_path(bus_stop.id), class: "btn btn-primary"
+  = link_to t('bus_stops.common.show.copy'), {controller: 'bus_stops', action: 'new', id: bus_stop.id}, class: "btn btn-primary"
