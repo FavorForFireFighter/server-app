@@ -22,6 +22,7 @@
         %th
         %th= t('bus_stops.common.company_name')
         %th= t('bus_stops.common.line_name')
+        %th= t('bus_stops.common.index.action')
       %tbody#route_informations
         - @route_information.each do |route|
           %tr
@@ -29,10 +30,13 @@
               %span.glyphicon.glyphicon-remove(aria-hidden=true)
             %td= route.bus_operation_company.try(:name)
             %td= route.bus_line_name
+            %td
+              = link_to t('bus_stops.common.show.edit_line'), edit_bus_route_information_path(route.id), class: 'btn btn-primary', target: "bus_line_edit"
+              %button.btn.btn-default.line_name_reload= t('bus_stops.common.new.reload_line_name')
             = hidden_field_tag 'bus_route_information[id][]', route.id
       %tfoot
         %tr
-          %td#add_route_information.text-center(colspan=3)
+          %td#add_route_information.text-center(colspan=4)
             %span.glyphicon.glyphicon-plus(aria-hidden=true)
             = t('bus_stops.common.add_route_information')
     .panel-body.hide#route_information_inputs

@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  get 'bus_route_information/edit'
+
+  get 'bus_route_information/update'
+
   root "top#index"
 
   resources :users, :except => [:index, :destroy]
@@ -13,6 +17,8 @@ Rails.application.routes.draw do
   get 'bus_stops/:id/photos/new', to: "bus_stops#photos_new", as: "new_bus_stop_photos"
   post 'bus_stops/:id/photos/create', to: "bus_stops#photos_create", as: "bus_stop_photos"
   delete 'bus_stops/:id/photos/:photo_id', to: "bus_stops#photos_destroy", as: "destroy_bus_stop_photos"
+
+  resources :bus_route_information, :only => [:show, :edit, :update]
 
   namespace :admin do
     get 'top/index'

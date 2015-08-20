@@ -60,6 +60,20 @@ class BusRoutesApi < Grape::API
       @company = company
       @line = line
     end
+
+    # GET /api/bus_routes/line
+    desc "Get Line"
+    params do
+      requires :line_id, type: Integer, desc: "bus_route_information_id"
+    end
+    get :line, jbuilder: 'bus_routes/line.json.jbuilder' do
+      @route_information = BusRouteInformation.find_by(id: params[:line_id])
+      if @route_information.blank?
+        status 404
+      end
+    end
+
   end
+
 
 end

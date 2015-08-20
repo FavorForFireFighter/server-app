@@ -105,7 +105,14 @@ addToRouteInformation = (company, company_id, line, line_id) ->
     return
   tr.append delete_button
   tr.append $('<td>').text(company)
-  tr.append $('<td>').text(line)
+  tr.append $('<td>').text(line).attr('id', 'line_name_' + line_id)
+  link_to_edit_line = $('<a>').addClass("btn btn-primary").text("路線名編集").attr({
+    href: "/bus_route_information/" + line_id + "/edit",
+    target: "bus_line_edit"
+  })
+  reload_button = $('<button>').addClass("btn btn-default line_name_reload").text("路線名再取得")
+  .data('route-id', line_id).on 'click', reloadLineName
+  tr.append $('<td>').append([link_to_edit_line, reload_button])
   tr.append $('<input>').val(line_id).attr({name: 'bus_route_information[id][]', type: 'hidden'})
   $('#route_informations').append tr
   return
@@ -136,6 +143,23 @@ hasError = ($input, val) ->
   else
     $input.parents('.form-group').removeClass("has-error")
     return false
+
+reloadLineName = (e) ->
+  e.preventDefault()
+  id = $(e.currentTarget).data('route-id')
+  ajax = $.ajax({
+    url: "/api/bus_routes/line"
+    data: {line_id: id}
+    dataType: 'json',
+    method: 'get'
+  })
+  ajax.done (data) ->
+    $('#line_name_' + data.id).text(data.name)
+    return
+  ajax.fail () ->
+    alert "路線名を取得できませんでした"
+    return
+  return
 
 setListenersOfRouteInformationInputs = () ->
   $addRoute_information_inputs = $('#route_information_inputs')

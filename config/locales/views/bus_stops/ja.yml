@@ -46,6 +46,9 @@ ja:
         delete_confirm: この写真を削除してもよろしいですか？
         not_register: 登録なし
         copy: コピーを作成
+        edit_line: 路線名編集
+      new:
+        reload_line_name: 路線名再取得
     index:
       title: バス停一覧
     show:
