@@ -10,8 +10,7 @@
     .form-group
       = f.label :admin_flag, class: 'control-label'
       .controls
-        - #TODO fix selectpicker bug
-        = f.select :admin_flag, [[t('admin.users.index.is_admin'),true],[t('admin.users.index.isnt_admin'),false]], {},{class: 'selectpicker2', "data-width": "auto"}
+        = f.select :admin_flag, [[t('admin.users.index.is_admin'),true],[t('admin.users.index.isnt_admin'),false]], {},{class: 'selectpicker', "data-width": "auto"}
 
   .form-group
     = f.label :password,t('users.edit.new_password'), class: 'control-label'

@@ -1,6 +1,5 @@
 exports = this
 $ ->
-  $('.selectpicker').selectpicker('mobile')
   if $('#bus_stop_list_map').is(':visible')
     map = create_leaflet_map 'bus_stop_list_map'
 

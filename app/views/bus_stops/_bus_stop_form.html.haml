@@ -11,8 +11,7 @@
       .form-group
         = f.label :prefecture, class: 'control-label'
         .controls
-          -# TODO fix selectpicker bug
-          = f.select :prefecture_id, @prefectures.map{|e| [e.name, e.id]}, {prompt: t('helpers.select.prompt')}, {class: 'selectpicker2', required: true}
+          = f.select :prefecture_id, @prefectures.map{|e| [e.name, e.id]}, {prompt: t('helpers.select.prompt')}, {class: 'selectpicker', required: true}
 
   .panel.panel-default#bus_stop_route_information_panel
     .panel-heading
@@ -49,7 +48,7 @@
           .form-group
             = label_tag :bus_operation_company_id, t('bus_stops.common.bus_operation_company'), class: 'control-label'
             .controls
-              = select_tag :bus_operation_company_id, "", {prompt: t('helpers.select.prompt'), class: "selectpicker2 form-control", size: 4, name: nil}
+              = select_tag :bus_operation_company_id, "", {prompt: t('helpers.select.prompt'), class: "form-control", size: 4, name: nil}
         .col-md-6
           .form-group
             = label_tag :bus_operation_company_name, t('bus_stops.common.new_bus_operation_company_name'), class: 'control-label'
@@ -62,7 +61,7 @@
           .form-group
             = label_tag :bus_route_information_id, t('bus_stops.common.bus_route_information'), class: 'control-label'
             .controls
-              = select_tag :bus_route_information_id, "", {prompt: t('helpers.select.prompt'), class: "selectpicker2 form-control", size: 4, name: nil}
+              = select_tag :bus_route_information_id, "", {prompt: t('helpers.select.prompt'), class: "form-control", size: 4, name: nil}
         .col-md-6
           .form-group
             = label_tag :bus_route_line_name, t('bus_stops.common.new_bus_line_name'), class: 'control-label'
