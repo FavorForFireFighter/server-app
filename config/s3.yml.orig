@@ -1,0 +1,4 @@
+bucket: 'bucket name'
+access_key_id: 'your access key id'
+secret_access_key: 'your secret access key'
+s3_host_name: host name

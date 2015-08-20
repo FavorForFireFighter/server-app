@@ -102,3 +102,5 @@ group :development do
   gem 'capistrano-rbenv'
   gem 'capistrano-bundler'
 end
+
+gem 'aws-sdk'
