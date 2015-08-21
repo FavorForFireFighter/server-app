@@ -104,3 +104,6 @@ group :development do
 end
 
 gem 'aws-sdk'
+
+gem 'devise'
+gem 'devise-i18n'

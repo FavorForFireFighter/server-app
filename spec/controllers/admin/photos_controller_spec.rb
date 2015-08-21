@@ -4,7 +4,7 @@ RSpec.describe Admin::PhotosController, type: :controller do
   before do
     @admin = FactoryGirl.create(:admin)
   end
-  let(:login) { session[:id] = @admin.id }
+  let(:login) { sign_in :user, @admin }
 
   describe "GET #index" do
     before { login }

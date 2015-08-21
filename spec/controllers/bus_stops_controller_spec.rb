@@ -6,7 +6,7 @@ RSpec.describe BusStopsController, type: :controller do
     @stop = FactoryGirl.create(:bus_stop)
   end
 
-  let(:login) { session[:id] = @user.id }
+  let(:login) { sign_in :user, @user }
 
   describe "GET #index" do
     it "returns http success" do
@@ -242,7 +242,7 @@ RSpec.describe BusStopsController, type: :controller do
     context "invalid params" do
       it "other user's photo" do
         user = FactoryGirl.create(:user)
-        session[:id] = user.id
+        sign_in :user, user
         delete :photos_destroy, id: @stop.id, photo_id: @photo.id
         expect(response).to redirect_to @stop
         expect(flash[:alert]).to be_present

@@ -2,12 +2,19 @@ Rails.application.routes.draw do
 
   root "top#index"
 
-  resources :users, :except => [:index, :destroy]
-  get 'users/:id/photos', to: "users#photos", as: "user_photos"
+  #resources :users, :except => [:index, :destroy]
+  devise_for :users, :controllers => {
+                       :registrations => 'users/registrations',
+                       :passwords => 'users/passwords'
+                   }, :skip => [:sessions]
+  as :user do
+    get 'sign_in' => 'devise/sessions#new', :as => :new_user_session
+    post 'sign_in' => 'devise/sessions#create', :as => :user_session
+    delete 'sign_out' => 'devise/sessions#destroy', :as => :destroy_user_session
+  end
 
-  get 'session/index'
-  post 'session/login'
-  get 'session/logout'
+  get 'users/:id', to: "users#show", as: "user"
+  get 'users/:id/photos', to: "users#photos", as: "user_photos"
 
   resources :bus_stops, :except => [:destroy]
   get 'bus_stops/:id/photos/new', to: "bus_stops#photos_new", as: "new_bus_stop_photos"

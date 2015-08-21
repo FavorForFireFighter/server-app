@@ -42,7 +42,7 @@ class Admin::UsersController < Admin::ApplicationController
       redirect_to({action: 'index', id: user.id}, {alert: t('controller.admin.cant_delete')})
     end
     if user.id == current_user.id
-      redirect_to session_logout_path
+      redirect_to cancel_user_registration_path
     else
       redirect_to({action: 'index'}, {notice: t('controller.admin.delete')})
     end

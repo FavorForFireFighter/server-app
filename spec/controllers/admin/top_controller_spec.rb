@@ -6,7 +6,7 @@ RSpec.describe Admin::TopController, type: :controller do
     context "when user is admin" do
       before do
         user = FactoryGirl.create(:admin)
-        session[:id] = user.id
+        sign_in :user, user
       end
       it "returns http success" do
         get :index
@@ -17,7 +17,7 @@ RSpec.describe Admin::TopController, type: :controller do
     context "when user is not admin" do
       before do
         user = FactoryGirl.create(:user)
-        session[:id] = user.id
+        sign_in :user, user
       end
       it "redirect to root page" do
         get :index

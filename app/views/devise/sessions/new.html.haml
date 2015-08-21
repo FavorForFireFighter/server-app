@@ -1,0 +1,24 @@
+%h1.page-header= t('session.new.title')
+
+= render partial: 'common/flash_messages'
+
+= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+  .form-group
+    = f.label :username, class: 'control-label'
+    .controls
+      = f.text_field :username, class: 'form-control', required: true, autofocus: true
+
+  .form-group
+    = f.label :password, class: 'control-label'
+    .controls
+      = f.password_field :password, class: 'form-control', required: true, autocomplete: "off"
+
+  - if devise_mapping.rememberable?
+    .checkbox
+      %label
+        = f.check_box :remember_me
+        = t('session.new.remember_me')
+
+  = f.submit t('application.login'), class: "btn btn-large btn-primary", name: nil
+
+= link_to t('session.new.forgot_password'), new_password_path(resource_name)
