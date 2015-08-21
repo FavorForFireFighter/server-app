@@ -2,17 +2,24 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 $ ->
-  $page_link = $('#page_link')
-  link_id = $page_link.val()
-  if link_id
-    $a = $("#" + link_id)
-    if $a.length > 0
-      $a.trigger('click')
 
-  $('#pager').on 'click', (e) ->
-    if e.target.tagName is "A"
-      href = e.target.href
-      if href
-        $page_link.val e.target.id
+  $('#collapse-link').on 'click', (e) ->
+    $icon = $('#collapse-icon')
+    if $icon.hasClass('glyphicon-collapse-up')
+      $icon.addClass('glyphicon-collapse-down').removeClass('glyphicon-collapse-up')
+    else
+      $icon.addClass('glyphicon-collapse-up').removeClass('glyphicon-collapse-down')
     return
-  return
+
+  $search_form = $('#photo_search_form')
+  $search_form.on 'ajax:success', (e, result, status, xhr)->
+    $('#pager').html result.paginator
+    $('#list').html result.list
+    $('#page').val result.page
+    return
+
+  $('#photo_search_btn').on 'click', (e) ->
+    $('#page').val 1
+    return
+
+  $search_form.trigger 'submit'

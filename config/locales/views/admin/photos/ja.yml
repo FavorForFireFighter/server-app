@@ -3,3 +3,8 @@ ja:
     photos:
       index:
         title: 投稿写真一覧
+        keyword: バス停名
+        prefecture: 都道府県
+        search: 検索項目
+        search_note: (クリックで表示/非表示)
+        submit: 検索

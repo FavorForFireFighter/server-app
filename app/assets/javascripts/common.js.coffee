@@ -45,6 +45,9 @@ $ ->
           dom.href = href + "&page=1"
       return
     $('#list').html result.list
+    $page = $('#page')
+    if $page
+      $page.val result.page
     return
   return
 ##
