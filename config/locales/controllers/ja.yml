@@ -22,3 +22,5 @@ ja:
     admin:
       delete: ユーザを削除しました
       cant_delete: ユーザを削除できませんでした
+    bus_route_information:
+      updated: 更新が完了しました

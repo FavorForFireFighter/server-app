@@ -72,12 +72,28 @@ RSpec.describe BusRoutesApi, :type => :request do
     context "with invalid params" do
       let(:params) { {company_id: -1, company_name: "", line_id: -1, line_name: "Test"} }
       it "return fail" do
-          is_expected.to eq 400
+        is_expected.to eq 400
         expect(body).to be_json_eql(%({"success":false,"company_id":null,"line_id":null}))
         line = BusRouteInformation.find_by(bus_line_name: "Test")
         expect(line).to be_falsey
       end
+    end
+  end
 
+  describe "GET /api/bus_routes/line" do
+    context "with invalid id" do
+      let(:params) { {line_id: -1} }
+      it "not found" do
+        is_expected.to eq 404
+      end
+    end
+
+    context "with valid id" do
+      let(:params) { {line_id: @line.id} }
+      it "return @company" do
+        is_expected.to eq 200
+        expect(body).to be_json_eql(%({"name":"#{@line.bus_line_name}","id":"#{@line.id}"}))
+      end
     end
   end
 end

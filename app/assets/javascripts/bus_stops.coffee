@@ -23,6 +23,7 @@ $ ->
     $('.route_delete').on 'click', (e) ->
       $(e.currentTarget).parent().remove()
       return
+    $('.line_name_reload').on 'click', reloadLineName
 
     setListenersOfRouteInformationInputs()
 
@@ -104,8 +105,22 @@ addToRouteInformation = (company, company_id, line, line_id) ->
     $(e.currentTarget).parent().remove()
     return
   tr.append delete_button
-  tr.append $('<td>').text(company)
-  tr.append $('<td>').text(line)
+  tr.append($('<td>').text(company))
+
+  reload_button = $('<button>').addClass("btn btn-default line_name_reload").text("路線名再取得")
+  .data('route-id', line_id).on 'click', reloadLineName
+  line_name = $('<span>').text(line).attr('id', 'line_name_' + line_id)
+  tr.append $('<td>').append([line_name, reload_button])
+
+  link_to_show_line = $('<a>').addClass("btn btn-default").text("路線情報").attr({
+    href: "/bus_route_information/" + line_id,
+    target: "bus_line"
+  })
+  link_to_edit_line = $('<a>').addClass("btn btn-primary").text("路線名編集").attr({
+    href: "/bus_route_information/" + line_id + "/edit",
+    target: "bus_line"
+  })
+  tr.append $('<td>').append([link_to_show_line, link_to_edit_line]).addClass('table_actions')
   tr.append $('<input>').val(line_id).attr({name: 'bus_route_information[id][]', type: 'hidden'})
   $('#route_informations').append tr
   return
@@ -136,6 +151,23 @@ hasError = ($input, val) ->
   else
     $input.parents('.form-group').removeClass("has-error")
     return false
+
+reloadLineName = (e) ->
+  e.preventDefault()
+  id = $(e.currentTarget).data('route-id')
+  ajax = $.ajax({
+    url: "/api/bus_routes/line"
+    data: {line_id: id}
+    dataType: 'json',
+    method: 'get'
+  })
+  ajax.done (data) ->
+    $('#line_name_' + data.id).text(data.name)
+    return
+  ajax.fail () ->
+    alert "路線名を取得できませんでした"
+    return
+  return
 
 setListenersOfRouteInformationInputs = () ->
   $addRoute_information_inputs = $('#route_information_inputs')
@@ -186,8 +218,11 @@ setListenersOfRouteInformationInputs = () ->
         ajax.fail () ->
           alert("バス運営会社または路線の追加を行えませんでした")
       else
-        addToRouteInformation(company_name, company_id, line_name, line_id)
-        $addRoute_information_inputs.addClass('hide')
+        if checkDuplicateLine(line_id)
+          alert("すでに登録されています")
+        else
+          addToRouteInformation(company_name, company_id, line_name, line_id)
+          $addRoute_information_inputs.addClass('hide')
     $('#route_information_inputs').find('.has-error').each (index, dom) ->
       $(dom).removeClass('has-error')
     return
@@ -250,3 +285,10 @@ setListenersOfRouteInformationInputs = () ->
       disabled($(dom), val == "" || val > 0)
     return
   return
+
+checkDuplicateLine = (line_id) ->
+  is_duplicate = false
+  $("[name='bus_route_information[id][]']").each (index, dom) ->
+    if dom.value is line_id && !is_duplicate
+      is_duplicate = true
+  return is_duplicate
