@@ -1,0 +1,14 @@
+production:
+  access_key_id: AWS_ACCESS_KEY_ID
+  secret_access_key: AWS_SECRET_KEY_ID
+staging:
+  access_key_id: AWS_ACCESS_KEY_ID
+  secret_access_key: AWS_SECRET_KEY_ID
+
+# below settings NOT used but need to define
+development:
+  access_key_id: NOT_USED
+  secret_access_key: NOT_USED
+test:
+  access_key_id: NOT_USED
+  secret_access_key: NOT_USED

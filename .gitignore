@@ -21,4 +21,4 @@
 /config/database.yml
 /support/*.csv
 /config/email.yml
-/config/s3.yml
+/config/aws.yml

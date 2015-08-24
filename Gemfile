@@ -103,7 +103,7 @@ group :development do
   gem 'capistrano-bundler'
 end
 
-gem 'aws-sdk'
+gem 'aws-sdk', '~>1'
 
 gem 'devise'
 gem 'devise-i18n'
