@@ -21,8 +21,10 @@
             -if index==0
               %td(rowspan="#{info[:routes].length}")= info[:company].name
             %td= route.bus_line_name
-            - if signed_in?
-              %td= link_to t('bus_stops.common.show.edit_line'), edit_bus_route_information_path(route.id), class: 'btn btn-primary', target: "bus_line_edit"
+            %td
+              = link_to t('bus_stops.common.show.show_line'),bus_route_information_path(route.id), class: 'btn btn-default', target: "bus_line"
+              - if signed_in?
+                = link_to t('bus_stops.common.show.edit_line'), edit_bus_route_information_path(route.id), class: 'btn btn-primary', target: "bus_line"
 
 .panel.panel-default
   .panel-heading
