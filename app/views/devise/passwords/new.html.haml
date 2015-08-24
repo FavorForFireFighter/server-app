@@ -1,0 +1,10 @@
+%h1.page-header= t('passwords.new.title')
+
+= render partial: 'common/error_message', locals: {model: resource}
+= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
+  .form-group
+    = f.label :email, class: 'control-label'
+    .controls
+      = f.email_field :email, class: 'form-control', required: true, autofocus: true
+
+  = f.submit t('passwords.new.submit'), class: "btn btn-large btn-primary", name: nil

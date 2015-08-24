@@ -5,7 +5,7 @@ RSpec.describe Admin::BusStopsController, type: :controller do
     @admin = FactoryGirl.create(:admin)
     @stop = FactoryGirl.create(:bus_stop)
   end
-  let(:login) { session[:id] = @admin.id }
+  let(:login) { sign_in :user, @admin }
 
   describe "GET #index" do
     before { login }

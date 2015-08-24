@@ -1,0 +1,30 @@
+%h1.page-header= t('registrations.edit.title')
+
+= render partial: 'common/flash_messages'
+= render partial: 'common/error_message', locals: {model:resource}
+
+= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+
+  = render partial: 'common/show_key_value', locals: {key: User.human_attribute_name(:username), value: resource.username}
+
+  .form-group
+    = f.label :email, class: 'control-label'
+    .controls
+      = f.text_field :email, class: 'form-control'
+
+  .form-group
+    = f.label :current_password, t('registrations.edit.current_password'), class: 'control-label'
+    .controls
+      = f.password_field :current_password, class: 'form-control', required: true
+
+  .form-group
+    = f.label :password,t('registrations.edit.new_password'), class: 'control-label'
+    .controls
+      = f.password_field :password, class: 'form-control', placeholder:"#{t('registrations.edit.password_prompt')}"
+
+  .form-group
+    = f.label :password_confirmation,t('registrations.edit.new_password_confirmation'), class: 'control-label'
+    .controls
+      = f.password_field :password_confirmation, class: 'form-control', placeholder:"#{t('registrations.edit.password_prompt')}"
+
+  = f.submit t('helpers.submit.update'), class: "btn btn-large btn-primary", name: nil
