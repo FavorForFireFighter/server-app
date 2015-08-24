@@ -23,6 +23,7 @@ $ ->
     $('.route_delete').on 'click', (e) ->
       $(e.currentTarget).parent().remove()
       return
+    $('.line_name_reload').on 'click', reloadLineName
 
     setListenersOfRouteInformationInputs()
 
@@ -217,8 +218,11 @@ setListenersOfRouteInformationInputs = () ->
         ajax.fail () ->
           alert("バス運営会社または路線の追加を行えませんでした")
       else
-        addToRouteInformation(company_name, company_id, line_name, line_id)
-        $addRoute_information_inputs.addClass('hide')
+        if checkDuplicateLine(line_id)
+          alert("すでに登録されています")
+        else
+          addToRouteInformation(company_name, company_id, line_name, line_id)
+          $addRoute_information_inputs.addClass('hide')
     $('#route_information_inputs').find('.has-error').each (index, dom) ->
       $(dom).removeClass('has-error')
     return
@@ -281,3 +285,10 @@ setListenersOfRouteInformationInputs = () ->
       disabled($(dom), val == "" || val > 0)
     return
   return
+
+checkDuplicateLine = (line_id) ->
+  is_duplicate = false
+  $("[name='bus_route_information[id][]']").each (index, dom) ->
+    if dom.value is line_id && !is_duplicate
+      is_duplicate = true
+  return is_duplicate
