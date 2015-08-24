@@ -79,9 +79,9 @@ Rails.application.configure do
 
   config.paperclip_defaults = {
       :storage => :s3,
-      :s3_host_name => 'HOST_NAME',
+      :s3_host_name => 's3-ap-northeast-1.amazonaws.com',
       :s3_credentials => {
-          :bucket => 'S3_BUCKET_NAME'
+          :bucket => 'tokyo-univ-busmap-test'
       }
   }
 end
