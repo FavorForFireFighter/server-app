@@ -1,0 +1,7 @@
+ja:
+  activerecord:
+    models:
+      bus_operation_company: バス運営会社
+    attributes:
+      bus_operation_company:
+        name: バス運営会社名

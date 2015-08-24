@@ -1,0 +1,9 @@
+ja:
+  bus_route_information:
+    common:
+      route_information: 路線情報
+      bus_stops: 路線に属するバス停一覧
+    edit:
+      title: 路線名編集
+    show:
+      title: 路線情報

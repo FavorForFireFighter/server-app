@@ -1,4 +1,4 @@
-= form_for(@bus_stop, class: "form form-horizontal") do |f|
+= form_for(@bus_stop, class: "form form-horizontal", name: "bus_stop_form") do |f|
 
   .panel.panel-default
     .panel-heading
@@ -21,17 +21,23 @@
         %th
         %th= t('bus_stops.common.company_name')
         %th= t('bus_stops.common.line_name')
+        %th= t('bus_stops.common.index.action')
       %tbody#route_informations
         - @route_information.each do |route|
           %tr
             %td.route_delete
               %span.glyphicon.glyphicon-remove(aria-hidden=true)
             %td= route.bus_operation_company.try(:name)
-            %td= route.bus_line_name
+            %td
+              %span(id="line_name_#{route.id}")= route.bus_line_name
+              %button.btn.btn-default.line_name_reload(data-route-id="#{route.id}")= t('bus_stops.common.new.reload_line_name')
+            %td.table_actions
+              = link_to t('bus_stops.common.show.show_line'),bus_route_information_path(route.id), class: 'btn btn-default', target: "bus_line"
+              = link_to t('bus_stops.common.show.edit_line'), edit_bus_route_information_path(route.id), class: 'btn btn-primary', target: "bus_line"
             = hidden_field_tag 'bus_route_information[id][]', route.id
       %tfoot
         %tr
-          %td#add_route_information.text-center(colspan=3)
+          %td#add_route_information.text-center(colspan=4)
             %span.glyphicon.glyphicon-plus(aria-hidden=true)
             = t('bus_stops.common.add_route_information')
     .panel-body.hide#route_information_inputs
@@ -96,7 +102,6 @@
       %hr
         %button#add_route_cancel.btn.btn-default= t('bus_stops.common.cancel')
         %button#add_route.btn.btn-primary= t('bus_stops.common.add_route')
-
 
 
   .panel.panel-default

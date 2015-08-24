@@ -1,8 +1,7 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
-  # :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable, :confirmable
+  # :confirmable, :lockable, :timeoutable and :omniauthable, :recoverable, :rememberable,
+  devise :database_authenticatable, :registerable, :trackable, :validatable
 =begin
   has_secure_password
   validates :username, presence: true, uniqueness: true
@@ -16,13 +15,32 @@ class User < ActiveRecord::Base
 
   has_many :bus_stop_photos
 
+  scope :not_deleted, -> () {
+    where(deleted_at: nil)
+  }
+
   def self.find_for_database_authentication(warden_conditions)
     conditions = warden_conditions.dup
     if username = conditions.delete(:username)
-      where(conditions.to_hash).where(["username = :value", { :value => username }]).first
+      where(conditions.to_hash).where(["username = :value", {:value => username}]).first
     else
       where(conditions.to_hash).first
     end
+  end
+
+  # instead of deleting, indicate the user requested a delete & timestamp it
+  def soft_delete
+    update_attribute(:deleted_at, Time.current)
+  end
+
+  # ensure user account is active
+  def active_for_authentication?
+    super && !deleted_at
+  end
+
+  # provide a custom message for a deleted account
+  def inactive_message
+    !deleted_at ? super : :deleted_account
   end
 
   private

@@ -1,0 +1,27 @@
+%h1.page-header= t('.title')
+
+= render partial: 'common/flash_messages'
+= render partial: 'common/error_message', locals: {model: @route_information}
+
+
+.panel.panel-default
+  .panel-heading
+    .panel-title= t('bus_route_information.common.route_information')
+  .panel-body
+    = render partial: 'common/show_key_value', locals: {key: BusOperationCompany.human_attribute_name(:name), value: @route_information.bus_operation_company.try(:name)}
+    = form_for @route_information do |f|
+      .form-group
+        = f.label :bus_line_name, class: 'control-label'
+        .controls
+          = f.text_field :bus_line_name, class: 'form-control', required: true
+      = f.submit nil, class: "btn btn-primary"
+
+.panel.panel-default
+  .panel-heading
+    .panel-title= t('bus_route_information.common.bus_stops')
+  .panel-body
+    - @route_information.bus_stops.each_with_index do |bus_stop, index|
+      - if index == 0 || index % 3 == 0
+        .row
+      .col-md-4.route_stops_name
+        = bus_stop.name

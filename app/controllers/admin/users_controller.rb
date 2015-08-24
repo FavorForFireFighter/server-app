@@ -2,17 +2,17 @@ class Admin::UsersController < Admin::ApplicationController
   def index
     if request.xhr?
       session[:admin_user_list_page] = params[:page]
-      users = User.order(:id).page(params[:page])
+      users = User.not_deleted.order(:id).page(params[:page])
       paginator = view_context.create_pager_with_entries(users, nil, true)
       list = render_to_string partial: 'user_list', locals: {users: users}
       render json: {paginator: paginator, list: list}
       return
     end
     if request.referer.present? && request.referer.include?("/admin/users") && !request.referer.include?("/admin/users/index")
-      @users = User.order(:id).page(session[:admin_user_list_page])
+      @users = User.not_deleted.order(:id).page(session[:admin_user_list_page])
     else
       session[:admin_user_list_page] = nil
-      @users = User.order(:id).page(params[:page])
+      @users = User.not_deleted.order(:id).page(params[:page])
     end
   end
 
@@ -38,11 +38,12 @@ class Admin::UsersController < Admin::ApplicationController
 
   def destroy
     user = User.find_by(id: params[:id])
-    unless user.destroy
+    unless user.soft_delete
       redirect_to({action: 'index', id: user.id}, {alert: t('controller.admin.cant_delete')})
     end
     if user.id == current_user.id
-      redirect_to cancel_user_registration_path
+      Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name)
+      redirect_to(new_user_session_path, {notice: t('controller.admin.delete')})
     else
       redirect_to({action: 'index'}, {notice: t('controller.admin.delete')})
     end
