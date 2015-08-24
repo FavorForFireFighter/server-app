@@ -1,0 +1,19 @@
+%h1.page-header= t('passwords.edit.title')
+
+= render partial: 'common/error_message', locals: {model:resource}
+
+= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f|
+  = f.hidden_field :reset_password_token
+
+  .form-group
+    = f.label :password,t('registrations.edit.new_password'), class: 'control-label'
+    %span.help-block= "#{@minimum_password_length} #{t('registrations.new.password_notice')}"
+    .controls
+      = f.password_field :password, class: 'form-control', autofocus: true, autocomplete: "off"
+
+  .form-group
+    = f.label :password_confirmation,t('registrations.edit.new_password_confirmation'), class: 'control-label'
+    .controls
+      = f.password_field :password_confirmation, class: 'form-control', autocomplete: "off"
+
+  = f.submit t('passwords.edit.submit'), class: "btn btn-large btn-primary", name: nil
