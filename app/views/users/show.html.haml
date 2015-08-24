@@ -4,4 +4,4 @@
 = render partial: 'common/show_key_value', locals: {key: User.human_attribute_name(:username), value:@user.username}
 = render partial: 'common/show_key_value', locals: {key: User.human_attribute_name(:email), value:@user.email}
 
-= link_to t('helpers.submit.edit'), edit_user_path(id:@user.id),{class:"btn btn-primary", role:"button"}
+= link_to t('helpers.submit.edit'), edit_user_registration_path(id:@user.id),{class:"btn btn-primary", role:"button"}
