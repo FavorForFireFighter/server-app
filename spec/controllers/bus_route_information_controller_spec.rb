@@ -5,7 +5,7 @@ RSpec.describe BusRouteInformationController, type: :controller do
     @user = FactoryGirl.create(:user)
     @route_information = FactoryGirl.create(:bus_route_information)
   end
-  let(:login) { session[:id] = @user.id }
+  let(:login) { sign_in :user, @user }
 
   describe "GET #show" do
     before { login }
@@ -46,18 +46,6 @@ RSpec.describe BusRouteInformationController, type: :controller do
     it "change bus_line_name" do
       patch :update, id: @route_information.id, bus_route_information: {bus_line_name: @valid_name}
       expect(@route_information.reload.bus_line_name).to eq @valid_name
-    end
-
-    context "invalid name" do
-      before do
-        @invalid_name = "duplicate name"
-        FactoryGirl.create(:bus_route_information, bus_line_name: @invalid_name, bus_operation_company_id: @route_information.bus_operation_company_id)
-      end
-      it "has error" do
-        patch :update, id: @route_information.id, bus_route_information: {bus_line_name: @invalid_name}
-        expect(response).to render_template :edit
-        expect(assigns[:route_information].errors).to be_present
-      end
     end
   end
 

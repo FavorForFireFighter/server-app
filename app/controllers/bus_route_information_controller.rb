@@ -1,7 +1,5 @@
 class BusRouteInformationController < ApplicationController
-  include SessionHelper
-
-  before_action :let_login, except: [:show]
+  before_action :authenticate_user!, except: [:show]
 
   def show
     @route_information = BusRouteInformation.with_bus_operation_company.find_by(id: params[:id])
