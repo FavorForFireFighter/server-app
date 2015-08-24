@@ -1,6 +1,5 @@
 exports = this
 $ ->
-  $('.selectpicker').selectpicker('mobile')
   if $('#bus_stop_list_map').is(':visible')
     map = create_leaflet_map 'bus_stop_list_map'
 
@@ -46,6 +45,9 @@ $ ->
           dom.href = href + "&page=1"
       return
     $('#list').html result.list
+    $page = $('#page')
+    if $page
+      $page.val result.page
     return
   return
 ##

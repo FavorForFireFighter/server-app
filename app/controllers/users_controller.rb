@@ -49,7 +49,7 @@ class UsersController < ApplicationController
   end
 
   def photos
-    @bus_stop_photos = BusStopPhoto.where(user_id: current_user.id).order(:id).includes(:bus_stop).references(:bus_stop)
+    @bus_stop_photos = BusStopPhoto.where(user_id: current_user.id).order("bus_stop_photos.created_at DESC").includes(:bus_stop).references(:bus_stop)
   end
 
   private
