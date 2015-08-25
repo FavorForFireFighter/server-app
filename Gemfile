@@ -83,7 +83,7 @@ gem 'seed-fu', '~> 2.3'
 gem 'validates_email_format_of'
 
 # versioning
-gem 'paper_trail', '~> 4.0.0.rc'
+gem 'paper_trail', '~> 4.0.0'
 
 # xml
 gem 'nokogiri'
