@@ -20,8 +20,19 @@
   .panel-heading
     .panel-title= t('bus_route_information.common.bus_stops')
   .panel-body
-    - @route_information.bus_stops.each_with_index do |bus_stop, index|
-      - if index == 0 || index % 3 == 0
-        .row
-      .col-md-4.route_stops_name
-        = bus_stop.name
+    .row
+      .col-md-8
+        #bus_route_information_list_map
+      #bus_stop_list_list.col-md-4
+        %table.table.table-hover
+          %thead
+            %tr
+              %th.stop_name= t('bus_stops.common.index.stop_name')
+              %th.action= t('bus_stops.common.index.action')
+          %tbody#stop_list
+            - @route_information.bus_stops.each_with_index do |bus_stop, index|
+              %tr(id="stop_#{bus_stop.id}")
+                %td= bus_stop.name
+                %td= link_to t('bus_stops.common.index.show_stop'), bus_stop_path(bus_stop.id), class: "btn btn-default"
+                %td.hide.bus_stop_location(data-id="#{bus_stop.id}" data-longitude="#{bus_stop.location.x}" data-latitude="#{bus_stop.location.y}" data-name="#{bus_stop.name}")
+

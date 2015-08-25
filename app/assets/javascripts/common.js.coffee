@@ -121,10 +121,10 @@ createTableLine = (val, marker) ->
   tr.on 'click', (e)->
     exports.tableClick = true
     marker.openPopup()
-    highlightTableLine(tr)
+    exports.highlightTableLine(tr)
     return
   marker.on 'click', ()->
-    highlightTableLine(tr)
+    exports.highlightTableLine(tr)
     return
   return tr
 
@@ -140,7 +140,7 @@ noResultTableLine = () ->
   tr.append $('<td>').attr('colspan', 2).text("該当データがありませんでした").css("textAlign", "center")
   return tr
 
-highlightTableLine = ($dom) ->
+exports.highlightTableLine = ($dom) ->
   if $dom
     if exports.hilightedDom
       exports.hilightedDom.removeClass("success")
