@@ -36,7 +36,7 @@ $ ->
 
   $('#pager').on 'ajax:success', (e, result, status, xhr)->
     $('#pager').html result.paginator
-    $('#pager').find('a').each (index,dom)->
+    $('#pager').find('a').each (index, dom)->
       href = dom.href
       if href isnt "" and href.indexOf("page=") is -1
         if href.indexOf("?") is -1
@@ -58,7 +58,7 @@ exports.create_leaflet_map = (map_id) ->
   L.tileLayer('http://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png', {
     attribution: "<a href='http://www.gsi.go.jp/kikakuchousei/kikakuchousei40182.html' target='_blank'>国土地理院</a>"
   }).addTo(map);
-  L.control.scale({imperial:false}).addTo(map);
+  L.control.scale({imperial: false}).addTo(map);
   return map
 
 ##
@@ -125,6 +125,7 @@ createTableLine = (val, marker) ->
     return
   marker.on 'click', ()->
     exports.highlightTableLine(tr)
+    exports.scrollToDom(tr)
     return
   return tr
 
@@ -148,3 +149,9 @@ exports.highlightTableLine = ($dom) ->
     exports.hilightedDom = $dom
   else
     exports.hilightedDom.removeClass("success")
+
+exports.scrollToDom = ($dom) ->
+  list = document.getElementById('bus_stop_list_list')
+  offset = $dom.offset()
+  list.scrollTop = offset.top - list.offsetTop + list.scrollTop - (list.clientHeight / 2 - 50)
+  return

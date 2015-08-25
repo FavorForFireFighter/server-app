@@ -2,6 +2,14 @@ class BusRouteInformationController < ApplicationController
   before_action :authenticate_user!, except: [:show]
 
   def show
+    if request.xhr?
+      stops = BusStop.order_by_distance(params[:longitude], params[:latitude])
+                  .merge(BusRouteInformation.where(id: params[:id]))
+                  .with_bus_route_information
+      ids = stops.ids
+      render json: {ids: ids}
+      return
+    end
     @route_information = BusRouteInformation.with_bus_operation_company.find_by(id: params[:id])
   end
 

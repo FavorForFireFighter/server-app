@@ -13,6 +13,24 @@ $ ->
     createMarkers(data)
     exports.map.setView [data[0].latitude, data[0].longitude], 13
 
+    exports.map.on 'moveend', () ->
+      center = exports.map.getCenter()
+      ajax = $.ajax({
+        url: location.pathname,
+        data: {latitude: center.lat, longitude: center.lng}
+        dataType: 'json',
+        method: 'get'
+      })
+      ajax.done (data) ->
+        ids = data.ids
+        trs = $.map ids, (id)->
+          return $('#stop_' + id)
+        $('tr[id^=stop_]').detach()
+        $('#stop_list').append(trs)
+        $('#bus_stop_list_list').scrollTop(0)
+        return
+      return
+
 getData = () ->
   return $.map $('.bus_stop_location'), (dom, index) ->
     $dom = $(dom)
@@ -31,5 +49,6 @@ createMarkers = (data) ->
       return
     marker.on 'click', () ->
       exports.highlightTableLine(tr)
+      exports.scrollToDom(tr)
       return
   return

@@ -10,6 +10,10 @@ class BusStop < ActiveRecord::Base
           {:longitude => longitude, :latitude => latitude, :meter => meter})
   }
 
+  scope :order_by_distance, ->(longitude, latitude) {
+    order("ST_Distance_Sphere(bus_stops.location::GEOMETRY, ST_GeomFromText('POINT(#{longitude} #{latitude})',4326))")
+  }
+
   scope :with_prefecture, ->() {
     includes(:prefecture)
   }

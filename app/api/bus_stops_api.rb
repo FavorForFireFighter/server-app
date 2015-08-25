@@ -9,7 +9,9 @@ class BusStopsApi < Grape::API
       optional :keyword, type: String, desc: "filter keyword"
     end
     get :list, jbuilder: 'bus_stops/list.json.jbuilder' do
-      bus_stops = BusStop.distance_sphere(params[:longitude], params[:latitude], 3000).search_by_keyword(params[:keyword]).with_prefecture
+      bus_stops = BusStop.distance_sphere(params[:longitude], params[:latitude], 3000)
+                      .order_by_distance(params[:longitude], params[:latitude])
+                      .search_by_keyword(params[:keyword]).with_prefecture
       if bus_stops.blank?
         status 404
       end
