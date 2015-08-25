@@ -1,10 +1,10 @@
 ---
 ja:
   application:
-    header_title: BusMap
-    title: BusMap
+    header_title: crowdb.us
+    title: crowdb.us
     search_bus: 探す
-    create_account: 新規作成
+    create_account: ユーザ登録
     login: ログイン
     create_bus: 新規作成
     user_info: ユーザ情報

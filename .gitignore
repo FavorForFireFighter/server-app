@@ -22,3 +22,6 @@
 /support/*.csv
 /config/email.yml
 /config/aws.yml
+
+# paperclip
+/public/system

@@ -1,4 +1,11 @@
 = render partial: 'common/flash_messages'
 
-%h1 Top#index
-%p Find me in app/views/top/index.html.haml
+.jumbotron
+  %h1
+    = t('application.title')
+  %p
+    = t('top.message1')
+  %p
+    = t('top.message2')
+  %p
+    = link_to t('application.search_bus'), bus_stops_path, {class: "btn btn-primary btn-lg"}

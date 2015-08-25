@@ -6,7 +6,7 @@ ja:
       forgot_password: パスワードを忘れた場合
   registrations:
     new:
-      title: 新規作成
+      title: ユーザ登録
       password_notice: 文字以上で半角英字、数字を組み合わせて入力してください
     edit:
       title: ユーザ情報編集
