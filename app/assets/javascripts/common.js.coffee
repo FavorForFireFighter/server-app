@@ -18,14 +18,21 @@ $ ->
       clearData()
       $('#stop_list').append noResultTableLine()
       return
-    $form.on 'ajax:complete', ()->
+    $form.one 'ajax:complete', () ->
+      id = $('#selected_id').val()
+      $('#selected_id').val("")
+      if id
+        selected = $('#' + id)
+        selected.trigger 'click'
+        exports.scrollToDom selected
       return
     map.on 'moveend', () ->
-      if !exports.tableClick
-        setLatLng()
+      setLatLng()
+      if exports.doSearch
         $form.submit()
-      exports.tableClick = false
+      exports.doSearch = true
       return
+    exports.doSearch = true
 
   if $('#bus_stop_show_map').is(':visible')
     map = create_leaflet_map 'bus_stop_show_map'
@@ -69,6 +76,7 @@ exports.create_leaflet_map = (map_id) ->
 setMapView = (pos) ->
   latitude = $('#latitude').val()
   longitude = $('#longitude').val()
+  zoom = $('#zoom').val() || 10
   if latitude.length == 0 || longitude.length == 0
     pos = pos || {}
     crd = pos.coords
@@ -78,13 +86,14 @@ setMapView = (pos) ->
     else
       longitude = 139.766865
       latitude = 35.681109
-  exports.map.setView [latitude, longitude], 10
+  exports.map.setView [latitude, longitude], zoom
   return
 
 setLatLng = () ->
   center = exports.map.getCenter()
   $('#latitude').val(center.lat)
   $('#longitude').val(center.lng)
+  $('#zoom').val(exports.map.getZoom())
   return
 
 searchBusStops = () ->
@@ -115,17 +124,20 @@ addMarker = (latitude, longitude, name) ->
   return L.marker([latitude, longitude]).bindPopup(name).addTo(exports.drawLayer)
 
 createTableLine = (val, marker) ->
-  tr = $('<tr>')
+  tr = $('<tr>').attr(id: "stop_" + val.id)
   tr.append $('<td>').text(val.name).addClass("stop_name")
   tr.append createActionButtons(val.id).addClass("action")
   tr.on 'click', (e)->
-    exports.tableClick = true
-    marker.openPopup()
+    exports.doSearch = false
+    exports.map.panTo(marker.getLatLng())
     exports.highlightTableLine(tr)
+    marker.openPopup()
     return
   marker.on 'click', ()->
+    exports.doSearch = false
     exports.highlightTableLine(tr)
     exports.scrollToDom(tr)
+    exports.map.fire 'openpopup'
     return
   return tr
 
@@ -149,6 +161,7 @@ exports.highlightTableLine = ($dom) ->
     exports.hilightedDom = $dom
   else
     exports.hilightedDom.removeClass("success")
+  $('#selected_id').val($dom.attr('id'))
 
 exports.scrollToDom = ($dom) ->
   list = document.getElementById('bus_stop_list_list')

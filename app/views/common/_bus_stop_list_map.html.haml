@@ -6,6 +6,8 @@
         = text_field_tag "keyword","", class: "form-control"
       = hidden_field_tag "latitude", ""
       = hidden_field_tag "longitude", ""
+      = hidden_field_tag "zoom", ""
+      = hidden_field_tag "selected_id", ""
       = submit_tag "#{t('bus_stops.common.index.submit')}", class: "btn btn-large btn-primary", name: nil
 .row
   .col-md-8
