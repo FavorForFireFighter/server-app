@@ -14,6 +14,7 @@ $ ->
       setMarker($prefecture_location.data('latitude'), $prefecture_location.data('longitude'))
       getMapCenter()
       $('#location_updated_at').val("false")
+      $('#no_location_updated').removeClass("hide")
 
     $('#get_current_position').on 'click', (e) ->
       e.preventDefault()
@@ -28,6 +29,10 @@ $ ->
     $('.line_name_reload').on 'click', reloadLineName
 
     setListenersOfRouteInformationInputs()
+
+  location_updated_at = $('#location_updated_at').val()
+  if location_updated_at is "false" or exports.isBlank(location_updated_at)
+    $('#no_location_updated').removeClass("hide")
 
   return
 
@@ -86,6 +91,7 @@ getMapCenter = () ->
 
 markerMoved = () ->
   $('#location_updated_at').val('true')
+  $('#no_location_updated').addClass("hide")
   return
 
 disabled = ($dom, disabled) ->

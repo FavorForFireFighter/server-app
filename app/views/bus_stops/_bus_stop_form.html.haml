@@ -109,10 +109,11 @@
       .panel-title= t('bus_stops.common.location_info')
     .panel-body
       %button#get_current_position.btn.btn-primary= t('bus_stops.common.current_position')
+      .alert.alert-warning.hide#no_location_updated= t('bus_stops.common.no_location_updated')
       #bus_stop_new_map
       = hidden_field_tag :latitude, @latitude
       = hidden_field_tag :longitude, @longitude
-      = hidden_field_tag :location_updated_at, @bus_stop.location_updated_at || "false"
+      = hidden_field_tag :location_updated_at, @location_updated_at || "false"
     - @prefectures.each do |prefecture|
       .hide(id="prefecture_location_#{prefecture.id}" data-latitude="#{prefecture.location.y}" data-longitude="#{prefecture.location.x}")
 

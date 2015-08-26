@@ -27,6 +27,7 @@ ja:
       bus_type_5: 以上に含まれないもの
       prefecture: 都道府県
       current_position: 現在地の取得
+      no_location_updated: 位置情報が更新されていません
       index:
         keyword: バス停名で絞り込み
         stop_name: バス停名

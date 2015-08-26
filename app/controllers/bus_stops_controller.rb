@@ -31,6 +31,7 @@ class BusStopsController < ApplicationController
       else
         @bus_stop = bus_stop_orig.dup
         @route_information = bus_stop_orig.bus_route_informations.with_bus_operation_company
+        @bus_stop.location_updated_at = nil
       end
     end
 
@@ -43,6 +44,7 @@ class BusStopsController < ApplicationController
     _params = new_params
     @latitude = params[:latitude]
     @longitude = params[:longitude]
+    @location_updated_at = params[:location_updated_at]
 
     bus_stop = BusStop.new _params
     bus_stop.last_modify_user_id = current_user.id
@@ -87,6 +89,7 @@ class BusStopsController < ApplicationController
     @route_information = @bus_stop.bus_route_informations.with_bus_operation_company
     @latitude = @bus_stop.location.try(:y)
     @longitude = @bus_stop.location.try(:x)
+    @location_updated_at = @bus_stop.location_updated_at
   end
 
   def update
@@ -115,7 +118,9 @@ class BusStopsController < ApplicationController
       return
     end
 
-    if params[:location_updated_at] == "true"
+    if params[:location_updated_at] == "false"
+      bus_stop.location_updated_at = nil
+    else
       bus_stop.location_updated_at = Time.zone.now
     end
 
