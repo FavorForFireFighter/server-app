@@ -35,10 +35,14 @@ class BusStopsController < ApplicationController
     end
 
     @prefectures = Prefecture.all.order(:id)
+    @latitude = @bus_stop.location.try(:y)
+    @longitude = @bus_stop.location.try(:x)
   end
 
   def create
     _params = new_params
+    @latitude = params[:latitude]
+    @longitude = params[:longitude]
 
     bus_stop = BusStop.new _params
     bus_stop.last_modify_user_id = current_user.id
@@ -81,10 +85,14 @@ class BusStopsController < ApplicationController
     @bus_stop = BusStop.find_by(id: params[:id])
     @prefectures = Prefecture.all.order(:id)
     @route_information = @bus_stop.bus_route_informations.with_bus_operation_company
+    @latitude = @bus_stop.location.try(:y)
+    @longitude = @bus_stop.location.try(:x)
   end
 
   def update
     _params = new_params
+    @latitude = params[:latitude]
+    @longitude = params[:longitude]
 
     bus_stop = BusStop.find_by(id: params[:id])
     bus_stop.attributes = _params
