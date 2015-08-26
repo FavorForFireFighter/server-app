@@ -6,11 +6,13 @@ class BusRouteInformationController < ApplicationController
       stops = BusStop.order_by_distance(params[:longitude], params[:latitude])
                   .merge(BusRouteInformation.where(id: params[:id]))
                   .with_bus_route_information
+                  .without_soft_destroyed
       ids = stops.ids
       render json: {ids: ids}
       return
     end
     @route_information = BusRouteInformation.with_bus_operation_company.find_by(id: params[:id])
+    @bus_stops = @route_information.bus_stops.reject { |bus_stop| bus_stop.soft_destroyed_at.present? }
   end
 
   def edit

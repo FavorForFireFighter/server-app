@@ -23,7 +23,7 @@
               %th.stop_name= t('bus_stops.common.index.stop_name')
               %th.action= t('bus_stops.common.index.action')
           %tbody#stop_list
-            - @route_information.bus_stops.each_with_index do |bus_stop, index|
+            - @bus_stops.each_with_index do |bus_stop, index|
               %tr(id="stop_#{bus_stop.id}")
                 %td= bus_stop.name
                 %td= link_to t('bus_stops.common.index.show_stop'), bus_stop_path(bus_stop.id), class: "btn btn-default"

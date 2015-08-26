@@ -5,7 +5,7 @@ class BusStopsController < ApplicationController
   end
 
   def show
-    @bus_stop = BusStop.find_by(id: params[:id])
+    @bus_stop = BusStop.without_soft_destroyed.find_by(id: params[:id])
 
     @information = {}
     @bus_stop.bus_route_informations.each do |route_information|
@@ -24,7 +24,7 @@ class BusStopsController < ApplicationController
       @bus_stop = BusStop.new
       @route_information = []
     else
-      bus_stop_orig = BusStop.find_by(id: params[:id])
+      bus_stop_orig = BusStop.without_soft_destroyed.find_by(id: params[:id])
       if bus_stop_orig.blank?
         @bus_stop = BusStop.new
         @route_information = []
@@ -82,7 +82,7 @@ class BusStopsController < ApplicationController
   end
 
   def edit
-    @bus_stop = BusStop.find_by(id: params[:id])
+    @bus_stop = BusStop.without_soft_destroyed.find_by(id: params[:id])
     @prefectures = Prefecture.all.order(:id)
     @route_information = @bus_stop.bus_route_informations.with_bus_operation_company
     @latitude = @bus_stop.location.try(:y)
@@ -94,7 +94,7 @@ class BusStopsController < ApplicationController
     @latitude = params[:latitude]
     @longitude = params[:longitude]
 
-    bus_stop = BusStop.find_by(id: params[:id])
+    bus_stop = BusStop.without_soft_destroyed.find_by(id: params[:id])
     bus_stop.attributes = _params
     bus_stop.last_modify_user_id = current_user.id
     if params[:bus_route_information].blank?
