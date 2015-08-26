@@ -6,7 +6,7 @@ current = {}
 $ ->
   if $('#bus_stop_new_map').is(':visible')
     current.map = create_leaflet_map 'bus_stop_new_map'
-    exports.initMap(current.map)
+    initMarker()
     setMarker()
     $('#bus_stop_prefecture_id').on 'change', (e) ->
       id = $(e.currentTarget).val()
@@ -34,6 +34,9 @@ $ ->
   if location_updated_at is "false" or exports.isBlank(location_updated_at)
     $('#no_location_updated').removeClass("hide")
 
+  $('#new_bus_stop').on 'submit', () ->
+    getMapCenter()
+    return
   return
 
 ##
@@ -62,6 +65,18 @@ setMarker = (lat, lng) ->
       return
     current.marker = marker
   getMapCenter()
+  current.map.setView([lat, lng], current.map.getMaxZoom())
+  return
+
+initMarker = () ->
+  lat = 35.681109
+  lng = 139.766865
+  marker = L.marker([lat, lng], {draggable: true}).addTo(current.map)
+  marker.on 'dragend', (e)->
+    getMapCenter()
+    markerMoved()
+    return
+  current.marker = marker
   current.map.setView([lat, lng], 15)
   return
 
