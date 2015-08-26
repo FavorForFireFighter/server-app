@@ -32,6 +32,7 @@ Rails.application.routes.draw do
 
     get 'bus_stops/', to: "bus_stops#index"
     get 'bus_stops/:id', to: "bus_stops#show", as: "bus_stop"
+    delete 'bus_stops/:id', to: "bus_stops#destroy", as: "destroy_bus_stop"
     delete 'bus_stops/:id/photos_destroy/:photo_id', to: "bus_stops#photos_destroy", as: "destroy_bus_stop_photos"
 
     get 'photos/index'

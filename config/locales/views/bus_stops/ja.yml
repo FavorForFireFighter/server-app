@@ -49,6 +49,8 @@ ja:
         copy: コピーを作成
         edit_line: 路線名編集
         show_line: 路線情報
+        destroy: 削除
+        destroy_confirm: このバス停を削除してもよろしいですか？
       new:
         reload_line_name: 路線名再取得
     index:

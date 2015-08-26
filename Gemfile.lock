@@ -183,6 +183,8 @@ GEM
     json_spec (1.1.4)
       multi_json (~> 1.0)
       rspec (>= 2.0, < 4.0)
+    kakurenbo-puti (0.1.0)
+      activerecord (>= 4.1.0)
     kaminari (0.16.3)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
@@ -411,6 +413,7 @@ DEPENDENCIES
   jquery-rails
   json_expressions
   json_spec
+  kakurenbo-puti
   kaminari
   nokogiri
   paper_trail (~> 4.0.0)

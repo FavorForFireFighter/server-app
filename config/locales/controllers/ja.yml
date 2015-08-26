@@ -19,8 +19,10 @@ ja:
       not_allow_delete: 違う投稿者の写真は削除できません
       cant_delete: 削除できませんでした
       delete: 写真を削除しました
+      soft_delete: バス停を削除しました
     admin:
       delete: ユーザを削除しました
       cant_delete: ユーザを削除できませんでした
+      already_destroyed: 'このバス停は%{soft_destroyed_at}に削除されています'
     bus_route_information:
       updated: 更新が完了しました

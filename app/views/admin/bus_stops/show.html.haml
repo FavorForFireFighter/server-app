@@ -2,6 +2,9 @@
   %ul
     %li
       %button.btn.btn-default#back_btn #{t('helpers.links.back')}
+    %li
+      = link_to t('bus_stops.common.show.destroy'), admin_destroy_bus_stop_path(@bus_stop.id), class: "btn btn-danger", method: 'delete', data:{confirm: t('bus_stops.common.show.destroy_confirm')}
+
   %h1 #{t('.title')}
 
 .page-content

@@ -33,6 +33,18 @@ RSpec.describe Admin::BusStopsController, type: :controller do
     end
   end
 
+  describe "DELETE #destroy" do
+    before { login }
+    it "redirect to " do
+      delete :destroy, id: @stop.id
+      expect(response).to redirect_to admin_bus_stop_path(@stop.id)
+    end
+    it "soft destroy" do
+      delete :destroy, id: @stop.id
+      expect(@stop.reload.soft_destroyed?).to be_truthy
+    end
+  end
+
   describe "GET #photos_destroy" do
     before do
       login

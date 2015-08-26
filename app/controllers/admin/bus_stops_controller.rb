@@ -4,6 +4,9 @@ class Admin::BusStopsController < Admin::ApplicationController
 
   def show
     @bus_stop = BusStop.find_by(id: params[:id])
+    if @bus_stop.soft_destroyed?
+      flash.now[:warning] = t('controller.admin.already_destroyed', soft_destroyed_at: @bus_stop.soft_destroyed_at)
+    end
 
     @information = {}
     @bus_stop.bus_route_informations.each do |route_information|
@@ -15,6 +18,15 @@ class Admin::BusStopsController < Admin::ApplicationController
       end
     end
     @photos = @bus_stop.bus_stop_photos.includes(:user).references(:user).order("bus_stop_photos.created_at DESC")
+  end
+
+  def destroy
+    bus_stop = BusStop.find_by(id: params[:id])
+    unless bus_stop.soft_destroy
+      redirect_to admin_bus_stop_path(bus_stop.id), alert: t('controller.bus_stops.cant_delete')
+      return
+    end
+    redirect_to admin_bus_stop_path(bus_stop.id), notice: t('controller.bus_stops.soft_delete')
   end
 
   def photos_destroy

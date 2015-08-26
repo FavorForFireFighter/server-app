@@ -107,3 +107,5 @@ gem 'aws-sdk', '~>1'
 
 gem 'devise'
 gem 'devise-i18n'
+# soft destroy
+gem 'kakurenbo-puti'
