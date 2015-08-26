@@ -2,9 +2,11 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 exports = this
+current = {}
 $ ->
   if $('#bus_stop_new_map').is(':visible')
-    exports.map = create_leaflet_map 'bus_stop_new_map'
+    current.map = create_leaflet_map 'bus_stop_new_map'
+    exports.initMap(current.map)
     setMarker()
     $('#bus_stop_prefecture_id').on 'change', (e) ->
       id = $(e.currentTarget).val()
@@ -33,11 +35,11 @@ $ ->
 # new
 ##
 setMarker = (lat, lng) ->
-  if typeof lat is 'undefined' and typeof lng is 'undefined'
+  if exports.isBlank(lat) or exports.isBlank(lng)
     lat = $('#latitude').val()
     lng = $('#longitude').val()
 
-  if lat is "" or lng is ""
+  if exports.isBlank(lat) or exports.isBlank(lng)
     if navigator.geolocation
       setMarkerByCurrentPosition()
       return
@@ -45,16 +47,17 @@ setMarker = (lat, lng) ->
       lat = 35.681109
       lng = 139.766865
 
-  if exports.marker
-    exports.marker.setLatLng [lat, lng]
+  if current.marker
+    current.marker.setLatLng [lat, lng]
   else
-    marker = L.marker([lat, lng], {draggable: true}).addTo(exports.map)
+    marker = L.marker([lat, lng], {draggable: true}).addTo(current.map)
     marker.on 'dragend', (e)->
       getMapCenter()
       markerMoved()
-    exports.marker = marker
+      return
+    current.marker = marker
   getMapCenter()
-  exports.map.setView([lat, lng], 15)
+  current.map.setView([lat, lng], 15)
   return
 
 setMarkerByCurrentPosition = (err) ->
@@ -76,7 +79,7 @@ setMarkerByCurrentPosition = (err) ->
   return
 
 getMapCenter = () ->
-  center = exports.marker.getLatLng()
+  center = current.marker.getLatLng()
   $('#latitude').val(center.lat)
   $('#longitude').val(center.lng)
   return

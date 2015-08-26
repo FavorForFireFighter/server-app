@@ -1,16 +1,22 @@
 exports = this
+current = {}
 $ ->
   if $('#bus_stop_list_map').is(':visible')
-    map = create_leaflet_map 'bus_stop_list_map'
-
-    exports.drawLayer = L.layerGroup().addTo(map)
-    exports.map = map
-    if navigator.geolocation
-      navigator.geolocation.getCurrentPosition setMapView, setMapView
-    else
-      setMapView()
-
     $form = $('#bus_stop_list_form')
+
+    map = create_leaflet_map 'bus_stop_list_map'
+    current.drawLayer = L.layerGroup().addTo(map)
+    current.map = map
+    latitude = $('#latitude').val()
+    longitude = $('#longitude').val()
+    if exports.isBlank(latitude) || exports.isBlank(longitude)
+      exports.initMap map
+      if navigator.geolocation
+        navigator.geolocation.getCurrentPosition setCurrentPosition, exports.cantGetPosition
+    else
+      exports.initMap map, latitude, longitude, $('#zoom').val()
+      $form.trigger 'submit'
+
     $form.on 'ajax:success', (e, result, status, xhr) ->
       setResult(result)
       return
@@ -24,28 +30,28 @@ $ ->
       if id
         selected = $('#' + id)
         selected.trigger 'click'
-        exports.scrollToDom selected
+        exports.scrollToDom selected, 'bus_stop_list_list'
       return
     map.on 'moveend', () ->
       setLatLng()
-      if exports.doSearch
+      if current.doSearch
         $form.submit()
-      exports.doSearch = true
+      current.doSearch = true
       return
-    exports.doSearch = true
+    current.doSearch = true
 
   if $('#bus_stop_show_map').is(':visible')
     map = create_leaflet_map 'bus_stop_show_map'
     latitude = $('#bus_stop_latitude').data('location')
     longitude = $('#bus_stop_longitude').data('location')
-    L.marker([latitude, longitude]).addTo(map)
-    map.fitBounds([[latitude, longitude], [latitude, longitude]])
+    marker = L.marker([latitude, longitude]).addTo(map)
+    map.setView marker.getLatLng(), map.getMaxZoom()
 
   $('#pager').on 'ajax:success', (e, result, status, xhr)->
     $('#pager').html result.paginator
     $('#pager').find('a').each (index, dom)->
       href = dom.href
-      if href isnt "" and href.indexOf("page=") is -1
+      if exports.isBlank(href) and href.indexOf("page=") is -1
         if href.indexOf("?") is -1
           dom.href = href + "?page=1"
         else
@@ -68,36 +74,61 @@ exports.create_leaflet_map = (map_id) ->
   L.control.scale({imperial: false}).addTo(map);
   return map
 
+exports.initMap = (map, lat, lng, zoom) ->
+  if exports.isBlank(lat) || exports.isBlank(lng)
+    lat = 35.681109
+    lng = 139.766865
+  zoom = if exports.isBlank zoom then 13 else zoom
+  map.setView [lat, lng], zoom
+  return
+
+exports.isBlank = (val)->
+  if typeof val is 'undefined' || val is null
+    return true
+  if val.length is 0
+    return true
+  if typeof  val is 'object' && val is {}
+    return true
+  return false
+
+exports.cantGetPosition = () ->
+  alert("現在地を取得できませんでした")
+
+exports.highlightTableLine = ($dom, $predom) ->
+  if $predom
+    $predom.removeClass("success")
+  if $dom
+    $dom.addClass("success")
+
+exports.scrollToDom = ($dom, scroll_area_id) ->
+  list = document.getElementById(scroll_area_id)
+  offset = $dom.offset()
+  list.scrollTop = offset.top - list.offsetTop + list.scrollTop - (list.clientHeight / 2 - 50)
+  return
 ##
 # Local functions
 ##
 
 # bus_stop#index
-setMapView = (pos) ->
-  latitude = $('#latitude').val()
-  longitude = $('#longitude').val()
-  zoom = $('#zoom').val() || 10
-  if latitude.length == 0 || longitude.length == 0
-    pos = pos || {}
+setCurrentPosition = (pos) ->
+  if pos.coords
     crd = pos.coords
-    if crd
-      longitude = crd.longitude
-      latitude = crd.latitude
-    else
-      longitude = 139.766865
-      latitude = 35.681109
-  exports.map.setView [latitude, longitude], zoom
+    longitude = crd.longitude
+    latitude = crd.latitude
+    current.map.setView [latitude, longitude], current.map.getZoom()
+  else
+    exports.cantGetPosition
   return
 
 setLatLng = () ->
-  center = exports.map.getCenter()
+  center = current.map.getCenter()
   $('#latitude').val(center.lat)
   $('#longitude').val(center.lng)
-  $('#zoom').val(exports.map.getZoom())
+  $('#zoom').val(current.map.getZoom())
   return
 
 searchBusStops = () ->
-  center = exports.map.getCenter()
+  center = current.map.getCenter()
   data = {latitude: center.lat, longitude: center.lng}
   $.ajax({
     url: "/api/bus_stops/list",
@@ -107,7 +138,7 @@ searchBusStops = () ->
   }).done(setResult).fail(clearData)
 
 clearData = () ->
-  exports.drawLayer.clearLayers()
+  current.drawLayer.clearLayers()
   $('#stop_list').empty()
   return
 
@@ -121,23 +152,23 @@ setResult = (data) ->
   return
 
 addMarker = (latitude, longitude, name) ->
-  return L.marker([latitude, longitude]).bindPopup(name).addTo(exports.drawLayer)
+  return L.marker([latitude, longitude]).bindPopup(name).addTo(current.drawLayer)
 
 createTableLine = (val, marker) ->
   tr = $('<tr>').attr(id: "stop_" + val.id)
   tr.append $('<td>').text(val.name).addClass("stop_name")
   tr.append createActionButtons(val.id).addClass("action")
   tr.on 'click', (e)->
-    exports.doSearch = false
-    exports.map.panTo(marker.getLatLng())
-    exports.highlightTableLine(tr)
+    current.doSearch = false
+    current.map.panTo(marker.getLatLng())
+    highlightTableLine(tr)
     marker.openPopup()
     return
   marker.on 'click', ()->
-    exports.doSearch = false
-    exports.highlightTableLine(tr)
-    exports.scrollToDom(tr)
-    exports.map.fire 'openpopup'
+    current.doSearch = false
+    highlightTableLine(tr)
+    exports.scrollToDom(tr, 'bus_stop_list_list')
+    current.map.fire 'openpopup'
     return
   return tr
 
@@ -153,18 +184,8 @@ noResultTableLine = () ->
   tr.append $('<td>').attr('colspan', 2).text("該当データがありませんでした").css("textAlign", "center")
   return tr
 
-exports.highlightTableLine = ($dom) ->
-  if $dom
-    if exports.hilightedDom
-      exports.hilightedDom.removeClass("success")
-    $dom.addClass("success")
-    exports.hilightedDom = $dom
-  else
-    exports.hilightedDom.removeClass("success")
+highlightTableLine = ($dom) ->
+  exports.highlightTableLine($dom, current.highlightedDom)
+  current.highlightedDom = $dom
   $('#selected_id').val($dom.attr('id'))
-
-exports.scrollToDom = ($dom) ->
-  list = document.getElementById('bus_stop_list_list')
-  offset = $dom.offset()
-  list.scrollTop = offset.top - list.offsetTop + list.scrollTop - (list.clientHeight / 2 - 50)
   return

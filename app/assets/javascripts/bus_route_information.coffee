@@ -3,33 +3,39 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 exports = this
+current = {}
 $ ->
   if $('#bus_route_information_list_map').is(':visible')
     map = create_leaflet_map 'bus_route_information_list_map'
 
-    exports.drawLayer = L.layerGroup().addTo(map)
-    exports.map = map
+    current.drawLayer = L.layerGroup().addTo(map)
+    current.map = map
     data = getData()
     createMarkers(data)
-    exports.map.setView [data[0].latitude, data[0].longitude], 13
+    current.map.setView [data[0].latitude, data[0].longitude], 13
 
-    exports.map.on 'moveend', () ->
-      center = exports.map.getCenter()
-      ajax = $.ajax({
-        url: location.pathname,
-        data: {latitude: center.lat, longitude: center.lng}
-        dataType: 'json',
-        method: 'get'
-      })
-      ajax.done (data) ->
-        ids = data.ids
-        trs = $.map ids, (id)->
-          return $('#stop_' + id)
-        $('tr[id^=stop_]').detach()
-        $('#stop_list').append(trs)
-        $('#bus_stop_list_list').scrollTop(0)
-        return
+    current.map.on 'moveend', () ->
+      if current.doSearch
+        center = current.map.getCenter()
+        ajax = $.ajax({
+          url: location.pathname,
+          data: {latitude: center.lat, longitude: center.lng}
+          dataType: 'json',
+          method: 'get'
+        })
+        ajax.done (data) ->
+          ids = data.ids
+          trs = $.map ids, (id)->
+            return $('#stop_' + id)
+          $('tr[id^=stop_]').detach()
+          $('#stop_list').append(trs)
+          $('#bus_stop_list_list').scrollTop(0)
+          return
+      current.doSearch = true
       return
+
+    current.doSearch = true
+    current.map.fire('moveend')
 
 getData = () ->
   return $.map $('.bus_stop_location'), (dom, index) ->
@@ -42,13 +48,21 @@ getData = () ->
 
 createMarkers = (data) ->
   $.each data, (index, info)->
-    marker = L.marker([info.latitude, info.longitude]).bindPopup(info.name).addTo(exports.drawLayer)
+    marker = L.marker([info.latitude, info.longitude]).bindPopup(info.name).addTo(current.drawLayer)
     tr = $('#stop_' + info.id).on 'click', () ->
+      current.doSearch = false
+      current.map.panTo marker.getLatLng()
       marker.openPopup()
-      exports.highlightTableLine($(this))
+      highlightTableLine($(this))
       return
     marker.on 'click', () ->
-      exports.highlightTableLine(tr)
-      exports.scrollToDom(tr)
+      current.doSearch = false
+      highlightTableLine(tr)
+      exports.scrollToDom(tr, 'bus_stop_list_list')
       return
+  return
+
+highlightTableLine = ($dom) ->
+  exports.highlightTableLine($dom, current.highlightedDom)
+  current.highlightedDom = $dom
   return

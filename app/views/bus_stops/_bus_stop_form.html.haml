@@ -112,7 +112,7 @@
       #bus_stop_new_map
       = hidden_field_tag :latitude, @bus_stop.location.try(:y)
       = hidden_field_tag :longitude, @bus_stop.location.try(:x)
-      = hidden_field_tag :location_updated_at, @bus_stop.location_updated_at
+      = hidden_field_tag :location_updated_at, @bus_stop.location_updated_at || "false"
     - @prefectures.each do |prefecture|
       .hide(id="prefecture_location_#{prefecture.id}" data-latitude="#{prefecture.location.y}" data-longitude="#{prefecture.location.x}")
 
