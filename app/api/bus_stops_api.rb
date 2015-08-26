@@ -13,7 +13,7 @@ class BusStopsApi < Grape::API
                       .order_by_distance(params[:longitude], params[:latitude])
                       .search_by_keyword(params[:keyword]).with_prefecture
       unless request.referer.include?("admin")
-        bus_Stops.without_soft_destroyed
+        bus_stops.without_soft_destroyed
       end
       if bus_stops.blank?
         status 404
