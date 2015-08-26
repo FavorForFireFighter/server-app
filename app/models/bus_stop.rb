@@ -29,6 +29,7 @@ class BusStop < ActiveRecord::Base
   }
 
   validates :name, presence: true
+  validates :prefecture_id, presence: true
 
   def set_location(latitude, longitude)
     if latitude.blank? || longitude.blank?

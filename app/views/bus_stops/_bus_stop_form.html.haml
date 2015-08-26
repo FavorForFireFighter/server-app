@@ -9,9 +9,9 @@
         .controls
           = f.text_field :name, class: 'form-control', required: true
       .form-group
-        = f.label :prefecture, class: 'control-label'
+        = f.label :prefecture_id, class: 'control-label'
         .controls
-          = f.select :prefecture_id, @prefectures.map{|e| [e.name, e.id]}, {prompt: t('helpers.select.prompt')}, {class: 'selectpicker', required: true}
+          = f.select :prefecture_id, @prefectures.map{|e| [e.name, e.id]}, {prompt: t('helpers.select.prompt')}, {class: 'selectpicker'}
 
   .panel.panel-default#bus_stop_route_information_panel
     .panel-heading
