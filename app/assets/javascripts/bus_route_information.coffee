@@ -8,11 +8,17 @@ $ ->
   if $('#bus_route_information_list_map').is(':visible')
     map = create_leaflet_map 'bus_route_information_list_map'
 
-    current.drawLayer = L.layerGroup().addTo(map)
+    current.drawLayer = L.featureGroup().addTo(map)
     current.map = map
     data = getData()
+    if exports.isBlank(data)
+      exports.initMap current.map
+      tr = $('<tr>')
+      tr.append $('<td>').attr('colspan', 2).text("該当データがありませんでした").css("textAlign", "center")
+      $('#stop_list').append tr
+      return
     createMarkers(data)
-    current.map.setView [data[0].latitude, data[0].longitude], 13
+    current.map.fitBounds(current.drawLayer.getBounds())
 
     current.map.on 'moveend', () ->
       if current.doSearch
