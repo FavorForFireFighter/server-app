@@ -6,6 +6,7 @@
   %h1 #{t('.title')}
 
 .page-content
+  = render partial: 'common/flash_messages'
   .panel.panel-default
     .panel-heading
       %a#collapse-link(data-toggle="collapse" aria-expanded="true" aria-controls="collapse-form" href="#collapse-form" role="button")
@@ -15,20 +16,17 @@
     #collapse-form.panel-collapse.collapse.in
       .panel-body#photos_search
         = form_tag(admin_photos_index_path, method:'get', remote: true, id: "photo_search_form") do
-          %ul.list-inline
-            %li
-              .form-group
-                = label_tag "keyword","#{t('.keyword')}", class: 'control-label'
-                .controls
-                  = text_field_tag "keyword",'', class: 'form-control'
-            %li
-              .form-group
-                = label_tag "prefecture","#{t('.prefecture')}", class: 'control-label'
-                .controls
-                  = select_tag "prefecture", options_for_select(Prefecture.all.map{|e| [e.name,e.id]}), {prompt: t('helpers.select.prompt'), class:"selectpicker"}
-            %li
-              = hidden_field_tag :page, ""
-              = submit_tag t('.submit'), name:nil, class:"btn btn-primary", id: "photo_search_btn"
+          .form-group
+            = label_tag "keyword","#{t('.keyword')}", class: 'control-label'
+            .controls
+              = text_field_tag "keyword",'', class: 'form-control'
+          .form-group
+            = label_tag "prefecture","#{t('.prefecture')}", class: 'control-label'
+            .controls
+              = select_tag "prefecture", options_for_select(Prefecture.all.map{|e| [e.name,e.id]}), {prompt: t('helpers.select.prompt'), class:"selectpicker"}
+          = hidden_field_tag :page, ""
+          = submit_tag t('.submit'), name:nil, class:"btn btn-primary", id: "photo_search_btn"
+
 
   #list
     = render partial: 'common/bus_stop_photo_list', locals: {bus_stop_photos: @bus_stop_photos}
