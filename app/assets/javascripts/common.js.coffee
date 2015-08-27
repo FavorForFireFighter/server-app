@@ -11,6 +11,7 @@ $ ->
     longitude = $('#longitude').val()
     if exports.isBlank(latitude) || exports.isBlank(longitude)
       exports.initMap map
+      $form.trigger 'submit'
       if navigator.geolocation
         navigator.geolocation.getCurrentPosition setCurrentPosition, exports.cantGetPosition
     else
