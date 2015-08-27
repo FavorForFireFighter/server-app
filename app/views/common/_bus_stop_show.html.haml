@@ -54,7 +54,9 @@
               - destroy_photo_path = admin_destroy_bus_stop_photos_path(bus_stop.id, bus_stop_photo.id)
             - elsif current_user.try(:id) == bus_stop_photo.user.id
               - destroy_photo_path = destroy_bus_stop_photos_path(bus_stop.id, bus_stop_photo.id)
-            - if defined? destroy_photo_path
+            - else
+              - destroy_photo_path = nil
+            - unless destroy_photo_path.blank?
               = link_to t('bus_stops.common.show.delete_photo'), destroy_photo_path, method:'delete', data:{confirm: t('bus_stops.common.show.delete_confirm')}, class:"btn btn-danger"
       - unless is_admin_layout?
         %hr
