@@ -138,11 +138,11 @@ addToRouteInformation = (company, company_id, line, line_id) ->
 
   link_to_show_line = $('<a>').addClass("btn btn-default").text("路線情報").attr({
     href: "/bus_route_information/" + line_id,
-    target: "bus_line"
+    target: "_blank"
   })
   link_to_edit_line = $('<a>').addClass("btn btn-primary").text("路線名編集").attr({
     href: "/bus_route_information/" + line_id + "/edit",
-    target: "bus_line"
+    target: "_blank"
   })
   tr.append $('<td>').append([link_to_show_line, link_to_edit_line]).addClass('table_actions')
   tr.append $('<input>').val(line_id).attr({name: 'bus_route_information[id][]', type: 'hidden'})
