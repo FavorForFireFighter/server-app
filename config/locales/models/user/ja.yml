@@ -11,3 +11,4 @@ ja:
         email: メールアドレス
         admin_flag: 管理者権限
         login: ユーザ名
+        current_password: 現在のパスワード
