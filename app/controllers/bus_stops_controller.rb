@@ -120,7 +120,7 @@ class BusStopsController < ApplicationController
 
     if params[:location_updated_at] == "false"
       bus_stop.location_updated_at = nil
-    else
+    elsif params[:location_updated_at] == "true"
       bus_stop.location_updated_at = Time.zone.now
     end
 
