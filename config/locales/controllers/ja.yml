@@ -24,5 +24,6 @@ ja:
       delete: ユーザを削除しました
       cant_delete: ユーザを削除できませんでした
       already_destroyed: 'このバス停は%{soft_destroyed_at}に削除されています'
+      change_admin: 権限に変更があったためログアウトしました
     bus_route_information:
       updated: 更新が完了しました

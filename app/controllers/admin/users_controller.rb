@@ -26,14 +26,19 @@ class Admin::UsersController < Admin::ApplicationController
 
   def update
     user = User.find_by(id: params[:id])
-    user.attributes = edit_params
+    user.attributes = remove_empty_password edit_params
     unless user.save
       @user = user
       render :edit
       return
     end
+    if user.id == current_user.id and !user.admin_flag
+      Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name)
+      redirect_to(new_user_session_path, {notice: t('controller.admin.change_admin')})
+    else
+      redirect_to({action: 'show', id: user.id}, {notice: t('controller.common.updated')})
+    end
 
-    redirect_to({action: 'show', id: user.id}, {notice: t('controller.common.updated')})
   end
 
   def destroy
@@ -56,5 +61,13 @@ class Admin::UsersController < Admin::ApplicationController
   private
   def edit_params
     params.require(:user).permit(:email, :admin_flag, :password, :password_confirmation)
+  end
+
+  def remove_empty_password(params)
+    if params[:password].blank? and params[:password_confirmation].blank?
+      params.delete(:password)
+      params.delete(:password_confirmation)
+    end
+    params
   end
 end
