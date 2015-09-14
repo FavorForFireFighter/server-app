@@ -81,7 +81,7 @@ Rails.application.configure do
       :storage => :s3,
       :s3_host_name => 's3-ap-northeast-1.amazonaws.com',
       :s3_credentials => {
-          :bucket => 'crowdbus'
+          :bucket => 'crowdb.us'
       }
   }
 end
