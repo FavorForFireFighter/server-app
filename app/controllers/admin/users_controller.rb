@@ -27,6 +27,7 @@ class Admin::UsersController < Admin::ApplicationController
   def update
     user = User.find_by(id: params[:id])
     user.attributes = remove_empty_password edit_params
+    user.skip_reconfirmation!
     unless user.save
       @user = user
       render :edit

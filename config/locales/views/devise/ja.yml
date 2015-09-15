@@ -23,6 +23,10 @@ ja:
       new_password: 新しいパスワード
       new_password_confirmation: 新しいパスワードの確認
       submit: 再設定
+  confirmations:
+    new:
+      title: 確認用トークンの再送信
+      submit: 再送信
   mailer:
     confirmation:
       account_body: 下記リンクからアカウントを有効にしてください。

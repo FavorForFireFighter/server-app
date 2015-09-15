@@ -1,0 +1,13 @@
+%h1.page-header= t('confirmations.new.title')
+
+= render partial: 'common/flash_messages'
+= render partial: 'common/error_message', locals: {model:resource}
+
+= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f|
+
+  .form-group
+    = f.label :email, class: 'control-label'
+    .controls
+      = f.email_field :email, class: 'form-control', required: true, autofocus: true
+
+  = f.submit t('confirmations.new.submit'), class: "btn btn-large btn-primary", name: nil
