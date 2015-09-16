@@ -18,8 +18,10 @@ ja:
       unconfirmed: 'メールアドレスの本人確認が必要です。'
       deleted_account: 'アカウントは削除されています。'
     mailer:
-      confirmation_instructions:
+      confirmation_on_create_instructions:
         subject: 'crowdb.us: アカウントの有効化について'
+      confirmation_instructions:
+        subject: 'crowdb.us: アカウントのメールアドレス変更について'
       reset_password_instructions:
         subject: 'crowdb.us: パスワードの再設定について'
       unlock_instructions:

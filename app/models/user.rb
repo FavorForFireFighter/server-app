@@ -43,6 +43,12 @@ class User < ActiveRecord::Base
     !deleted_at ? super : :deleted_account
   end
 
+  # override Devise::Models::Confirmable#send_on_create_confirmation_instructions
+  def send_on_create_confirmation_instructions
+    generate_confirmation_token! unless @raw_confirmation_token
+    send_devise_notification(:confirmation_on_create_instructions, @raw_confirmation_token, {})
+  end
+
   private
   def validate_password?
     if encrypted_password.present?
