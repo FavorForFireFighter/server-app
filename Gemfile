@@ -109,3 +109,6 @@ gem 'devise'
 gem 'devise-i18n'
 # soft destroy
 gem 'kakurenbo-puti'
+
+# iso-2022-jp mail
+gem 'mail-iso-2022-jp'

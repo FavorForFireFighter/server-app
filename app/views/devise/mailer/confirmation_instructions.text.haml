@@ -1,0 +1,13 @@
+#{@resource.username} 様
+\
+-if @resource.unconfirmed_email.blank?
+  下記リンクからアカウントを有効にしてください。
+  \
+  = confirmation_url(@resource, confirmation_token: @token)
+- else
+  下記リンクから新しいメールアドレスを有効にできます
+  \
+  = confirmation_url(@resource, confirmation_token: @token)
+\
+\---
+http://www.crowdb.us

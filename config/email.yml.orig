@@ -11,6 +11,7 @@ development:
     :host: localhost:3000
   :default_options:
     :from: noreply@example.com
+    :charset: ISO-2022-JP
 test:
   :delivery_method: :test
   :default_options:

@@ -19,11 +19,11 @@ ja:
       deleted_account: 'アカウントは削除されています。'
     mailer:
       confirmation_instructions:
-        subject: 'アカウントの有効化について'
+        subject: 'crowdb.us: アカウントの有効化について'
       reset_password_instructions:
-        subject: 'パスワードの再設定について'
+        subject: 'crowdb.us: パスワードの再設定について'
       unlock_instructions:
-        subject: 'アカウントの凍結解除について'
+        subject: 'crowdb.us: アカウントの凍結解除について'
     omniauth_callbacks:
       failure: "%{kind} アカウントによる認証に失敗しました。理由：（%{reason}）"
       success: "%{kind} アカウントによる認証に成功しました。"
