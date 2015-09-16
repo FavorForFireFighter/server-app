@@ -84,4 +84,6 @@ Rails.application.configure do
           :bucket => 'tokyo-univ-busmap-test'
       }
   }
+
+  config.action_mailer.default_url_options = { host: '52.69.218.242' }
 end
