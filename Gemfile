@@ -112,3 +112,5 @@ gem 'kakurenbo-puti'
 
 # iso-2022-jp mail
 gem 'mail-iso-2022-jp'
+
+gem 'devise_token_auth'

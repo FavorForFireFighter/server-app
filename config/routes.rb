@@ -45,6 +45,9 @@ Rails.application.routes.draw do
     get 'users/:id/photos', to: "users#photos_index", as: "user_photos"
   end
 
+  namespace :api do
+    mount_devise_token_auth_for 'User', at: 'auth'
+  end
   mount API::Base => '/'
 
   # The priority is based upon order of creation: first created -> highest priority.
