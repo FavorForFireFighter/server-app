@@ -114,3 +114,5 @@ gem 'kakurenbo-puti'
 gem 'mail-iso-2022-jp'
 
 gem 'devise_token_auth'
+
+gem 'rack-cors', :require => 'rack/cors'

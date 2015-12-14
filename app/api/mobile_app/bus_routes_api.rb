@@ -8,7 +8,6 @@ module MobileApp
         requires :id, type: Integer, desc: "bus_route_information id"
       end
       get :show, jbuilder: 'mobile_app/bus_routes/show.json.jbuilder' do
-        authenticate_user!
         bus_route = BusRouteInformation.where(id: params[:id])
                         .with_bus_operation_company
                         .includes(:bus_stops)

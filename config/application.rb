@@ -41,5 +41,15 @@ module BusmapServer
     config.middleware.use(Rack::Config) do |env|
       env['api.tilt.root'] = Rails.root.join "app", "views", "api"
     end
+
+    config.middleware.insert_before 0, "Rack::Cors" do
+      allow do
+        origins '*'
+        resource '/api/app/*',
+                 :headers => :any,
+                 :methods => [:get, :post, :delete, :patch, :options],
+                 :expose => ['UID', 'Access-Token', 'Client', 'Expiry']
+      end
+    end
   end
 end
