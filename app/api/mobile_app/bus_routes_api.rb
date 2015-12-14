@@ -2,18 +2,21 @@ module MobileApp
   class BusRoutesApi < Grape::API
     resource :bus_routes do
 
-      # GET /api/app/bus_routes/companies
-      desc "Search company"
+      # GET /api/app/bus_routes/show
+      desc "Show bus_routes"
       params do
-        requires :name, type: String, desc: "Company name"
+        requires :id, type: Integer, desc: "bus_route_information id"
       end
-      get :companies, jbuilder: 'bus_routes/companies.json.jbuilder' do
+      get :show, jbuilder: 'mobile_app/bus_routes/show.json.jbuilder' do
         authenticate_user!
-        companies = BusOperationCompany.search_by_keyword(params[:name]).order(:id)
-        if companies.blank?
+        bus_route = BusRouteInformation.where(id: params[:id])
+                        .with_bus_operation_company
+                        .includes(:bus_stops)
+                        .first
+        if bus_route.blank?
           status 404
         end
-        @companies = companies
+        @bus_route_information = bus_route
       end
 
       # GET /api/bus_routes/lines

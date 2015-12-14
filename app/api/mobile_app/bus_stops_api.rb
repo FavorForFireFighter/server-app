@@ -10,7 +10,6 @@ module MobileApp
       end
       get :list, jbuilder: 'mobile_app/bus_stops/list.json.jbuilder' do
         bus_stops = BusStop.distance_sphere(params[:longitude], params[:latitude], 3000)
-                        .order_by_distance(params[:longitude], params[:latitude])
         if bus_stops.blank?
           status 404
         end
