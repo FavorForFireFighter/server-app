@@ -7,20 +7,31 @@ module MobileApp
       params do
         requires :latitude, type: Float, desc: "latitude"
         requires :longitude, type: Float, desc: "longitude"
-        optional :keyword, type: String, desc: "filter keyword"
       end
-      get :list, jbuilder: 'bus_stops/list.json.jbuilder' do
-        authenticate_user!
+      get :list, jbuilder: 'mobile_app/bus_stops/list.json.jbuilder' do
         bus_stops = BusStop.distance_sphere(params[:longitude], params[:latitude], 3000)
                         .order_by_distance(params[:longitude], params[:latitude])
-                        .search_by_keyword(params[:keyword]).with_prefecture
-        unless request.referer.present? && request.referer.include?("admin")
-          bus_stops = bus_stops.without_soft_destroyed
-        end
         if bus_stops.blank?
           status 404
         end
         @bus_stops = bus_stops
+      end
+
+      # GET/api/app/bus_stops/show
+      desc "Show bus_stops"
+      params do
+        requires :id, type: Integer, desc: "bus_stop id"
+      end
+      get :show, jbuilder: 'mobile_app/bus_stops/show.json.jbuilder' do
+        bus_stop = BusStop.where(id: params[:id])
+                       .includes(:bus_route_informations)
+                       .includes(:prefecture)
+                       .includes(:bus_stop_photos)
+                       .first
+        if bus_stop.blank?
+          status 404
+        end
+        @bus_stop = bus_stop
       end
     end
 
