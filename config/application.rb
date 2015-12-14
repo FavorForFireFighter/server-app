@@ -37,7 +37,7 @@ module BusmapServer
     config.time_zone = 'Tokyo'
     config.action_view.field_error_proc = proc { |html_tag, instance| "<div class='has-error'>#{html_tag}</div>".html_safe }
     config.paths.add "app/api", glob: "**/*.rb"
-    config.autoload_paths += %W(#{config.root}/app/api)
+    config.autoload_paths += %W(#{config.root}/app/api/*)
     config.middleware.use(Rack::Config) do |env|
       env['api.tilt.root'] = Rails.root.join "app", "views", "api"
     end
