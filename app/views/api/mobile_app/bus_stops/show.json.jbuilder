@@ -1,5 +1,5 @@
-if @bus_stop.blank?
-  json.error 'Not Found bus_stop'
+if @error.present?
+  json.error @error
 else
   json.id @bus_stop.id
   json.name @bus_stop.name
