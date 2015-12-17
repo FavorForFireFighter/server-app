@@ -89,7 +89,51 @@ module MobileApp
           @bus_stop = bus_stop
         end
       end
-    end
 
+      # POST /api/app/bus_stops/create
+      desc "Create bus_stop"
+      params do
+        requires :name, type: String, desc: "bus_stop name"
+        requires :prefecture, type: Integer, desc: "prefecture id"
+        requires :latitude, type: Float, desc: "latitude"
+        requires :longitude, type: Float, desc: "longitude"
+        requires :location_updated_at, type: Boolean, desc: "location is updated"
+        requires :routes, type: Array[Integer], desc: "bus_route_information ids"
+      end
+      post :create, jbuilder: 'mobile_app/bus_stops/show.json.jbuilder' do
+        authenticate_user!
+        bus_stop = BusStop.new
+        routes = params[:routes].reject(&:blank?)
+        if routes.blank?
+          @error = "RouteInformation is required."
+          return
+        end
+
+        bus_stop.last_modify_user_id = @user.id
+        bus_stop.name = params[:name]
+        bus_stop.prefecture = Prefecture.find_by id: params[:prefecture]
+
+        unless bus_stop.set_location params[:latitude], params[:longitude]
+          @error = "Invalid location."
+          return
+        end
+
+        if params[:location_updated_at]
+          bus_stop.location_updated_at = Time.zone.now
+        end
+
+        unless bus_stop.save
+          @error = bus_stop.errors.full_messages.first
+          return
+        end
+
+        # update bus_route_information
+        route_information = BusRouteInformation.where(id: params[:routes])
+        bus_stop.bus_route_informations = route_information
+
+        @bus_stop = bus_stop
+      end
+
+    end
   end
 end
