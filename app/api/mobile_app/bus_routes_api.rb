@@ -18,6 +18,30 @@ module MobileApp
         @bus_route_information = bus_route
       end
 
+      # PATCH /api/app/bus_routes/edit
+      desc "Edit bur_route_information"
+      params do
+        requires :id, type: Integer, desc: "bus_route_information id"
+        requires :name, type: String, desc: "bus_line_name"
+      end
+      patch :edit, jbuilder: 'mobile_app/bus_routes/show.json.jbuilder' do
+        bus_route_information = BusRouteInformation.where(id: params[:id])
+                                    .with_bus_operation_company
+                                    .includes(:bus_stops)
+                                    .first
+        if bus_route_information.blank?
+          status 400
+          @error = "Not found BusRouteInformation"
+          return
+        end
+        bus_route_information.bus_line_name = params[:name]
+        unless bus_route_information.save
+          @error = bus_route_information.errors.full_messages.first
+          return
+        end
+        @bus_route_information = bus_route_information
+      end
+
       # GET /api/bus_routes/lines
       desc "Search line"
       params do
