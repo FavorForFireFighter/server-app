@@ -42,12 +42,27 @@ module MobileApp
         @bus_route_information = bus_route_information
       end
 
-      # GET /api/bus_routes/lines
+      # GET /api/app/bus_routes/companies
+      desc "Search company"
+      params do
+        requires :name, type: String, desc: "Company name"
+      end
+      get :companies, jbuilder: 'mobile_app/bus_companies/list.json.jbuilder' do
+        authenticate_user!
+        companies = BusOperationCompany.search_by_keyword(params[:name]).order(:id)
+        if companies.blank?
+          status 404
+        end
+        @companies = companies
+      end
+
+      # GET /api/app/bus_routes/lines
       desc "Search line"
       params do
         requires :company_id, type: Integer, desc: "Company id"
       end
-      get :lines, jbuilder: 'bus_routes/lines.json.jbuilder' do
+      get :lines, jbuilder: 'mobile_app/bus_routes/list.json.jbuilder' do
+        authenticate_user!
         lines = BusRouteInformation.where(bus_operation_company_id: params[:company_id]).order(:id)
         if lines.blank?
           status 404
@@ -55,50 +70,42 @@ module MobileApp
         @lines = lines
       end
 
-      # POST /api/bus_routes/register
-      desc "Search line"
+      # POST /api/app/bus_routes/create
+      desc "Create line"
       params do
         requires :company_id, type: Integer, desc: "Company id"
         requires :company_name, type: String, desc: "Company name"
-        requires :line_id, type: Integer, desc: "Line id"
-        requires :line_name, type: String, desc: "Line name"
+        requires :route_id, type: Integer, desc: "Line id"
+        requires :route_name, type: String, desc: "Line name"
+        requires :bus_type, type: Integer, desc: "bus type id"
       end
-      post :register, jbuilder: 'bus_routes/register.json.jbuilder' do
+      post :create, jbuilder: 'mobile_app/bus_routes/create.json.jbuilder' do
         if params[:company_id] < 0
           company = BusOperationCompany.new(name: params[:company_name])
           unless company.save
             status 400
-            @result = false
+            @error = company.errors.full_messages.first
             return
           end
         else
           company = BusOperationCompany.find_by(id: params[:company_id])
         end
 
-        if params[:line_id] < 0
-          line = BusRouteInformation.new(bus_type_id: 1, bus_operation_company_id: company.id, bus_line_name: params[:line_name])
-          unless line.save
+        if params[:route_id] < 0
+          bus_type = params[:bus_type]
+          unless BusRouteInformation::BusTypes.include? params[:bus_type]
+            bus_type = 5
+          end
+          bus_route = BusRouteInformation.new(bus_type_id: bus_type, bus_operation_company_id: company.id, bus_line_name: params[:route_name])
+          unless bus_route.save
             status 400
-            @result = false
+            @error = bus_route.errors.full_messages.first
             return
           end
         end
 
-        @result = true
         @company = company
-        @line = line
-      end
-
-      # GET /api/bus_routes/line
-      desc "Get Line"
-      params do
-        requires :line_id, type: Integer, desc: "bus_route_information_id"
-      end
-      get :line, jbuilder: 'bus_routes/line.json.jbuilder' do
-        @route_information = BusRouteInformation.find_by(id: params[:line_id])
-        if @route_information.blank?
-          status 404
-        end
+        @bus_route = bus_route
       end
 
     end
