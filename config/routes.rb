@@ -8,9 +8,9 @@ Rails.application.routes.draw do
 
   #resources :users, :except => [:index, :destroy]
   devise_for :users, :controllers => {
-                       :registrations => 'users/registrations',
-                       :passwords => 'users/passwords'
-                   }, :skip => [:sessions]
+      :registrations => 'users/registrations',
+      :passwords => 'users/passwords'
+  }, :skip => [:sessions]
   as :user do
     get 'sign_in' => 'devise/sessions#new', :as => :new_user_session
     post 'sign_in' => 'devise/sessions#create', :as => :user_session
@@ -46,7 +46,10 @@ Rails.application.routes.draw do
   end
 
   namespace :api do
-    mount_devise_token_auth_for 'User', at: 'auth'
+    mount_devise_token_auth_for 'User', at: 'auth', controllers: {
+        sessions: 'devise_token_auth_overrides/sessions',
+        registrations: 'devise_token_auth_overrides/registrations'
+    }
   end
   mount API::Base => '/'
 
