@@ -56,12 +56,12 @@ module MobileApp
         @companies = companies
       end
 
-      # GET /api/app/bus_routes/lines
-      desc "Search line"
+      # GET /api/app/bus_routes/routes
+      desc "Search route"
       params do
         requires :company_id, type: Integer, desc: "Company id"
       end
-      get :lines, jbuilder: 'mobile_app/bus_routes/list.json.jbuilder' do
+      get :routes, jbuilder: 'mobile_app/bus_routes/list.json.jbuilder' do
         authenticate_user!
         lines = BusRouteInformation.where(bus_operation_company_id: params[:company_id]).order(:id)
         if lines.blank?
@@ -71,7 +71,7 @@ module MobileApp
       end
 
       # POST /api/app/bus_routes/create
-      desc "Create line"
+      desc "Create route"
       params do
         requires :company_id, type: Integer, desc: "Company id"
         requires :company_name, type: String, desc: "Company name"
