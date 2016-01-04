@@ -40,11 +40,15 @@ module MobileApp
         requires :id, type: Integer, desc: "bus_stop id"
         requires :name, type: String, desc: "bus_stop name"
         requires :prefecture, type: Integer, desc: "prefecture id"
-        requires :latitude, type: Float, desc: "latitude"
-        requires :longitude, type: Float, desc: "longitude"
+        requires :latitude, type: Float, values: -90.0..+90.0, desc: "latitude"
+        requires :longitude, type: Float, values: -180.0..+180.0, desc: "longitude"
         requires :location_updated_at, type: Boolean, desc: "location is updated"
         requires :routes, type: Array[Integer], desc: "bus_route_information ids"
         requires :photos, type: Array[Integer], desc: "bus_stop_photo ids"
+        optional :new_photos, desc: "new bus_stop_photos", type: Array do
+          requires :title, type: String
+          requires :photo, type: String
+        end
       end
       patch :edit, jbuilder: 'mobile_app/bus_stops/show.json.jbuilder' do
         authenticate_user!
@@ -84,6 +88,20 @@ module MobileApp
           bus_stop.bus_stop_photos.each do |photo|
             unless params[:photos].include? photo.id
               photo.destroy
+            end
+          end
+
+          unless params[:new_photos].blank?
+            params[:new_photos].each do |photo|
+              bus_stop_photo = BusStopPhoto.new
+              bus_stop_photo.photo = photo.photo
+              bus_stop_photo.title = photo.title
+              bus_stop_photo.bus_stop_id = bus_stop.id
+              bus_stop_photo.user_id = @user.id
+              unless bus_stop_photo.save
+                @error = bus_stop_photo.errors.full_messages
+                return
+              end
             end
           end
           @bus_stop = bus_stop

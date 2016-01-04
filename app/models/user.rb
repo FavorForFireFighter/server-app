@@ -1,7 +1,8 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :lockable, :timeoutable and :omniauthable, :rememberable,
-  devise :database_authenticatable, :registerable, :trackable, :validatable, :confirmable, :recoverable
+  devise :database_authenticatable, :confirmable, :registerable, :trackable, :validatable, :recoverable
+
   include DeviseTokenAuth::Concerns::User
 =begin
   has_secure_password
@@ -19,6 +20,25 @@ class User < ActiveRecord::Base
   scope :not_deleted, -> () {
     where(deleted_at: nil)
   }
+
+  def email_changed?
+    super
+  end
+
+  # override devise method to include additional info as opts hash
+  def send_confirmation_instructions(opts=nil)
+    unless @raw_confirmation_token
+      generate_confirmation_token!
+    end
+
+    opts = pending_reconfirmation? ? { to: unconfirmed_email } : { }
+    send_devise_notification(:confirmation_instructions, @raw_confirmation_token, opts)
+  end
+
+  # override devise method to include additional info as opts hash
+  def send_reset_password_instructions(opts=nil)
+    super(opts)
+  end
 
   def self.find_for_database_authentication(warden_conditions)
     conditions = warden_conditions.dup

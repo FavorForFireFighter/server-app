@@ -48,7 +48,7 @@ module BusmapServer
         resource '/api/app/*',
                  :headers => :any,
                  :methods => [:get, :post, :delete, :patch, :options]
-        resource '/api/auth/*',
+        resource '/api/auth*',
                  :headers => :any,
                  :methods => [:get, :post, :delete, :patch, :options],
                  :expose => ['UID', 'Access-Token', 'Client', 'Expiry']
