@@ -18,6 +18,7 @@ ja:
       user: ユーザ一覧
       bus_stop: バス停一覧
       photos: 投稿写真一覧
+      reports: 報告写真一覧
   helpers:
     links:
       back: 戻る

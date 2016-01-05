@@ -27,3 +27,6 @@ ja:
       change_admin: 権限に変更があったためログアウトしました
     bus_route_information:
       updated: 更新が完了しました
+    bus_stop_photos:
+      cant_reset: 報告回数をリセットできませんでした
+      reset: 報告回数をリセットしました

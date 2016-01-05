@@ -8,3 +8,7 @@ ja:
         search: 検索項目
         search_note: (クリックで表示/非表示)
         submit: 検索
+      reporting:
+        title: 報告写真一覧
+        reset: 報告回数のリセット
+        reset_confirm: この写真の報告回数をリセットしてもよろしいですか？

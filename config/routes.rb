@@ -36,6 +36,8 @@ Rails.application.routes.draw do
     delete 'bus_stops/:id/photos_destroy/:photo_id', to: "bus_stops#photos_destroy", as: "destroy_bus_stop_photos"
 
     get 'photos/index'
+    get 'photos/reporting', to: "photos#reporting"
+    patch 'photos/reset/:id', to: "photos#reset_reporting", as: "reset_reporting"
 
     get 'users/index', to: "users#index", as: "users"
     get 'users/:id', to: "users#show", as: "user"
@@ -43,6 +45,7 @@ Rails.application.routes.draw do
     patch 'users/:id', to: "users#update"
     delete 'users/:id', to: "users#destroy", as: "destroy_user"
     get 'users/:id/photos', to: "users#photos_index", as: "user_photos"
+
   end
 
   namespace :api do

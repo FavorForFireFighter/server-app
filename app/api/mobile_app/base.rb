@@ -24,5 +24,6 @@ module MobileApp
     mount MobileApp::BusStopsApi
     mount MobileApp::BusRoutesApi
     mount MobileApp::UsersApi
+    mount MobileApp::BusStopPhotosApi
   end
 end

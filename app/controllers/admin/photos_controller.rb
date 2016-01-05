@@ -14,6 +14,29 @@ class Admin::PhotosController < Admin::ApplicationController
     @bus_stop_photos = BusStopPhoto.order("bus_stop_photos.created_at DESC").includes(:bus_stop).references(:bus_stop).page(params[:page])
   end
 
+  def reporting
+    @bus_stop_photos = BusStopPhoto.where("bus_stop_photos.reporting > 0")
+                           .order("bus_stop_photos.reporting DESC")
+                           .includes(:bus_stop)
+                           .references(:bus_stop)
+                           .page(params[:page])
+  end
+
+  def reset_reporting
+    bus_stop_photo = BusStopPhoto.find_by(id: params[:id])
+    if bus_stop_photo.blank?
+      redirect_to admin_photos_reporting_path, alert: t('controller.bus_stop_photos.cant_reset')
+      return
+    end
+
+    bus_stop_photo.reporting = 0
+    unless bus_stop_photo.save
+      redirect_to admin_photos_reporting_path, alert: t('controller.bus_stop_photos.cant_reset')
+      return
+    end
+    redirect_to admin_photos_reporting_path, notice: t('controller.bus_stop_photos.reset')
+  end
+
   private
   def search_params
     params.permit(:keyword, :prefecture, :page)

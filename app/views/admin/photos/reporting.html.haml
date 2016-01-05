@@ -1,0 +1,36 @@
+.page-header
+  %ul
+    %li
+      .pager_with_entries#pager= render partial: 'common/pager_with_entries', locals: { collection: @bus_stop_photos, remote: false }
+      #pager_page.hide(data-page="")
+  %h1 #{t('.title')}
+
+.page-content
+  = render partial: 'common/flash_messages'
+
+  #list
+    #photos
+  - if @bus_stop_photos.blank?
+    .alert.alert-warning= t('users.photos.no_photos')
+
+  %table.table
+    %thead
+      %tr
+        %th
+        %th= User.human_attribute_name(:username)
+        %th= BusStopPhoto.human_attribute_name(:reporting)
+        %th= BusStopPhoto.human_attribute_name(:created_at)
+        %th Action
+    %tbody
+      - @bus_stop_photos.each do |bus_stop_photo|
+        %tr
+          %td.photo
+            %a(href="#{bus_stop_photo.photo.url}" target="_blank" )
+              = image_tag bus_stop_photo.photo.url(:thumb)
+          %td= bus_stop_photo.user.try(:username)
+          %td= bus_stop_photo.reporting
+          %td= bus_stop_photo.created_at
+          %td
+            = link_to t('users.common.photos.bus_stop_detail'), admin_bus_stop_path(bus_stop_photo.bus_stop.id), class: "btn btn-default"
+            = link_to "#{t('.reset')}",admin_reset_reporting_path(bus_stop_photo.id), method: 'patch', data:{confirm: t('.reset_confirm')},  class: "btn btn-primary"
+            = link_to t('users.common.photos.delete_photo'), admin_destroy_bus_stop_photos_path(bus_stop_photo.bus_stop.id, bus_stop_photo.id), method: 'delete', data:{confirm: t('users.common.photos.delete_confirm')}, class: "btn btn-danger"
