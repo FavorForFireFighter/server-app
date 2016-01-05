@@ -9,7 +9,7 @@ module MobileApp
       end
 
       # PATCH /api/app/users/photo
-      desc "Create user photos"
+      desc "Delete user photos"
       params do
         requires :photos, type: Array[Integer], desc: "bus_stop_photo ids"
       end
@@ -20,6 +20,7 @@ module MobileApp
             photo.destroy
           end
         end
+        @user.reload
       end
     end
   end
