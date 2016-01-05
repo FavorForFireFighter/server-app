@@ -30,13 +30,12 @@ module MobileApp
                                     .includes(:bus_stops)
                                     .first
         if bus_route_information.blank?
-          status 400
-          @error = "Not found BusRouteInformation"
+          status 404
           return
         end
         bus_route_information.bus_line_name = params[:name]
         unless bus_route_information.save
-          @error = bus_route_information.errors.full_messages.first
+          @error = bus_route_information.errors.full_messages
           return
         end
         @bus_route_information = bus_route_information
@@ -84,7 +83,7 @@ module MobileApp
           company = BusOperationCompany.new(name: params[:company_name])
           unless company.save
             status 400
-            @error = company.errors.full_messages.first
+            @error = company.errors.full_messages
             return
           end
         else
@@ -99,7 +98,7 @@ module MobileApp
           bus_route = BusRouteInformation.new(bus_type_id: bus_type, bus_operation_company_id: company.id, bus_line_name: params[:route_name])
           unless bus_route.save
             status 400
-            @error = bus_route.errors.full_messages.first
+            @error = bus_route.errors.full_messages
             return
           end
         end

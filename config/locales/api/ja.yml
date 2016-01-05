@@ -1,0 +1,5 @@
+ja:
+  api:
+    bus_stops:
+      no_route: "路線情報を最低１つは入力してください"
+      invalid_location: "位置情報が不正な値です"

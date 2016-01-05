@@ -11,12 +11,13 @@ module MobileApp
         bus_stop_photo = BusStopPhoto.find_by id: params[:id]
         if bus_stop_photo.blank?
           status 404
-          @error = 'not found photo'
           return
         end
         bus_stop_photo.reporting = bus_stop_photo.reporting + 1
         unless bus_stop_photo.save
           @bus_stop_photo = bus_stop_photo
+        else
+          @error = bus_stop_photo.errors.full_messages
         end
       end
 
