@@ -3,3 +3,6 @@ ja:
     bus_stops:
       no_route: "路線情報を最低１つは入力してください"
       invalid_location: "位置情報が不正な値です"
+      not_found: "指定のバス停が見つかりませんでした"
+    bus_routes:
+      not_found: "指定の路線情報がみつかりませんでした"

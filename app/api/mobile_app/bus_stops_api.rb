@@ -29,6 +29,7 @@ module MobileApp
                        .first
         if bus_stop.blank?
           status 404
+          @error = I18n.t('api.bus_stops.not_found')
         end
         @bus_stop = bus_stop
       end

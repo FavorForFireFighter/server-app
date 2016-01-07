@@ -14,6 +14,7 @@ module MobileApp
                         .first
         if bus_route.blank?
           status 404
+          @error = I18n.t('api.bus_routes.not_found')
         end
         @bus_route_information = bus_route
       end
@@ -25,6 +26,7 @@ module MobileApp
         requires :name, type: String, desc: "bus_line_name"
       end
       patch :edit, jbuilder: 'mobile_app/bus_routes/show.json.jbuilder' do
+        authenticate_user!
         bus_route_information = BusRouteInformation.where(id: params[:id])
                                     .with_bus_operation_company
                                     .includes(:bus_stops)
@@ -49,9 +51,14 @@ module MobileApp
       end
       get :companies, jbuilder: 'mobile_app/bus_companies/list.json.jbuilder' do
         authenticate_user!
+        if params[:name].blank?
+          status 404
+          return
+        end
         companies = BusOperationCompany.search_by_keyword(params[:name]).order(:id)
         if companies.blank?
           status 404
+          return
         end
         @companies = companies
       end
@@ -80,6 +87,7 @@ module MobileApp
         requires :bus_type, type: Integer, desc: "bus type id"
       end
       post :create, jbuilder: 'mobile_app/bus_routes/create.json.jbuilder' do
+        authenticate_user!
         if params[:company_id] < 0
           company = BusOperationCompany.new(name: params[:company_name])
           unless company.save
