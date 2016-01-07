@@ -128,6 +128,7 @@ ja:
       header:
         one: "%{model}にエラーが発生しました。"
         other: "%{model}に%{count}個のエラーが発生しました"
+    not_email: が不適切な形式です
   helpers:
     select:
       prompt: 選択してください

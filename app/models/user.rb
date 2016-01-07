@@ -21,8 +21,11 @@ class User < ActiveRecord::Base
     where(deleted_at: nil)
   }
 
-  def email_changed?
-    super
+  def postpone_email_change?
+    email_changed = self.changed_attributes.include? :email
+    postpone = self.class.reconfirmable && email_changed && email_was.present? && !@bypass_confirmation_postpone && self.email.present?
+    @bypass_confirmation_postpone = false
+    postpone
   end
 
   # override devise method to include additional info as opts hash
@@ -31,7 +34,7 @@ class User < ActiveRecord::Base
       generate_confirmation_token!
     end
 
-    opts = pending_reconfirmation? ? { to: unconfirmed_email } : { }
+    opts = pending_reconfirmation? ? {to: unconfirmed_email} : {}
     send_devise_notification(:confirmation_instructions, @raw_confirmation_token, opts)
   end
 

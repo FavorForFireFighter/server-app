@@ -57,6 +57,7 @@ module MobileApp
         else
           routes = params[:routes].reject(&:blank?)
           if routes.blank?
+            status 400
             @error = I18n.t('api.bus_stops.no_route')
             return
           end
@@ -66,6 +67,7 @@ module MobileApp
           bus_stop.prefecture.id = params[:prefecture]
 
           unless bus_stop.set_location params[:latitude], params[:longitude]
+            status 400
             @error = I18n.t('api.bus_stops.invalid_location')
             return
           end
@@ -75,6 +77,7 @@ module MobileApp
           end
 
           unless bus_stop.save
+            status 400
             @error = bus_stop.errors.full_messages
             return
           end
@@ -98,6 +101,7 @@ module MobileApp
               bus_stop_photo.bus_stop_id = bus_stop.id
               bus_stop_photo.user_id = @user.id
               unless bus_stop_photo.save
+                status 400
                 @error = bus_stop_photo.errors.full_messages
                 return
               end
@@ -122,6 +126,7 @@ module MobileApp
         bus_stop = BusStop.new
         routes = params[:routes].reject(&:blank?)
         if routes.blank?
+          status 400
           @error = I18n.t('api.bus_stops.no_route')
           return
         end
@@ -131,6 +136,7 @@ module MobileApp
         bus_stop.prefecture = Prefecture.find_by id: params[:prefecture]
 
         unless bus_stop.set_location params[:latitude], params[:longitude]
+          status 400
           @error = I18n.t('api.bus_stops.invalid_location')
           return
         end
@@ -140,6 +146,7 @@ module MobileApp
         end
 
         unless bus_stop.save
+          status 400
           @error = bus_stop.errors.full_messages
           return
         end

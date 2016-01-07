@@ -35,6 +35,7 @@ module MobileApp
         end
         bus_route_information.bus_line_name = params[:name]
         unless bus_route_information.save
+          status 400
           @error = bus_route_information.errors.full_messages
           return
         end

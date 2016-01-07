@@ -14,9 +14,10 @@ module MobileApp
           return
         end
         bus_stop_photo.reporting = bus_stop_photo.reporting + 1
-        unless bus_stop_photo.save
+        if bus_stop_photo.save
           @bus_stop_photo = bus_stop_photo
         else
+          status 400
           @error = bus_stop_photo.errors.full_messages
         end
       end

@@ -12,7 +12,7 @@ module DeviseTokenAuthOverrides
     def render_update_error
       render json: {
           status: 'error',
-          errors: @resource.errors.to_hash.merge(full_messages: @resource.errors.full_messages)
+          error:@resource.errors.full_messages
       }, status: 403
     end
 
