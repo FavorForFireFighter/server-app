@@ -8,4 +8,4 @@ Rails.application.config.assets.version = '1.0'
 
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
-Rails.application.config.assets.precompile += %w( top.js users.js session.js bus_stops.js admin/*.js bus_route_information.js)
+Rails.application.config.assets.precompile += %w( top.js users.js session.js bus_stops.js admin/*.js bus_route_information.js static_contents.js)

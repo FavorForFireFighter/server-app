@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  get 'static_contents/photo_guideline'
+  get 'static_contents/terms_of_service'
+  #get 'static_contents/about'
+
   get 'bus_route_information/edit'
 
   get 'bus_route_information/update'

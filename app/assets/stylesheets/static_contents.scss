@@ -1,0 +1,23 @@
+// Place all the styles related to the StaticContents controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.terms_of_service, .photo_guideline {
+  font-size: 30px;
+}
+
+.term {
+  padding: 10px 0;
+}
+
+.term-head {
+  font-weight: bold;
+}
+
+.term-list {
+  padding-left: 10px;
+  padding-bottom: 10px;
+  li {
+    list-style: none;
+  }
+}
