@@ -28,21 +28,6 @@ class User < ActiveRecord::Base
     postpone
   end
 
-  # override devise method to include additional info as opts hash
-  def send_confirmation_instructions(opts=nil)
-    unless @raw_confirmation_token
-      generate_confirmation_token!
-    end
-
-    opts = pending_reconfirmation? ? {to: unconfirmed_email} : {}
-    send_devise_notification(:confirmation_instructions, @raw_confirmation_token, opts)
-  end
-
-  # override devise method to include additional info as opts hash
-  def send_reset_password_instructions(opts=nil)
-    super(opts)
-  end
-
   def self.find_for_database_authentication(warden_conditions)
     conditions = warden_conditions.dup
     if username = conditions.delete(:username)
