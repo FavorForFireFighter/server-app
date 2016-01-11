@@ -9,7 +9,7 @@ module MobileApp
         requires :longitude, type: Float, desc: "longitude"
       end
       get :list, jbuilder: 'mobile_app/bus_stops/list.json.jbuilder' do
-        bus_stops = BusStop.distance_sphere(params[:longitude], params[:latitude], 3000)
+        bus_stops = BusStop.distance_sphere(params[:longitude], params[:latitude], 3000).includes(:versions)
         if bus_stops.blank?
           status 404
         end

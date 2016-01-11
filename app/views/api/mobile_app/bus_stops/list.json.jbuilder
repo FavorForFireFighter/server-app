@@ -5,4 +5,11 @@ json.array! @bus_stops do |bus_stop|
     json.lat bus_stop.location.try(:y)
     json.lng bus_stop.location.try(:x)
   end
+  json.created_at bus_stop.created_at
+  json.updated_at bus_stop.updated_at
+  if bus_stop.versions.blank?
+    json.is_updated false
+  else
+    json.is_updated true
+  end
 end

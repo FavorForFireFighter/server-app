@@ -5,6 +5,8 @@ else
   json.name @bus_stop.name
   json.prefecture @bus_stop.prefecture.try(:id)
   json.prefecture_name @bus_stop.prefecture.try(:name)
+  json.created_at @bus_stop.created_at
+  json.updated_at @bus_stop.updated_at
   json.location do
     json.lat @bus_stop.location.try(:y)
     json.lng @bus_stop.location.try(:x)
