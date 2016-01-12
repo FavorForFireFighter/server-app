@@ -7,7 +7,7 @@ json.array! @bus_stops do |bus_stop|
   end
   json.created_at bus_stop.created_at
   json.updated_at bus_stop.updated_at
-  if bus_stop.last_modify_user.blank?
+  if bus_stop.last_modify_user_id.blank?
     json.is_updated false
   else
     json.is_updated true
