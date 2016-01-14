@@ -7,10 +7,10 @@ module MobileApp
       params do
         requires :latitude, type: Float, desc: "latitude"
         requires :longitude, type: Float, desc: "longitude"
-        optional :range, type: Integer, values: [500, 1000, 2000, 3000], desc: "search range"
+        optional :range, type: Integer, values: [500, 1000, 2000, 3000], default: 3000, desc: "search range"
       end
       get :list, jbuilder: 'mobile_app/bus_stops/list.json.jbuilder' do
-        bus_stops = BusStop.distance_sphere(params[:longitude], params[:latitude], 3000)
+        bus_stops = BusStop.distance_sphere(params[:longitude], params[:latitude], params[:range])
         if bus_stops.blank?
           status 404
         end
