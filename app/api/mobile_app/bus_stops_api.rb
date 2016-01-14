@@ -109,7 +109,7 @@ module MobileApp
               end
             end
           end
-          @bus_stop = bus_stop
+          @bus_stop = bus_stop.reload
         end
       end
 
@@ -157,7 +157,7 @@ module MobileApp
         route_information = BusRouteInformation.where(id: params[:routes])
         bus_stop.bus_route_informations = route_information
 
-        @bus_stop = bus_stop
+        @bus_stop = bus_stop.reload
       end
 
     end
