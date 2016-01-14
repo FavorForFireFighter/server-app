@@ -27,7 +27,23 @@ RSpec.describe MobileApp::BusStopsApi, :type => :request do
       let(:body) { response.body }
       it "return @stop2" do
         is_expected.to eq 200
-        expect(body).to be_json_eql(%([{"name":"#{@stop2.name}","location":{"lat":#{@stop2.location.y},"lng":#{@stop2.location.x}}}]))
+        expect(body).to be_json_eql(%([{"name":"#{@stop2.name}","location":{"lat":#{@stop2.location.y},"lng":#{@stop2.location.x}},"is_updated": true}]))
+      end
+    end
+
+    context "with range" do
+      let(:params) { {latitude: 35.681109, longitude: 139.766865, range: 500} }
+      let(:body) { response.body }
+      it "return @stop2" do
+        is_expected.to eq 200
+        expect(body).to be_json_eql(%([{"name":"#{@stop2.name}","location":{"lat":#{@stop2.location.y},"lng":#{@stop2.location.x}},"is_updated": true}]))
+      end
+
+      describe "invalid range" do
+        let(:params) { {latitude: 35.681109, longitude: 139.766865, range: 1500} }
+        it "return @stop2" do
+          is_expected.to eq 400
+        end
       end
     end
   end
@@ -130,7 +146,7 @@ RSpec.describe MobileApp::BusStopsApi, :type => :request do
 
       it "success to create" do
         is_expected.to eq 201
-        expect(BusStop.find_by name:"new_stop").to be_truthy
+        expect(BusStop.find_by name: "new_stop").to be_truthy
       end
     end
 
