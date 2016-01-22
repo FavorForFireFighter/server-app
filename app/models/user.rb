@@ -28,6 +28,10 @@ class User < ActiveRecord::Base
     postpone
   end
 
+  def send_confirmation_notification?
+    confirmation_required? && !@skip_confirmation_notification && self.email.present?
+  end
+
   def self.find_for_database_authentication(warden_conditions)
     conditions = warden_conditions.dup
     if username = conditions.delete(:username)
