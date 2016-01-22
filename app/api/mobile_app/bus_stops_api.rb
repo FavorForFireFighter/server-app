@@ -66,7 +66,7 @@ module MobileApp
 
           bus_stop.last_modify_user_id = @user.id
           bus_stop.name = params[:name]
-          bus_stop.prefecture.id = params[:prefecture]
+          bus_stop.prefecture = Prefecture.find_by id: params[:prefecture]
 
           unless bus_stop.set_location params[:latitude], params[:longitude]
             status 400
