@@ -12,9 +12,11 @@ Rails.application.routes.draw do
 
   #resources :users, :except => [:index, :destroy]
   devise_for :users, :controllers => {
+      :confirmations => 'users/confirmations',
       :registrations => 'users/registrations',
       :passwords => 'users/passwords'
   }, :skip => [:sessions]
+  get 'users/confirmed', to: "users#confirmed"
   as :user do
     get 'sign_in' => 'devise/sessions#new', :as => :new_user_session
     post 'sign_in' => 'devise/sessions#create', :as => :user_session

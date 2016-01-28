@@ -4,8 +4,23 @@
 #photos {
   .photo_list {
     padding: 1rem;
-    img{
+    img {
       border: solid 1px #0078A8;
     }
+  }
+}
+
+#confirmed_container {
+  text-align: center;
+  p {
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+    padding: 0 1rem;
+  }
+
+  a {
+    font-size: 2rem;
+    padding: 1rem 3rem;
   }
 }
