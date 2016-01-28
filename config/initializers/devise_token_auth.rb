@@ -26,4 +26,6 @@ DeviseTokenAuth.setup do |config|
   # password is updated.
   config.check_current_password_before_update = :attributes
 
+  config.default_confirm_success_url = ""
+  config.default_password_reset_url = ""
 end

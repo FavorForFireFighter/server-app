@@ -62,6 +62,13 @@ class User < ActiveRecord::Base
     send_devise_notification(:confirmation_on_create_instructions, @raw_confirmation_token, {})
   end
 
+  protected
+  def unique_email_user
+    if provider == 'email' and self.class.where(provider: 'email', email: email).count > 0
+      errors.add(:email, I18n.t('errors.messages.already_in_use'))
+    end
+  end
+
   private
   def validate_password?
     if encrypted_password.present?

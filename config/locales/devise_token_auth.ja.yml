@@ -1,0 +1,11 @@
+ja:
+  devise_token_auth:
+    token_validations:
+      invalid: "トークンが不適切です"
+    registrations:
+      email_already_exists: "すでに使われています( '%{email}' )"
+      user_not_found: "ユーザが見つかりませんでした"
+  errors:
+    messages:
+      already_in_use: "はすでに存在します"
+      not_email: "の形式が不適切です"
