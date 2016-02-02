@@ -86,7 +86,7 @@ module MobileApp
         requires :route_name, type: String, desc: "Line name"
         requires :bus_type, type: Integer, desc: "bus type id"
       end
-      post :create, jbuilder: 'mobile_app/bus_routes/show.json.jbuilder' do
+      post :create, jbuilder: 'mobile_app/bus_routes/create.json.jbuilder' do
         authenticate_user!
         if params[:company_id] < 0
           company = BusOperationCompany.new(name: params[:company_name])
@@ -111,8 +111,8 @@ module MobileApp
             return
           end
         end
-
-        @bus_route_information = bus_route
+        @company = company
+        @bus_route = bus_route
       end
 
     end
