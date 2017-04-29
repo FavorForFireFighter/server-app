@@ -13,13 +13,13 @@ ja:
     bus_stops:
       no_route_information: 路線情報を入力してください
       invalid_location: 位置情報が不適切です
-      create: 新規作成しました
-      edit: 更新が完了しました
-      add_photo: 写真のアップロードが完了しました
-      not_allow_delete: 違う投稿者の写真は削除できません
-      cant_delete: 削除できませんでした
-      delete: 写真を削除しました
-      soft_delete: バス停を削除しました
+      create: Created
+      edit: Updated
+      add_photo: New photo was uploaded.
+      not_allow_delete: You cannot delete other user's photo
+      cant_delete: could not deleted.
+      delete: The photo was deleted.
+      soft_delete: The report was deleted.
     admin:
       delete: ユーザを削除しました
       cant_delete: ユーザを削除できませんでした

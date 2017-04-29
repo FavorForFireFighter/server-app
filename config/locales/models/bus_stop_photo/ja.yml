@@ -2,9 +2,9 @@
 ja:
   activerecord:
     models:
-      bus_stop_photo: バス停写真
+      bus_stop_photo: Report Photo
     attributes:
       bus_stop_photo:
-        title: タイトル
-        photo: 写真
-        reporting: 報告回数
+        title: Title
+        photo: Photo
+        reporting: Number of reports

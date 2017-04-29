@@ -11,7 +11,7 @@ class BusStopsApi < Grape::API
     get :list, jbuilder: 'bus_stops/list.json.jbuilder' do
       bus_stops = BusStop.distance_sphere(params[:longitude], params[:latitude], 3000)
                       .order_by_distance(params[:longitude], params[:latitude])
-                      .search_by_keyword(params[:keyword]).with_prefecture
+                      .search_by_keyword(params[:keyword])
       unless request.referer.present? && request.referer.include?("admin")
         bus_stops = bus_stops.without_soft_destroyed
       end
