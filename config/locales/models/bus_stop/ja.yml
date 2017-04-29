@@ -2,12 +2,12 @@
 ja:
   activerecord:
     models:
-      bus_stop: バス停
+      bus_stop: Report
     attributes:
       bus_stop:
-        name: バス停名
-        location_updated_at: 位置情報更新日
-        updated_at: 最終更新日
-        last_modify_user: 最終更新者
-        prefecture: 都道府県
-        prefecture_id: 都道府県
+        name: Report title
+        location_updated_at: Location update time
+        updated_at: Last update time
+        last_modify_user: Last modify user
+        prefecture: Prefecture
+        prefecture_id: Prefecture ID
