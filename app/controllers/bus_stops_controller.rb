@@ -24,6 +24,7 @@ class BusStopsController < ApplicationController
       end
     end
 
+    @prefectures = Prefecture.all.order(:id)
     @latitude = @bus_stop.location.try(:y)
     @longitude = @bus_stop.location.try(:x)
   end
@@ -39,7 +40,8 @@ class BusStopsController < ApplicationController
 
     unless bus_stop.set_location params[:latitude], params[:longitude]
       flash.now[:error] = t('controller.bus_stops.invalid_location')
-      @bus_stop = bus_stop
+      @bus_seop = bus_stop
+      @prefectures = Prefecture.all.order(:id)
       render :new
       return
     end
@@ -50,6 +52,7 @@ class BusStopsController < ApplicationController
 
     unless bus_stop.save
       @bus_stop = bus_stop
+      @prefectures = Prefecture.all.order(:id)
       render :new
       return
     end
@@ -59,6 +62,7 @@ class BusStopsController < ApplicationController
 
   def edit
     @bus_stop = BusStop.without_soft_destroyed.find_by(id: params[:id])
+    @prefectures = Prefecture.all.order(:id)
     @latitude = @bus_stop.location.try(:y)
     @longitude = @bus_stop.location.try(:x)
     @location_updated_at = @bus_stop.location_updated_at
@@ -77,6 +81,7 @@ class BusStopsController < ApplicationController
       flash.now[:error] = t('controller.bus_stops.invalid_location')
       @bus_stop = bus_stop
       render :edit
+      @prefectures = Prefecture.all.order(:id)
       return
     end
 
@@ -88,7 +93,8 @@ class BusStopsController < ApplicationController
 
     bus_stop.touch
     unless bus_stop.save
-      @bus_stop = bus_stop
+      @bus_seop = bus_stop
+      @prefectures = Prefecture.all.order(:id)
       render :edit
       return
     end
@@ -128,6 +134,7 @@ class BusStopsController < ApplicationController
 
   private
   def new_params
+    params.require(:bus_stop).permit(:name, :prefecture_id)
   end
 
   def new_photo_params
