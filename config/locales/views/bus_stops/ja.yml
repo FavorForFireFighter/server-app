@@ -4,7 +4,7 @@ ja:
     common:
       company_name: バス運営会社
       line_name: 路線名
-      basic_info: 基本情報
+      basic_info: Basic Info
       location_info: 位置情報
       route_info: 路線情報
       photo_info: 投稿写真
@@ -29,11 +29,11 @@ ja:
       current_position: 現在地の取得
       no_location_updated: 位置情報が更新されていません
       index:
-        keyword: バス停名で絞り込み
-        stop_name: バス停名
-        action: アクション
-        submit: 検索
-        show_stop: 詳細
+        keyword: Search reports
+        stop_name: Title
+        action: Action
+        submit: Search
+        show_stop: Detail
       show:
         basic_info: 基本情報
         location_info: 位置情報
@@ -55,12 +55,12 @@ ja:
       new:
         reload_line_name: 路線名再取得
     index:
-      title: バス停一覧
+      title: Fire Reports
     show:
-      title: バス停情報
+      title: Reports
     new:
-      title: バス停情報登録
+      title: Create Report
     edit:
-      title: バス停情報編集
+      title: Edit Report
     photos_new:
-      title: バス停写真登録
+      title: Add Photo

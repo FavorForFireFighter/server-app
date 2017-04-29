@@ -1,24 +1,24 @@
 ---
 ja:
   application:
-    header_title: crowdb.us
-    title: crowdb.us
-    search_bus: 探す
-    create_account: ユーザ登録
-    login: ログイン
-    create_bus: 新規作成
-    user_info: ユーザ情報
-    posted_photo: 投稿写真
-    logout: ログアウト
-    bus_stop_list: バス停一覧
-    to_admin: 管理画面へ
-    to_normal: 一般画面へ
+    header_title: Favor 4 Fire Fighter
+    title: Favor 4 Fire Fighter
+    search_bus: Search
+    create_account: Sign in
+    login: Login
+    create_bus: New report
+    user_info: User info
+    posted_photo: Reports
+    logout: Logout
+    bus_stop_list: Spot
+    to_admin: Admin
+    to_normal: ReportView
   admin:
     sidebar:
-      user: ユーザ一覧
-      bus_stop: バス停一覧
-      photos: 投稿写真一覧
-      reports: 報告写真一覧
+      user: Users
+      bus_stop: SpotList
+      photos: Photos
+      reports: Reports
   helpers:
     links:
-      back: 戻る
+      back: Back
