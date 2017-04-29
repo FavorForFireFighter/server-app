@@ -2,32 +2,32 @@
 ja:
   bus_stops:
     common:
-      company_name: バス運営会社
-      line_name: 路線名
+      company_name: Company Name
+      line_name: Line Name
       basic_info: Basic Info
-      location_info: 位置情報
-      route_info: 路線情報
-      photo_info: 投稿写真
-      update_info: 更新情報
-      bus_operation_company: バス運営会社
-      new_bus_operation_company_name: バス運営会社名（新規作成）
-      bus_route_information: 路線情報
-      new_bus_line_name: 路線名（新規作成）
-      search_bus_operation_company: バス運営会社名（検索）
-      search: 検索
-      add: 追加
-      add_route_information: 路線情報追加
-      cancel: キャンセル
-      add_route: 路線情報を追加
-      bus_type: バス区分（路線の新規作成時のみ）
+      location_info: Location
+      route_info: Route information
+      photo_info: Posted Photos
+      update_info: Update information
+      bus_operation_company: Bus operator company
+      new_bus_operation_company_name: Add bus operator company
+      bus_route_information: Bus route information
+      new_bus_line_name: Add Line Name
+      search_bus_operation_company: Operator Company Name (Search)
+      search: Search
+      add: Add
+      add_route_information: Add route information
+      cancel: Cancel
+      add_route: Add new route
+      bus_type: Bus Type
       bus_type_1: バス事業者が運行しているもの
       bus_type_2: 市営バス等自治体の交通部局が運行しているもの
       bus_type_3: 自治体が運営しているもの
       bus_type_4: 予約がなければ運行しないもの
       bus_type_5: 以上に含まれないもの
       prefecture: 都道府県
-      current_position: 現在地の取得
-      no_location_updated: 位置情報が更新されていません
+      current_position: Current Position
+      no_location_updated: No location updated
       index:
         keyword: Search reports
         stop_name: Title
@@ -35,25 +35,25 @@ ja:
         submit: Search
         show_stop: Detail
       show:
-        basic_info: 基本情報
-        location_info: 位置情報
-        route_info: 路線情報
-        photo_info: 投稿写真
-        update_info: 更新情報
-        company_name: バス運営会社
-        line_name: 路線名
-        add_photo: 写真の追加
-        delete_photo: 削除
-        photo_user: 投稿者
-        delete_confirm: この写真を削除してもよろしいですか？
-        not_register: 登録なし
-        copy: コピーを作成
-        edit_line: 路線名編集
-        show_line: 路線情報
-        destroy: 削除
-        destroy_confirm: このバス停を削除してもよろしいですか？
+        basic_info: Basic Info
+        location_info: Location
+        route_info: Route info
+        photo_info: Posted Photo
+        update_info: Update Information
+        company_name: Company Name
+        line_name: Line Name
+        add_photo: Add Photo
+        delete_photo: Delete Photo
+        photo_user: Reporter
+        delete_confirm: Is it OK to delete this photo?
+        not_register: Not registered
+        copy: Copy this report
+        edit_line: Edit line
+        show_line: Line information
+        destroy: Delete
+        destroy_confirm: Is it OK to delete this report?
       new:
-        reload_line_name: 路線名再取得
+        reload_line_name: Reload line name
     index:
       title: Fire Reports
     show:
