@@ -3,28 +3,6 @@
     .panel-title= t('bus_stops.common.show.basic_info')
   .panel-body
     = render partial: 'common/show_key_value', locals: {key: BusStop.human_attribute_name(:name), value: bus_stop.name}
-    = render partial: 'common/show_key_value', locals: {key: BusStop.human_attribute_name(:prefecture), value: bus_stop.prefecture.try(:name)}
-
-.panel.panel-default
-  .panel-heading
-    .panel-title= t('bus_stops.common.show.route_info')
-  %table.table
-    %thead
-      %th= t('bus_stops.common.show.company_name')
-      %th= t('bus_stops.common.show.line_name')
-      - if signed_in?
-        %th= t('bus_stops.common.index.action')
-    %tbody
-      - information.each do |id, info|
-        - info[:routes].each_with_index do |route, index|
-          %tr
-            -if index==0
-              %td(rowspan="#{info[:routes].length}")= info[:company].name
-            %td= route.bus_line_name
-            %td
-              = link_to t('bus_stops.common.show.show_line'),bus_route_information_path(route.id), class: 'btn btn-default', target: "_blank"
-              - if signed_in?
-                = link_to t('bus_stops.common.show.edit_line'), edit_bus_route_information_path(route.id), class: 'btn btn-primary', target: "_blank"
 
 .panel.panel-default
   .panel-heading

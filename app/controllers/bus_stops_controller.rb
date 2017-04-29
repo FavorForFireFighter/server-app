@@ -8,34 +8,22 @@ class BusStopsController < ApplicationController
     @bus_stop = BusStop.without_soft_destroyed.find_by(id: params[:id])
 
     @information = {}
-    @bus_stop.bus_route_informations.each do |route_information|
-      company = route_information.bus_operation_company
-      if @information.has_key?(company.id)
-        @information[company.id][:routes].concat [route_information]
-      else
-        @information[company.id] = {company: company, routes: [route_information]}
-      end
-    end
     @photos = @bus_stop.bus_stop_photos.includes(:user).references(:user).order("bus_stop_photos.created_at DESC")
   end
 
   def new
     if params[:id].blank?
       @bus_stop = BusStop.new
-      @route_information = []
     else
       bus_stop_orig = BusStop.without_soft_destroyed.find_by(id: params[:id])
       if bus_stop_orig.blank?
         @bus_stop = BusStop.new
-        @route_information = []
       else
         @bus_stop = bus_stop_orig.dup
-        @route_information = bus_stop_orig.bus_route_informations.with_bus_operation_company
         @bus_stop.location_updated_at = nil
       end
     end
 
-    @prefectures = Prefecture.all.order(:id)
     @latitude = @bus_stop.location.try(:y)
     @longitude = @bus_stop.location.try(:x)
   end
@@ -48,20 +36,10 @@ class BusStopsController < ApplicationController
 
     bus_stop = BusStop.new _params
     bus_stop.last_modify_user_id = current_user.id
-    if params[:bus_route_information].blank?
-      flash.now[:error] = t('controller.bus_stops.no_route_information')
-      @bus_stop = bus_stop
-      @prefectures = Prefecture.all.order(:id)
-      @route_information = []
-      render :new
-      return
-    end
 
     unless bus_stop.set_location params[:latitude], params[:longitude]
       flash.now[:error] = t('controller.bus_stops.invalid_location')
       @bus_stop = bus_stop
-      @prefectures = Prefecture.all.order(:id)
-      @route_information = BusRouteInformation.where(id: params[:bus_route_information][:id])
       render :new
       return
     end
@@ -72,21 +50,15 @@ class BusStopsController < ApplicationController
 
     unless bus_stop.save
       @bus_stop = bus_stop
-      @prefectures = Prefecture.all.order(:id)
-      @route_information = BusRouteInformation.where(id: params[:bus_route_information][:id]).with_bus_operation_company
       render :new
       return
     end
 
-    route_information = BusRouteInformation.where(id: params[:bus_route_information][:id])
-    bus_stop.bus_route_informations = route_information
     redirect_to bus_stop, {notice: t('controller.bus_stops.create')}
   end
 
   def edit
     @bus_stop = BusStop.without_soft_destroyed.find_by(id: params[:id])
-    @prefectures = Prefecture.all.order(:id)
-    @route_information = @bus_stop.bus_route_informations.with_bus_operation_company
     @latitude = @bus_stop.location.try(:y)
     @longitude = @bus_stop.location.try(:x)
     @location_updated_at = @bus_stop.location_updated_at
@@ -100,20 +72,10 @@ class BusStopsController < ApplicationController
     bus_stop = BusStop.without_soft_destroyed.find_by(id: params[:id])
     bus_stop.attributes = _params
     bus_stop.last_modify_user_id = current_user.id
-    if params[:bus_route_information].blank?
-      flash.now[:error] = t('controller.bus_stops.no_route_information')
-      @bus_stop = bus_stop
-      @prefectures = Prefecture.all.order(:id)
-      @route_information = []
-      render :edit
-      return
-    end
 
     unless bus_stop.set_location params[:latitude], params[:longitude]
       flash.now[:error] = t('controller.bus_stops.invalid_location')
       @bus_stop = bus_stop
-      @prefectures = Prefecture.all.order(:id)
-      @route_information = BusRouteInformation.where(id: params[:bus_route_information][:id])
       render :edit
       return
     end
@@ -127,14 +89,10 @@ class BusStopsController < ApplicationController
     bus_stop.touch
     unless bus_stop.save
       @bus_stop = bus_stop
-      @prefectures = Prefecture.all.order(:id)
-      @route_information = BusRouteInformation.where(id: params[:bus_route_information][:id]).with_bus_operation_company
       render :edit
       return
     end
 
-    route_information = BusRouteInformation.where(id: params[:bus_route_information][:id])
-    bus_stop.bus_route_informations = route_information
     redirect_to bus_stop, {notice: t('controller.bus_stops.edit')}
   end
 
@@ -170,7 +128,6 @@ class BusStopsController < ApplicationController
 
   private
   def new_params
-    params.require(:bus_stop).permit(:name, :prefecture_id)
   end
 
   def new_photo_params
