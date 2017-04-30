@@ -10,7 +10,7 @@ class BusStopsApi < Grape::API
       optional :zoom, type: Integer, desc: "zoom level"
     end
     get :list, jbuilder: 'bus_stops/list.json.jbuilder' do
-      zoom = params[:zoom].nil? || arams[:zoom] > 8 ? 3000 : 1000000000
+      zoom = params[:zoom].nil? || params[:zoom] > 13 ? 3000 : 1000000000
       bus_stops = BusStop.distance_sphere(params[:longitude], params[:latitude], zoom)
                       .order_by_distance(params[:longitude], params[:latitude])
                       .search_by_keyword(params[:keyword])

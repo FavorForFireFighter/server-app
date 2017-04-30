@@ -39,21 +39,6 @@ $ ->
     return
   return
 
-fireIcon = L.icon(
-  iconUrl: '/images/fire.png'
-  iconSize: [
-    32
-    32
-  ]
-  iconAnchor: [
-    22
-    22
-  ]
-  popupAnchor: [
-    -3
-    -76
-  ])
-
 ##
 # new
 ##

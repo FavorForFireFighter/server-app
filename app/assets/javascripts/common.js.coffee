@@ -45,7 +45,7 @@ $ ->
     map = create_leaflet_map 'bus_stop_show_map'
     latitude = $('#bus_stop_latitude').data('location')
     longitude = $('#bus_stop_longitude').data('location')
-    marker = L.marker([latitude, longitude]).addTo(map)
+    marker = L.marker([latitude, longitude], {icon: fireIcon}).addTo(map)
     map.setView marker.getLatLng(), map.getMaxZoom()
 
   $('#pager').on 'ajax:success', (e, result, status, xhr)->
@@ -87,6 +87,22 @@ exports.initMap = (map, lat, lng, zoom) ->
   map.setView [lat, lng], zoom
   createHeatmapLayerInto(map).loadData("/data/fire.json");
   return
+
+exports.fireIcon = L.icon(
+  iconUrl: '/images/fire.png'
+  iconSize: [
+    32
+    32
+  ]
+  iconAnchor: [
+    22
+    22
+  ]
+  popupAnchor: [
+    -3
+    -76
+  ])
+
 
 exports.isBlank = (val)->
   if typeof val is 'undefined' || val is null
@@ -183,7 +199,7 @@ setResult = (data) ->
   return
 
 addMarker = (latitude, longitude, name) ->
-  return L.marker([latitude, longitude]).bindPopup(name).addTo(current.drawLayer)
+  return L.marker([latitude, longitude], {icon: fireIcon}).bindPopup(name).addTo(current.drawLayer)
 
 createTableLine = (val, marker) ->
   tr = $('<tr>').attr(id: "stop_" + val.id)
