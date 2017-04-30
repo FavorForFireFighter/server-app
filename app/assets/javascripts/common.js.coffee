@@ -133,7 +133,6 @@ createHeatmapLayerInto = (map) ->
     heatmapLayer: heatmapLayer
     loadData: (path) ->
       $.getJSON path, (data) ->
-        console.log(data)
         heatmapLayer.setData
           'max': 400
           'data': data

@@ -7,9 +7,11 @@ class BusStopsApi < Grape::API
       requires :latitude, type: Float, desc: "latitude"
       requires :longitude, type: Float, desc: "longitude"
       optional :keyword, type: String, desc: "filter keyword"
+      optional :zoom, type: Integer, desc: "zoom level"
     end
     get :list, jbuilder: 'bus_stops/list.json.jbuilder' do
-      bus_stops = BusStop.distance_sphere(params[:longitude], params[:latitude], 3000)
+      zoom = params[:zoom] > 8 ? 3000 : 1000000000
+      bus_stops = BusStop.distance_sphere(params[:longitude], params[:latitude], zoom)
                       .order_by_distance(params[:longitude], params[:latitude])
                       .search_by_keyword(params[:keyword])
       unless request.referer.present? && request.referer.include?("admin")
