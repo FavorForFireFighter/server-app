@@ -20,3 +20,5 @@
 //= require bootstrap/alert
 //= require bootstrap/dropdown
 //= require admin
+//= require heatmap.min
+//= require leaflet-heatmap
