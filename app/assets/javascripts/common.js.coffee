@@ -86,7 +86,7 @@ exports.initMap = (map, lat, lng, zoom) ->
   zoom = if exports.isBlank zoom then 10 else zoom
   map.setView [lat, lng], zoom
   createHeatmapLayerInto(map).loadData("/data/fire.json");
-  createWindLayerInto(map).loadData('/data/fire.json');
+  createWindLayerInto(map).loadData('data/fire.json', "data/wind.json");
   return
 
 exports.fireIcon = L.icon(
@@ -162,6 +162,21 @@ createWindLayerInto = (map) ->
   svgLayer = d3.select(map.getPanes().overlayPane).append('svg')
   svgLayer.attr 'class', 'leaflet-zoom-hide fill'
   plotLayer = svgLayer.append('g')
+  timers = []
+  reset = ->
+    timers.forEach (timer) ->
+      clearInterval timer
+      return
+    timers = []
+    @loadData fireData, windData
+    return
+
+  map.on 'zoomend', ->
+    @reset()
+    return
+  map.on 'moveend', ->
+    @reset()
+    return
   {
     svgLayer: svgLayer
     plotLayer: plotLayer
@@ -180,10 +195,10 @@ createWindLayerInto = (map) ->
           v =
             x: 20
             y: 50
-          setInterval (->
+          timers.push(setInterval(->
             putParticle svgLayer, d3.randomUniform(rect.left, rect.right), d3.randomUniform(rect.top, rect.bottom), v.x, v.y
             return
-          ), interval
+          ), interval)
           return
         return
       return
