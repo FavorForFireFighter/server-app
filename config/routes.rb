@@ -8,7 +8,9 @@ Rails.application.routes.draw do
 
   get 'bus_route_information/update'
 
-  root "top#index"
+  get 'about', :to => 'top#index'
+
+  root :to => 'bus_stops#index'
 
   #resources :users, :except => [:index, :destroy]
   devise_for :users, :controllers => {
