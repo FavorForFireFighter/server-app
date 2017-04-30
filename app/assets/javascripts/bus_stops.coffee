@@ -39,6 +39,21 @@ $ ->
     return
   return
 
+fireIcon = L.icon(
+  iconUrl: '/images/fire.png'
+  iconSize: [
+    32
+    32
+  ]
+  iconAnchor: [
+    22
+    22
+  ]
+  popupAnchor: [
+    -3
+    -76
+  ])
+
 ##
 # new
 ##
@@ -48,17 +63,13 @@ setMarker = (lat, lng) ->
     lng = $('#longitude').val()
 
   if exports.isBlank(lat) or exports.isBlank(lng)
-    if navigator.geolocation
-      setMarkerByCurrentPosition()
-      return
-    else
-      lat = 35.681109
-      lng = 139.766865
+    lat = 19.690435317911682
+    lng = 100.81561088562013
 
   if current.marker
     current.marker.setLatLng [lat, lng]
   else
-    marker = L.marker([lat, lng], {draggable: true}).addTo(current.map)
+    marker = L.marker([lat, lng], {icon: fireIcon}, {draggable: true}).addTo(current.map)
     marker.on 'dragend', (e)->
       getMapCenter()
       markerMoved()
@@ -69,9 +80,9 @@ setMarker = (lat, lng) ->
   return
 
 initMarker = () ->
-  lat = 35.681109
-  lng = 139.766865
-  marker = L.marker([lat, lng], {draggable: true}).addTo(current.map)
+  lat = 19.690435317911682
+  lng = 100.81561088562013
+  marker = L.marker([lat, lng], {icon: fireIcon}, {draggable: true}).addTo(current.map)
   marker.on 'dragend', (e)->
     getMapCenter()
     markerMoved()
@@ -100,6 +111,7 @@ setMarkerByCurrentPosition = (err) ->
 
 getMapCenter = () ->
   center = current.marker.getLatLng()
+  console.log(center)
   $('#latitude').val(center.lat)
   $('#longitude').val(center.lng)
   return
