@@ -12,8 +12,8 @@ $ ->
     if exports.isBlank(latitude) || exports.isBlank(longitude)
       exports.initMap map
       $form.trigger 'submit'
-      if navigator.geolocation
-        navigator.geolocation.getCurrentPosition setCurrentPosition, exports.cantGetPosition
+      #if navigator.geolocation
+        #navigator.geolocation.getCurrentPosition setCurrentPosition, exports.cantGetPosition
     else
       exports.initMap map, latitude, longitude, $('#zoom').val()
       $form.trigger 'submit'
@@ -81,9 +81,9 @@ exports.create_leaflet_map = (map_id) ->
 
 exports.initMap = (map, lat, lng, zoom) ->
   if exports.isBlank(lat) || exports.isBlank(lng)
-    lat = 35.681109
-    lng = 139.766865
-  zoom = if exports.isBlank zoom then 4 else zoom
+    lat = 20
+    lng = 101
+  zoom = if exports.isBlank zoom then 10 else zoom
   map.setView [lat, lng], zoom
   createHeatmapLayerInto(map).loadData("/data/fire.json");
   return
