@@ -17,7 +17,20 @@
     = favicon_link_tag 'apple-touch-icon-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png'
     = favicon_link_tag 'favicon.ico', :rel => 'shortcut icon'
     = javascript_include_tag "/libs/leaflet/leaflet.js"
+    = javascript_include_tag "https://d3js.org/d3.v3.min.js"
+    = javascript_include_tag "https://d3js.org/d3-array.v1.min.js"
+    = javascript_include_tag "https://d3js.org/d3-random.v1.min.js"
+    = javascript_include_tag "https://d3js.org/d3-path.v1.min.js"
+    = javascript_include_tag "https://d3js.org/d3-shape.v1.min.js"
+    = javascript_include_tag "https://d3js.org/d3-color.v1.min.js"
+    = javascript_include_tag "https://d3js.org/d3-dispatch.v1.min.js"
+    = javascript_include_tag "https://d3js.org/d3-ease.v1.min.js"
+    = javascript_include_tag "https://d3js.org/d3-interpolate.v1.min.js"
+    = javascript_include_tag "https://d3js.org/d3-selection.v1.min.js"
+    = javascript_include_tag "https://d3js.org/d3-timer.v1.min.js"
+    = javascript_include_tag "https://d3js.org/d3-transition.v1.min.js"
     = javascript_include_tag "application"
+
     - if !devise_controller?
       = javascript_include_tag params[:controller]
 

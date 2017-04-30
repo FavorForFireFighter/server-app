@@ -86,6 +86,7 @@ exports.initMap = (map, lat, lng, zoom) ->
   zoom = if exports.isBlank zoom then 10 else zoom
   map.setView [lat, lng], zoom
   createHeatmapLayerInto(map).loadData("/data/fire.json");
+  createWindLayerInto(map).loadData('/data/fire.json');
   return
 
 exports.fireIcon = L.icon(
@@ -155,6 +156,46 @@ createHeatmapLayerInto = (map) ->
         return
       return
   }
+
+# windmap
+createWindLayerInto = (map) ->
+  svgLayer = d3.select(map.getPanes().overlayPane).append('svg')
+  svgLayer.attr 'class', 'leaflet-zoom-hide fill'
+  plotLayer = svgLayer.append('g')
+  {
+    svgLayer: svgLayer
+    plotLayer: plotLayer
+    loadData: (path) ->
+      $.getJSON path, (data) ->
+        data.forEach (fire) ->
+          console.log(fire)
+          pos = map.latLngToLayerPoint(new (L.LatLng)(fire.lat, fire.lng))
+          interval = if fire.value > 400 then 10 else if fire.value > 300 then 4000 - (fire.value * 10) else 1000
+          rect =
+            left: pos.x - 2
+            top: pos.y - 2
+            right: pos.x + 2
+            bottom: pos.y + 2
+          # 風速: ダミー
+          v =
+            x: 20
+            y: 50
+          setInterval (->
+            putParticle svgLayer, d3.randomUniform(rect.left, rect.right), d3.randomUniform(rect.top, rect.bottom), v.x, v.y
+            return
+          ), interval
+          return
+        return
+      return
+
+  }
+
+putParticle = (svgLayer, x, y, vx, vy) ->
+  circle = svgLayer.append('circle').attr('cx', x).attr('cy', y).attr('r', 1).attr('fill', '#fd9').attr('class', 'particle')
+  circle.transition().duration(1000).ease(d3.easeLinear).attr('transform', 'translate(' + vx + ',' + vy + ')').on 'end', ->
+    d3.select(this).remove()
+    return
+  return
 
 # bus_stop#index
 setCurrentPosition = (pos) ->
