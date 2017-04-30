@@ -72,7 +72,7 @@ exports.create_leaflet_map = (map_id) ->
   L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
     attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
     maxZoom: 20,
-    minZoom: 6,
+    minZoom: 2,
     id: 'mapbox.emerald',
     accessToken: 'pk.eyJ1IjoidW9rdW11cmEiLCJhIjoiY2oyMzl1eGd5MDAwdjMzbGxwNGZoaWplaCJ9.PKXmdbEBSwShnDD3ZIMKkw'
     }).addTo(map);
@@ -83,8 +83,9 @@ exports.initMap = (map, lat, lng, zoom) ->
   if exports.isBlank(lat) || exports.isBlank(lng)
     lat = 35.681109
     lng = 139.766865
-  zoom = if exports.isBlank zoom then 13 else zoom
+  zoom = if exports.isBlank zoom then 4 else zoom
   map.setView [lat, lng], zoom
+  createHeatmapLayerInto(map).loadData("/data/fire.json");
   return
 
 exports.isBlank = (val)->
@@ -113,6 +114,32 @@ exports.scrollToDom = ($dom, scroll_area_id) ->
 ##
 # Local functions
 ##
+createHeatmapLayerInto = (map) ->
+  heatmapLayer = new HeatmapOverlay(cfg =
+    radius: 0.01
+    maxOpacity: 400
+    minOpacity: 300
+    scaleRadius: true
+    useLocalExtrema: true
+    gradient:
+      0.1: '#900'
+      0.25: '#f96'
+      0.5: '#fd9'
+      0.75: '#ffd'
+      1: 'white'
+  ).addTo(map)
+
+  {
+    heatmapLayer: heatmapLayer
+    loadData: (path) ->
+      $.getJSON path, (data) ->
+        console.log(data)
+        heatmapLayer.setData
+          'max': 400
+          'data': data
+        return
+      return
+  }
 
 # bus_stop#index
 setCurrentPosition = (pos) ->
