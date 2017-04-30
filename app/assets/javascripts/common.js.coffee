@@ -170,11 +170,12 @@ createWindLayerInto = (map) ->
         data.forEach (fire) ->
           pos = map.latLngToLayerPoint(new (L.LatLng)(fire.lat, fire.lng))
           interval = if fire.value > 400 then 10 else if fire.value > 300 then 4000 - (fire.value * 10) else 1000
+          size = 10;
           rect =
-            left: pos.x - 2
-            top: pos.y - 2
-            right: pos.x + 2
-            bottom: pos.y + 2
+            left: pos.x - size
+            top: pos.y - size
+            right: pos.x + size
+            bottom: pos.y + size
           # 風速: ダミー
           v =
             x: 20
@@ -190,7 +191,7 @@ createWindLayerInto = (map) ->
   }
 
 putParticle = (svgLayer, x, y, vx, vy) ->
-  circle = svgLayer.append('circle').attr('cx', x).attr('cy', y).attr('r', 1).attr('fill', '#fd9').attr('class', 'particle')
+  circle = svgLayer.append('circle').attr('cx', x).attr('cy', y).attr('r', 2).attr('fill', '#ffb').attr("stroke", "#fb9").attr('class', 'particle')
   circle.transition().duration(1000).ease(d3.easeLinear).attr('transform', 'translate(' + vx + ',' + vy + ')').on 'end', ->
     d3.select(this).remove()
     return

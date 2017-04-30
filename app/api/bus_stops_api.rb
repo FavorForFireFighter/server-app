@@ -11,8 +11,11 @@ class BusStopsApi < Grape::API
     end
     get :list, jbuilder: 'bus_stops/list.json.jbuilder' do
       zoom = params[:zoom].nil? || params[:zoom] > 13 ? 3000 : 1000000000
-      bus_stops = BusStop.distance_sphere(params[:longitude], params[:latitude], zoom)
-                      .order_by_distance(params[:longitude], params[:latitude])
+      lat =  params[:latitude].blank? ? 19.690435317911682 : params[:latitude]
+      lng = params[:longitude].blank? ? 100.81561088562013 : params[:longitude]
+
+      bus_stops = BusStop.distance_sphere(lng, lat, zoom)
+                      .order_by_distance(lng, lat)
                       .search_by_keyword(params[:keyword])
       unless request.referer.present? && request.referer.include?("admin")
         bus_stops = bus_stops.without_soft_destroyed
