@@ -168,7 +168,6 @@ createWindLayerInto = (map) ->
     loadData: (path) ->
       $.getJSON path, (data) ->
         data.forEach (fire) ->
-          console.log(fire)
           pos = map.latLngToLayerPoint(new (L.LatLng)(fire.lat, fire.lng))
           interval = if fire.value > 400 then 10 else if fire.value > 300 then 4000 - (fire.value * 10) else 1000
           rect =
