@@ -101,7 +101,7 @@ exports.fireIcon = L.icon(
   ]
   popupAnchor: [
     -3
-    -76
+    -20
   ])
 
 
@@ -266,7 +266,7 @@ createActionButtons = (id) ->
   path = "bus_stops/"
   if location.pathname.indexOf("bus_stops/") isnt -1
     path = ""
-  $show = $('<a>').addClass("btn btn-default").attr("href", path + id).text("詳細")
+  $show = $('<a>').addClass("btn btn-default").attr("href", path + id).text("Detail")
   return $('<td>').append($show)
 
 noResultTableLine = () ->

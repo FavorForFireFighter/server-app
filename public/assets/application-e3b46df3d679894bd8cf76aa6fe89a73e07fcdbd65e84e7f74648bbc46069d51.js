@@ -13451,7 +13451,7 @@ return jQuery;
     if (location.pathname.indexOf("bus_stops/") !== -1) {
       path = "";
     }
-    $show = $('<a>').addClass("btn btn-default").attr("href", path + id).text("詳細");
+    $show = $('<a>').addClass("btn btn-default").attr("href", path + id).text("Detail");
     return $('<td>').append($show);
   };
 
@@ -14718,7 +14718,7 @@ return jQuery;
  * heatmap.js v2.0.5 | JavaScript Heatmap Library
  *
  * Copyright 2008-2016 Patrick Wied <heatmapjs@patrick-wied.at> - All rights reserved.
- * Dual licensed under MIT and Beerware license 
+ * Dual licensed under MIT and Beerware license
  *
  * :: 2016-09-05 01:16
  */
@@ -14789,7 +14789,7 @@ return jQuery;
 
       if (!this._heatmap) {
         this._heatmap = h337.create(this.cfg);
-      } 
+      }
 
       // this resets the origin and redraws whenever
       // the zoom changed or the map has been moved
@@ -14810,9 +14810,9 @@ return jQuery;
     },
     _draw: function() {
       if (!this._map) { return; }
-      
+
       var mapPane = this._map.getPanes().mapPane;
-      var point = mapPane._leaflet_pos;      
+      var point = mapPane._leaflet_pos;
 
       // reposition the layer
       this._el.style[HeatmapOverlay.CSS_TRANSFORM] = 'translate(' +
@@ -14843,7 +14843,7 @@ return jQuery;
       var localMin = 0;
       var valueField = this.cfg.valueField;
       var len = this._data.length;
-    
+
       while (len--) {
         var entry = this._data[len];
         var value = entry[valueField];
@@ -14887,12 +14887,12 @@ return jQuery;
       var latField = this.cfg.latField || 'lat';
       var lngField = this.cfg.lngField || 'lng';
       var valueField = this.cfg.valueField || 'value';
-    
+
       // transform data to latlngs
       var data = data.data;
       var len = data.length;
       var d = [];
-    
+
       while (len--) {
         var entry = data[len];
         var latlng = new L.LatLng(entry[latField], entry[lngField]);
@@ -14904,7 +14904,7 @@ return jQuery;
         d.push(dataObj);
       }
       this._data = d;
-    
+
       this._draw();
     },
     // experimential... not ready.
@@ -14921,7 +14921,7 @@ return jQuery;
         var entry = pointOrArray;
         var latlng = new L.LatLng(entry[latField], entry[lngField]);
         var dataObj = { latlng: latlng };
-        
+
         dataObj[valueField] = entry[valueField];
         this._max = Math.max(this._max, dataObj[valueField]);
         this._min = Math.min(this._min, dataObj[valueField]);
@@ -14935,7 +14935,7 @@ return jQuery;
     },
     _reset: function () {
       this._origin = this._map.layerPointToLatLng(new L.Point(0, 0));
-      
+
       var size = this._map.getSize();
       if (this._width !== size.x || this._height !== size.y) {
         this._width  = size.x;
@@ -14947,7 +14947,7 @@ return jQuery;
         this._heatmap._renderer.setDimensions(this._width, this._height);
       }
       this._draw();
-    } 
+    }
   });
 
   HeatmapOverlay.CSS_TRANSFORM = (function() {
@@ -14986,12 +14986,3 @@ return jQuery;
 
 
 // require turbolinks
-
-
-
-
-
-
-
-
-
