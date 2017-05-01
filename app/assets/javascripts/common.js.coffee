@@ -86,7 +86,7 @@ exports.initMap = (map, lat, lng, zoom) ->
   zoom = if exports.isBlank zoom then 10 else zoom
   map.setView [lat, lng], zoom
   createHeatmapLayerInto(map).loadData("/data/fire.json");
-  createWindLayerInto(map).loadData('data/fire.json', "data/wind.json");
+  createWindLayerInto(map).loadData('/data/fire.json', "/data/wind.json");
   return
 
 exports.fireIcon = L.icon(
@@ -157,52 +157,39 @@ createHeatmapLayerInto = (map) ->
       return
   }
 
-# windmap
+# create window layer
 createWindLayerInto = (map) ->
   svgLayer = d3.select(map.getPanes().overlayPane).append('svg')
   svgLayer.attr 'class', 'leaflet-zoom-hide fill'
   plotLayer = svgLayer.append('g')
-  timers = []
-  reset = ->
-    timers.forEach (timer) ->
-      clearInterval timer
-      return
-    timers = []
-    @loadData fireData, windData
-    return
-
-  map.on 'zoomend', ->
-    @reset()
-    return
-  map.on 'moveend', ->
-    @reset()
-    return
   {
     svgLayer: svgLayer
     plotLayer: plotLayer
-    loadData: (path) ->
-      $.getJSON path, (data) ->
-        data.forEach (fire) ->
-          pos = map.latLngToLayerPoint(new (L.LatLng)(fire.lat, fire.lng))
-          interval = if fire.value > 400 then 10 else if fire.value > 300 then 4000 - (fire.value * 10) else 1000
-          size = 10;
-          rect =
-            left: pos.x - size
-            top: pos.y - size
-            right: pos.x + size
-            bottom: pos.y + size
-          # 風速: ダミー
-          v =
-            x: 20
-            y: 50
-          timers.push(setInterval(->
-            putParticle svgLayer, d3.randomUniform(rect.left, rect.right), d3.randomUniform(rect.top, rect.bottom), v.x, v.y
+    loadData: (fireData, windData) ->
+      $.getJSON windData, (wind) ->
+        $.getJSON fireData, (data) ->
+          data.forEach (fire) ->
+            pos = map.latLngToLayerPoint(new (L.LatLng)(fire.lat, fire.lng))
+            interval = if fire.value > 400 then 10 else if fire.value > 300 then 4000 - (fire.value * 10) else 1000
+            size = 10
+            rect =
+              left: pos.x - size
+              top: pos.y - size
+              right: pos.x + size
+              bottom: pos.y + size
+            # 風速: ダミー
+            windDir = wind[0].data[(90 - Math.round(fire.lat)) * 360 + Math.round(fire.lng)]
+            v =
+              x: Math.cos(windDir * Math.PI / 180) * 50
+              y: Math.sin(windDir * Math.PI / 180) * 50
+            setInterval (->
+              putParticle svgLayer, d3.randomUniform(rect.left, rect.right), d3.randomUniform(rect.top, rect.bottom), v.x, v.y
+              return
+            ), interval
             return
-          ), interval)
           return
         return
       return
-
   }
 
 putParticle = (svgLayer, x, y, vx, vy) ->
