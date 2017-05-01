@@ -2,13 +2,13 @@ ja:
   admin:
     photos:
       index:
-        title: 投稿写真一覧
-        keyword: バス停名
-        prefecture: 都道府県
-        search: 検索項目
-        search_note: (クリックで表示/非表示)
-        submit: 検索
+        title: Photo list
+        keyword: Report name
+        prefecture: Prefecture
+        search: Search
+        search_note: (Click to toggle)
+        submit: Submit
       reporting:
-        title: 報告写真一覧
-        reset: 報告回数のリセット
-        reset_confirm: この写真の報告回数をリセットしてもよろしいですか？
+        title: Reported photos
+        reset: Reset numbers of reported photos
+        reset_confirm: Are you sure to reset this number?

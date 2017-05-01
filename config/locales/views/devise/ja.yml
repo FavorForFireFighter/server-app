@@ -1,40 +1,40 @@
 ja:
   session:
     new:
-      title: ログイン
-      remember_me: ログインを維持する
-      forgot_password: パスワードを忘れた場合
+      title: Login
+      remember_me: Keep login
+      forgot_password: Forgot Password?
   registrations:
     new:
-      title: ユーザ登録
-      password_notice: 文字以上で半角英字、数字を組み合わせて入力してください
+      title: User info
+      password_notice: characters more, mixing alphabet and numbers
     edit:
-      title: ユーザ情報編集
-      current_password: 現在のパスワード
-      new_password: 新しいパスワード
-      new_password_confirmation: 新しいパスワードの確認
-      password_prompt: パスワードを変更する場合は入力してください
+      title: Edit user info
+      current_password: Curernt password
+      new_password: New password
+      new_password_confirmation: Password confirmation
+      password_prompt: Enter if you want to change your password
   passwords:
     new:
-      title: パスワードのリセット
-      submit: 送信
+      title: Rest password
+      submit: Submit
     edit:
-      title: パスワードの再設定
-      new_password: 新しいパスワード
-      new_password_confirmation: 新しいパスワードの確認
-      submit: 再設定
+      title: Edit password
+      new_password: New password
+      new_password_confirmation: Password password
+      submit: Submit
   confirmations:
     new:
-      title: 確認用トークンの再送信
-      submit: 再送信
+      title: Resend confrimation email
+      submit: Submit
   mailer:
     confirmation:
-      account_body: 下記リンクからアカウントを有効にしてください。
-      account_link: アカウントの有効化
-      email_body: 下記リンクから新しいメールアドレスを有効にできます
-      email_link: メールアドレスの有効化
+      account_body: Please enable your account from below link
+      account_link: Enable your account
+      email_body: You can enable new email address from below link
+      email_link: Enable youe email address
     reset:
-      body: 下記リンクからパスワードの再設定を行えます。
-      link: パスワードの再設定
-      notice: もしこのメールに心当たりがない場合は無視してください。
-      notice2: 上記リンクへアクセスしない限りパスワードは変更されません。
+      body: You can reset your password from below link
+      link: Rset password
+      notice: If you have no idea about this email, please ignore this.
+      notice2: Your password will be not changed without clicking below link.

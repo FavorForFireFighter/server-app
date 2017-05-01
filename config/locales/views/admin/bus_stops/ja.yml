@@ -2,6 +2,6 @@ ja:
   admin:
     bus_stops:
       index:
-        title: バス停一覧
+        title: Report list
       show:
-        title: バス停詳細
+        title: Report detail

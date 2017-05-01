@@ -1,11 +1,11 @@
 ---
 ja:
   attributes:
-    created_at: 作成日時
-    updated_at: 最終更新日
+    created_at: Created at
+    updated_at: Updated at
   errors:
     attributes:
       email:
-        invalid: の形式が不適切です
+        invalid: is invalid
       password:
-        invalid: は半角英字、数字を組み合わせて入力してください
+        invalid: should be mixed with alphabet and numbers

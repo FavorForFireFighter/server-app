@@ -1,11 +1,11 @@
 ja:
   devise_token_auth:
     token_validations:
-      invalid: "トークンが不適切です"
+      invalid: "Token is invalid"
     registrations:
-      email_already_exists: "すでに使われています( '%{email}' )"
-      user_not_found: "ユーザが見つかりませんでした"
+      email_already_exists: "Alread registered( '%{email}' )"
+      user_not_found: "User was not found"
   errors:
     messages:
-      already_in_use: "はすでに存在します"
-      not_email: "の形式が不適切です"
+      already_in_use: " is already registered"
+      not_email: " is invalid"

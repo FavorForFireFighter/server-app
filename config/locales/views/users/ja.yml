@@ -2,25 +2,25 @@
 ja:
   users:
     show:
-      title: ユーザ情報
+      title: User info
     edit:
-      title: ユーザ情報編集
-      current_password: 現在のパスワード
-      new_password: 新しいパスワード
-      new_password_confirmation: 新しいパスワードの確認
-      password_prompt: パスワードを変更する場合は入力してください
+      title: Edit user info
+      current_password: Current password
+      new_password: New password
+      new_password_confirmation: Password confirmation
+      password_prompt: Please enable if you want to change your password
     photos:
-      title: 投稿写真一覧
-      delete_photo: 削除
-      delete_confirm: この写真を削除してもよろしいですか？
-      bus_stop_detail: バス停詳細ページ
-      no_photos: 投稿写真がありません
+      title: User's photos
+      delete_photo: Delete
+      delete_confirm: Is it OK to delete this photo?
+      bus_stop_detail: Spot detail
+      no_photos: No photos uploaded
     common:
       photos:
-        delete_photo: 削除
-        delete_confirm: この写真を削除してもよろしいですか？
-        bus_stop_detail: バス停詳細ページ
+        delete_photo: Delte
+        delete_confirm: Are you sure to delete this photo?
+        bus_stop_detail: Spot detail
     confirmed:
-      title: アカウント登録完了
-      start_app: アプリを起動
-      content: アカウントの登録が完了しました。Webでもアプリでも同じアカウントを使用することができます。
+      title: Success account resistration
+      start_app: Start application
+      content: Your account was successflly created.

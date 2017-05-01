@@ -2,14 +2,14 @@
 ja:
   activerecord:
     models:
-      user: ユーザ
+      user: User
     attributes:
       user:
-        username: ユーザ名
-        password: パスワード
-        password_confirmation: パスワードの確認
-        email: メールアドレス
-        admin_flag: 管理者権限
-        login: ユーザ名
-        current_password: 現在のパスワード
-        confirmation_token: 確認用トークン
+        username: Username
+        password: Password
+        password_confirmation: Password confirmation
+        email: Email address
+        admin_flag: Admin role
+        login: Username
+        current_password: Current password
+        confirmation_token: Confirmation token
