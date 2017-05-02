@@ -1,15 +1,15 @@
 # config valid only for current version of Capistrano
 lock '3.4.0'
 
-set :application, 'busmap'
-set :repo_url, 'gitolite@code.georepublic.net:TokyoUniv/busmap-server.git'
+set :application, 'ffff'
+set :repo_url, 'https://github.com/FavorForFireFighter/server-app.git'
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
 # Default deploy_to directory is /var/www/my_app_name
 # set :deploy_to, '/var/www/my_app_name'
-set :deploy_to, '/usr/local/apps/busmap'
+set :deploy_to, '/usr/local/apps/ffff'
 
 # Default value for :scm is :git
 # set :scm, :git
@@ -36,7 +36,7 @@ set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', '
 # set :keep_releases, 5
 
 set :rbenv_type, :user
-set :rbenv_ruby, "2.2.2"
+set :rbenv_ruby, "2.3.1"
 
 require 'seed-fu/capistrano3'
 # Trigger the task before publishing

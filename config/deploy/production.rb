@@ -51,13 +51,13 @@ role :db, %w{appsrv@54.64.0.222}
 #
 # The server-based syntax can be used to override options:
 # ------------------------------------
-# server 'example.com',
-#   user: 'user_name',
-#   roles: %w{web app},
-#   ssh_options: {
-#     user: 'user_name', # overrides user setting above
-#     keys: %w(/home/user_name/.ssh/id_rsa),
-#     forward_agent: false,
-#     auth_methods: %w(publickey password)
-#     # password: 'please use keys'
-#   }
+server '59.106.223.145',
+  user: 'ubuntu',
+  roles: %w{web app},
+  ssh_options: {
+    user: 'ubuntu', # overrides user setting above
+    keys: %w(/home/ubuntu/.ssh/id_rsa),
+    forward_agent: false,
+    auth_methods: %w(publickey password)
+    # password: 'please use keys'
+  }
