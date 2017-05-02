@@ -5,6 +5,7 @@ $ ->
     $form = $('#bus_stop_list_form')
 
     map = create_leaflet_map 'bus_stop_list_map'
+    exports.loadTimeDimension(map)
     current.drawLayer = L.layerGroup().addTo(map)
     current.map = map
     latitude = $('#latitude').val()
@@ -74,7 +75,7 @@ exports.create_leaflet_map = (map_id) ->
     maxZoom: 20,
     minZoom: 2,
     id: 'mapbox.emerald',
-    accessToken: 'pk.eyJ1IjoidW9rdW11cmEiLCJhIjoiY2oyMzl1eGd5MDAwdjMzbGxwNGZoaWplaCJ9.PKXmdbEBSwShnDD3ZIMKkw'
+    accessToken: 'pk.eyJ1IjoidW9rdW11cmEiLCJhIjoiY2oyMzl1eGd5MDAwdjMzbGxwNGZoaWplaCJ9.PKXmdbEBSwShnDD3ZIMKkw',
     }).addTo(map);
   L.control.scale({imperial: false}).addTo(map);
   return map
