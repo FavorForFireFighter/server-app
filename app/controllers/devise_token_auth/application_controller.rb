@@ -18,12 +18,12 @@ module DeviseTokenAuth
     end
 
     def configure_sign_up_params
-      devise_parameter_sanitizer.for(:sign_up) << [:username, :email]
+      devise_parameter_sanitizer.permit(:sign_up, keys: [:username, :email])
     end
 
     def configure_permitted_parameters
-      devise_parameter_sanitizer.for(:account_update) << :email
-      devise_parameter_sanitizer.for(:sign_up) << :email
+      devise_parameter_sanitizer.permit(:account_update, keys:[:email])
+      devise_parameter_sanitizer.permit(:sign_up, keys:[:email])
     end
   end
 end
