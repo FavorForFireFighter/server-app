@@ -12,7 +12,7 @@ preload_app true
 # nuke workers after 30 seconds instead of 60 seconds (the default)
 timeout 60
 
-application = ENV["APPLICATION_NAME"] || "busmap"
+application = ENV["APPLICATION_NAME"] || "ffff"
 
 # Production specific settings
 if env == "production" or env == "staging"
