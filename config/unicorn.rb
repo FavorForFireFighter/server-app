@@ -27,7 +27,7 @@ if env == "production" or env == "staging"
   working_directory "/usr/local/apps/#{application}/current"
 
   # feel free to point this anywhere accessible on the filesystem
-  user 'appsrv', 'appsrv'
+  user 'ubuntu', 'ubuntu'
   shared_path = "/usr/local/apps/#{application}/shared"
 
   stderr_path "#{shared_path}/log/unicorn.stderr.log"
