@@ -6,7 +6,7 @@ ja:
       forgot_password: Forgot Password?
   registrations:
     new:
-      title: User info
+      title: Registration new user
       password_notice: characters more, mixing alphabet and numbers
     edit:
       title: Edit user info

@@ -272,7 +272,7 @@ createActionButtons = (id) ->
 
 noResultTableLine = () ->
   tr = $('<tr>')
-  tr.append $('<td>').attr('colspan', 2).text("該当データがありませんでした").css("textAlign", "center")
+  tr.append $('<td>').attr('colspan', 2).text("No reports around here").css("textAlign", "center")
   return tr
 
 highlightTableLine = ($dom) ->

@@ -79,11 +79,13 @@ Rails.application.configure do
 
   config.paperclip_defaults = {
       :storage => :s3,
-      :s3_host_name => 's3-ap-northeast-1.amazonaws.com',
-      :s3_credentials => {
-          :bucket => 'crowdb.us'
-      }
+      :s3_region => 'ap-northeast-1',
+      :s3_credentials => "#{Rails.root}/config/aws.yml",
   }
 
-  config.action_mailer.default_url_options = { host: 'www.crowdb.us' }
+  config.action_mailer.default_url_options = { host: 'ffff.spaceapps.jp' }
+  Devise.setup do |config|
+    config.secret_key = '9e1f8c811b12823a30c7243bc3c2d789fcb665c79d568e357516d3eb4e23fdb420702af39d577b8bd0e4071ceda5f1a9e8e14bab59ad212a3a102df5766002d5'
+  end
+
 end

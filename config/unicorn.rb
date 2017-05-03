@@ -12,7 +12,7 @@ preload_app true
 # nuke workers after 30 seconds instead of 60 seconds (the default)
 timeout 60
 
-application = ENV["APPLICATION_NAME"] || "busmap"
+application = ENV["APPLICATION_NAME"] || "ffff"
 
 # Production specific settings
 if env == "production" or env == "staging"
@@ -27,7 +27,7 @@ if env == "production" or env == "staging"
   working_directory "/usr/local/apps/#{application}/current"
 
   # feel free to point this anywhere accessible on the filesystem
-  user 'appsrv', 'appsrv'
+  user 'ubuntu', 'ubuntu'
   shared_path = "/usr/local/apps/#{application}/shared"
 
   stderr_path "#{shared_path}/log/unicorn.stderr.log"

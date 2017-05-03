@@ -7,9 +7,9 @@
 # server 'example.com', user: 'deploy', roles: %w{app web}, other_property: :other_value
 # server 'db.example.com', user: 'deploy', roles: %w{db}
 
-role :app, %w{appsrv@54.64.0.222 appsrv@54.65.19.56}
-role :web, %w{appsrv@54.64.0.222 appsrv@54.65.19.56}
-role :db, %w{appsrv@54.64.0.222}
+role :app, %w{ubuntu@59.106.223.145}
+role :web, %w{ubuntu@59.106.223.145}
+role :db, %w{ubuntu@59.106.223.145}
 
 # role-based syntax
 # ==================
@@ -51,13 +51,13 @@ role :db, %w{appsrv@54.64.0.222}
 #
 # The server-based syntax can be used to override options:
 # ------------------------------------
-# server 'example.com',
-#   user: 'user_name',
-#   roles: %w{web app},
-#   ssh_options: {
-#     user: 'user_name', # overrides user setting above
-#     keys: %w(/home/user_name/.ssh/id_rsa),
-#     forward_agent: false,
-#     auth_methods: %w(publickey password)
-#     # password: 'please use keys'
-#   }
+#server '59.106.223.145',
+#  user: 'ubuntu',
+#  roles: %w{web app},
+#  ssh_options: {
+#    user: 'ubuntu', # overrides user setting above
+#    keys: %w(/home/ubuntu/.ssh/id_rsa),
+#    forward_agent: false,
+#    auth_methods: %w(publickey password)
+#    # password: 'please use keys'
+#  }

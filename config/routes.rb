@@ -10,7 +10,7 @@ Rails.application.routes.draw do
 
   get 'about', :to => 'top#index'
 
-  root :to => 'bus_stops#index'
+  root :to => 'top#index'
 
   #resources :users, :except => [:index, :destroy]
   devise_for :users, :controllers => {
