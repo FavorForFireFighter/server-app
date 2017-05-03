@@ -23,3 +23,13 @@ exports.loadTimeDimension = (map) ->
     timeSliderDragUpdate: true
   timeDimensionControl = new (L.Control.TimeDimension)(timeDimensionControlOptions)
   map.addControl timeDimensionControl
+  icon = L.icon(
+    iconUrl: 'img/running.png'
+    iconSize: [
+      22
+      22
+    ]
+    iconAnchor: [
+      5
+      25
+    ])
