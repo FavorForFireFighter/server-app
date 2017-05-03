@@ -3,6 +3,7 @@
     .panel-title= t('bus_stops.common.show.basic_info')
   .panel-body
     = render partial: 'common/show_key_value', locals: {key: BusStop.human_attribute_name(:name), value: bus_stop.name}
+    = render partial: 'common/show_key_value', locals: {key: BusStop.human_attribute_name(:status), value: bus_stop.status}
 
 .panel.panel-default
   .panel-heading
