@@ -39,6 +39,7 @@ set :rbenv_type, :user
 set :rbenv_ruby, "2.3.1"
 
 require 'seed-fu/capistrano3'
+require 'bundler/capistrano'
 # Trigger the task before publishing
 before 'deploy:publishing', 'db:seed_fu'
 
