@@ -257,7 +257,7 @@ setResult = (data) ->
   $('#stop_list').append(trs)
   return
 
-selectIcon = (fire_status) ->
+exports.selectIcon = (fire_status) ->
   icons = {fire_found: fireIcon_found, fire_got_under: fireIcon_gone}
   if (!fire_status? || fire_status == "")
     return icons['fire_found']

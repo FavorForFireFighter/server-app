@@ -54,7 +54,7 @@ setMarker = (lat, lng) ->
   if current.marker
     current.marker.setLatLng [lat, lng]
   else
-    marker = L.marker([lat, lng], {icon: fireIcon, draggable: true}).addTo(current.map)
+    marker = L.marker([lat, lng], {icon: selectIcon(null), draggable: true}).addTo(current.map)
     marker.on 'dragend', (e)->
       getMapCenter()
       markerMoved()
@@ -67,7 +67,7 @@ setMarker = (lat, lng) ->
 initMarker = () ->
   lat = 19.690435317911682
   lng = 100.81561088562013
-  marker = L.marker([lat, lng], {icon: fireIcon, draggable: true}).addTo(current.map)
+  marker = L.marker([lat, lng], {icon: selectIcon(null), draggable: true}).addTo(current.map)
   marker.on 'dragend', (e)->
     getMapCenter()
     markerMoved()
