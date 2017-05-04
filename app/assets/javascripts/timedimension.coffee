@@ -4,7 +4,7 @@ exports.loadTimeDimension = (map) ->
   console.log('LOAD!!')
   # start of TimeDimension manual instantiation
   timeDimension = new (L.TimeDimension)({
-    timeInterval: "2017-04-01/2017-05-04",
+    timeInterval: "2017-04-27/2017-05-04",
     period: 'P1D'
   })
   # helper to share the timeDimension object between all layers
@@ -59,11 +59,11 @@ L.TimeDimension.Layer.FIREHeatMap = L.TimeDimension.Layer.extend({
 
   _getDataForTime: (time) ->
     console.log('loaded : ' + time)
-    $.getJSON '/data/fire.json', ((data) ->
+    console.log(this._getFullDate(time))
+    $.getJSON '/data/fire/' + this._getFullDate(time) + '.json', ((data) ->
       delete this._currentTimeData.data;
       this._currentTimeData.data = [];
       this._currentTimeData.data = data
-      console.log(this._currentTimeData)
       this._currentLoadedTime = time;
       if (this._timeDimension && time == this._timeDimension.getCurrentTime() && !this._timeDimension.isLoading())
         this._update();
@@ -71,6 +71,17 @@ L.TimeDimension.Layer.FIREHeatMap = L.TimeDimension.Layer.extend({
         time: time
       });
     ).bind(this)
+
+  _getFullDate: (time) ->
+    date = new Date(time)
+    year = date.getFullYear()
+    month = (1 + date.getMonth()).toString()
+    if (month.length == 1)
+      month = '0' + month
+    day = date.getDate().toString()
+    if (day.length == 1)
+      day = '0' + day
+    return year + '-' + month + '-' + day
 })
 
 L.TimeDimension.Layer.WindMap = L.TimeDimension.Layer.extend({
