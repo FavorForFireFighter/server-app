@@ -18,6 +18,8 @@ class BusStop < ActiveRecord::Base
     where("name LIKE :keyword", {keyword: "%"+keyword.gsub(/[\\%_]/) { |m| "\\#{m}" }+"%"}) unless keyword.blank?
   }
 
+  enum status: { fire_found: 0, fire_got_under: 1 }
+
   validates :name, presence: true
 
   def set_location(latitude, longitude)

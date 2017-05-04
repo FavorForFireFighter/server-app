@@ -17,6 +17,14 @@
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
+$breakpoint-mobile: 640px;
+@mixin max-screen($break-point) {
+  @media screen and (max-width: $break-point) {
+    @content;
+  }
+}
+
+$top_opacity_bg:rgba(255,255,255,0.7);
 
 .alert-error, .alert-alert {
   background-color: #f2dede;
@@ -38,4 +46,20 @@
   padding: 0;
   width: 100%;
   height: 100%;
+}
+.navbar-default{
+  background-color: $top_opacity_bg;
+}
+.jumbotron {
+  background-color: $top_opacity_bg;
+  margin-top:20px;
+}
+#topsplash {
+  position: absolute;
+  width: 100%;
+  z-index: -1;
+  min-height:500px;
+  @include max-screen($breakpoint-mobile) {
+    display:none;
+  }
 }

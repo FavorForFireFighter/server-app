@@ -3,6 +3,7 @@
     .panel-title= t('bus_stops.common.show.basic_info')
   .panel-body
     = render partial: 'common/show_key_value', locals: {key: BusStop.human_attribute_name(:name), value: bus_stop.name}
+    = render partial: 'common/show_key_value', locals: {key: BusStop.human_attribute_name(:status), value: bus_stop.status}
 
 .panel.panel-default
   .panel-heading
@@ -11,6 +12,7 @@
     #bus_stop_show_map
     #bus_stop_latitude.hide(data-location="#{bus_stop.location.try(:y)}")
     #bus_stop_longitude.hide(data-location="#{bus_stop.location.try(:x)}")
+    #bus_stop_status.hide(data-status="#{bus_stop.status}")
     #bus_stop_location_update.hide(data-update="#{bus_stop.location_updated_at}")
 
 .panel.panel-default

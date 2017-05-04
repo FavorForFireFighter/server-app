@@ -37,6 +37,7 @@ class BusStopsController < ApplicationController
 
     bus_stop = BusStop.new _params
     bus_stop.last_modify_user_id = current_user.id
+    bus_stop.status = _params[:status]
 
     unless bus_stop.set_location params[:latitude], params[:longitude]
       flash.now[:error] = t('controller.bus_stops.invalid_location')
@@ -75,6 +76,8 @@ class BusStopsController < ApplicationController
 
     bus_stop = BusStop.without_soft_destroyed.find_by(id: params[:id])
     bus_stop.attributes = _params
+    puts _params
+    bus_stop.status = _params[:status]
     bus_stop.last_modify_user_id = current_user.id
 
     unless bus_stop.set_location params[:latitude], params[:longitude]
@@ -134,7 +137,7 @@ class BusStopsController < ApplicationController
 
   private
   def new_params
-    params.require(:bus_stop).permit(:name, :prefecture_id)
+    params.require(:bus_stop).permit(:name, :status, :prefecture_id)
   end
 
   def new_photo_params

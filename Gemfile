@@ -96,6 +96,10 @@ gem 'bootstrap-select-rails'
 
 gem 'kaminari'
 
+# enum helpers
+gem 'enum_help'
+gem 'simple_form'
+
 # deploy
 group :development do
   gem 'capistrano'

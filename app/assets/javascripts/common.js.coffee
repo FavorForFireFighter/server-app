@@ -46,7 +46,8 @@ $ ->
     map = create_leaflet_map 'bus_stop_show_map'
     latitude = $('#bus_stop_latitude').data('location')
     longitude = $('#bus_stop_longitude').data('location')
-    marker = L.marker([latitude, longitude], {icon: fireIcon}).addTo(map)
+    fire_status = $('#bus_stop_status').data('status')
+    marker = L.marker([latitude, longitude], {icon: selectIcon(fire_status)}).addTo(map)
     map.setView marker.getLatLng(), map.getMaxZoom()
 
   $('#pager').on 'ajax:success', (e, result, status, xhr)->
@@ -90,8 +91,23 @@ exports.initMap = (map, lat, lng, zoom) ->
   createWindLayerInto(map).loadData('/data/fire.json', "/data/wind.json");
   return
 
-exports.fireIcon = L.icon(
+exports.fireIcon_found = L.icon(
   iconUrl: '/images/fire.png'
+  iconSize: [
+    32
+    32
+  ]
+  iconAnchor: [
+    22
+    22
+  ]
+  popupAnchor: [
+    -3
+    -20
+  ])
+
+exports.fireIcon_gone = L.icon(
+  iconUrl: '/images/fire_gone.png'
   iconSize: [
     32
     32
@@ -237,13 +253,19 @@ setResult = (data) ->
   clearData()
   trs = []
   for val in data
-    marker = addMarker(val.latitude, val.longitude, val.name)
+    marker = addMarker(val.latitude, val.longitude, val.name, val.status)
     trs.push createTableLine(val, marker)
   $('#stop_list').append(trs)
   return
 
-addMarker = (latitude, longitude, name) ->
-  return L.marker([latitude, longitude], {icon: fireIcon}).bindPopup(name).addTo(current.drawLayer)
+exports.selectIcon = (fire_status) ->
+  icons = {fire_found: fireIcon_found, fire_got_under: fireIcon_gone}
+  if (!fire_status? || fire_status == "")
+    return icons['fire_found']
+  return icon = icons[fire_status]
+
+addMarker = (latitude, longitude, name, status) ->
+  return L.marker([latitude, longitude], {icon: selectIcon(status)}).bindPopup(name).addTo(current.drawLayer)
 
 createTableLine = (val, marker) ->
   tr = $('<tr>').attr(id: "stop_" + val.id)

@@ -1,5 +1,6 @@
 = render partial: 'common/flash_messages'
-
+- content_for :video do
+  = video_tag "/images/fire3.mp4", :autoplay => true, :loop => true, :muted => true, :id => "topsplash"
 .jumbotron
   %h1
     = t('application.title')
