@@ -30,8 +30,8 @@ exports.loadTimeDimension = (map) ->
   fireLayer = L.timeDimension.layer.fireHeatMap()
   fireLayer.addTo(map);
   # add window layer
-  #windowLayer = L.timeDimension.layer.windowMap()
-  #windowLayer.addTo(map);
+  windLayer = L.timeDimension.layer.windMap({}, map)
+  windLayer.addTo(map);
 
 L.TimeDimension.Layer.FIREHeatMap = L.TimeDimension.Layer.extend({
   initialize: (options) ->
@@ -72,5 +72,35 @@ L.TimeDimension.Layer.FIREHeatMap = L.TimeDimension.Layer.extend({
       });
     ).bind(this)
 })
+
+L.TimeDimension.Layer.WindMap = L.TimeDimension.Layer.extend({
+  initialize: (options, map) ->
+    layer = createWindLayerInto(map)
+    L.TimeDimension.Layer.prototype.initialize.call(this, layer, options)
+    this._currentTimeData = {
+      data: []
+    }
+  onAdd: (map) ->
+    console.log('onAdd:Wind')
+    L.TimeDimension.Layer.prototype.onAdd.call(this, map)
+    #map.addLayer(this._baseLayer);
+    if (this._timeDimension)
+      this._getDataForTime(this._timeDimension.getCurrentTime());
+
+  _onNewTimeLoading: (ev) -> this._getDataForTime(ev.time);
+
+  isReady: (time) ->
+    return (this._currentLoadedTime == time);
+
+  #_update: () ->
+    #this._baseLayer.setData(this._currentTimeData);
+  #  return true;
+
+  _getDataForTime: (time) ->
+    console.log('loaded(Wind): ' + time)
+    this._baseLayer.loadData('/data/fire.json', '/data/wind.json')
+})
 L.timeDimension.layer.fireHeatMap = (options) ->
   return new L.TimeDimension.Layer.FIREHeatMap(options);
+L.timeDimension.layer.windMap = (options, map) ->
+  return new L.TimeDimension.Layer.WindMap(options, map);

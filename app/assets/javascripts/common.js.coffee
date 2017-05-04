@@ -145,7 +145,7 @@ exports.scrollToDom = ($dom, scroll_area_id) ->
   offset = $dom.offset()
   list.scrollTop = offset.top - list.offsetTop + list.scrollTop - (list.clientHeight / 2 - 50)
   return
-
+#
 exports.newHeatmapLayerInto = () ->
   return new HeatmapOverlay(cfg =
     radius: 0.01
@@ -160,48 +160,6 @@ exports.newHeatmapLayerInto = () ->
       0.75: '#ffd'
       1: 'white'
   )
-
-# create window layer
-createWindLayerInto = (map) ->
-  svgLayer = d3.select(map.getPanes().overlayPane).append('svg')
-  svgLayer.attr 'class', 'leaflet-zoom-hide fill'
-  plotLayer = svgLayer.append('g')
-  {
-    svgLayer: svgLayer
-    plotLayer: plotLayer
-    loadData: (fireData, windData) ->
-      $.getJSON windData, (wind) ->
-        $.getJSON fireData, (data) ->
-          data.forEach (fire) ->
-            pos = map.latLngToLayerPoint(new (L.LatLng)(fire.lat, fire.lng))
-            interval = if fire.value > 400 then 10 else if fire.value > 300 then 4000 - (fire.value * 10) else 1000
-            size = 10
-            rect =
-              left: pos.x - size
-              top: pos.y - size
-              right: pos.x + size
-              bottom: pos.y + size
-            # 風速: ダミー
-            windDir = wind[0].data[(90 - Math.round(fire.lat)) * 360 + Math.round(fire.lng)]
-            v =
-              x: Math.cos(windDir * Math.PI / 180) * 50
-              y: Math.sin(windDir * Math.PI / 180) * 50
-            setInterval (->
-              putParticle svgLayer, d3.randomUniform(rect.left, rect.right), d3.randomUniform(rect.top, rect.bottom), v.x, v.y
-              return
-            ), interval
-            return
-          return
-        return
-      return
-  }
-
-putParticle = (svgLayer, x, y, vx, vy) ->
-  circle = svgLayer.append('circle').attr('cx', x).attr('cy', y).attr('r', 2).attr('fill', '#ffb').attr("stroke", "#fb9").attr('class', 'particle')
-  circle.transition().duration(1000).ease(d3.easeLinear).attr('transform', 'translate(' + vx + ',' + vy + ')').on 'end', ->
-    d3.select(this).remove()
-    return
-  return
 
 # bus_stop#index
 setCurrentPosition = (pos) ->
