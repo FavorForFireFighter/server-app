@@ -33,6 +33,7 @@ exports.loadTimeDimension = (map) ->
   windLayer = L.timeDimension.layer.windMap({}, map)
   windLayer.addTo(map);
 
+# define fire heatmapLayer
 L.TimeDimension.Layer.FIREHeatMap = L.TimeDimension.Layer.extend({
   initialize: (options) ->
     layer = newHeatmapLayerInto()
@@ -59,8 +60,8 @@ L.TimeDimension.Layer.FIREHeatMap = L.TimeDimension.Layer.extend({
 
   _getDataForTime: (time) ->
     console.log('loaded : ' + time)
-    console.log(this._getFullDate(time))
-    $.getJSON '/data/fire/' + this._getFullDate(time) + '.json', ((data) ->
+    console.log(_getFullDate(time))
+    $.getJSON '/data/fire/' + _getFullDate(time) + '.json', ((data) ->
       delete this._currentTimeData.data;
       this._currentTimeData.data = [];
       this._currentTimeData.data = data
@@ -71,19 +72,19 @@ L.TimeDimension.Layer.FIREHeatMap = L.TimeDimension.Layer.extend({
         time: time
       });
     ).bind(this)
-
-  _getFullDate: (time) ->
-    date = new Date(time)
-    year = date.getFullYear()
-    month = (1 + date.getMonth()).toString()
-    if (month.length == 1)
-      month = '0' + month
-    day = date.getDate().toString()
-    if (day.length == 1)
-      day = '0' + day
-    return year + '-' + month + '-' + day
 })
 
+_getFullDate = (time) ->
+  date = new Date(time)
+  year = date.getFullYear()
+  month = (1 + date.getMonth()).toString()
+  if (month.length == 1)
+    month = '0' + month
+  day = date.getDate().toString()
+  if (day.length == 1)
+    day = '0' + day
+  return year + '-' + month + '-' + day
+# define Wind Map Layer
 L.TimeDimension.Layer.WindMap = L.TimeDimension.Layer.extend({
   initialize: (options, map) ->
     layer = createWindLayerInto(map)
@@ -109,7 +110,7 @@ L.TimeDimension.Layer.WindMap = L.TimeDimension.Layer.extend({
 
   _getDataForTime: (time) ->
     console.log('loaded(Wind): ' + time)
-    this._baseLayer.loadData('/data/fire.json', '/data/wind.json')
+    this._baseLayer.loadData('/data/fire/' + _getFullDate(time) + '.json', '/data/wind.json')
 })
 L.timeDimension.layer.fireHeatMap = (options) ->
   return new L.TimeDimension.Layer.FIREHeatMap(options);
