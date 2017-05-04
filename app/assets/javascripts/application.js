@@ -22,6 +22,6 @@
 //= require admin
 //= require heatmap.min
 //= require leaflet-heatmap
-//= require iso8601-js-period/iso8601.min
+//= require iso8601-js/iso8601.min
 //= require leaflet-timedimension/leaflet.timedimension.src.js
 //= require_tree .
