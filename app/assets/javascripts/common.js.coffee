@@ -87,7 +87,7 @@ exports.initMap = (map, lat, lng, zoom) ->
     lng = 101
   zoom = if exports.isBlank zoom then 10 else zoom
   map.setView [lat, lng], zoom
-  createHeatmapLayerInto(map).loadData("/data/fire.json");
+  #createHeatmapLayerInto(map).loadData("/data/fire.json");
   createWindLayerInto(map).loadData('/data/fire.json', "/data/wind.json");
   return
 
@@ -145,10 +145,26 @@ exports.scrollToDom = ($dom, scroll_area_id) ->
   offset = $dom.offset()
   list.scrollTop = offset.top - list.offsetTop + list.scrollTop - (list.clientHeight / 2 - 50)
   return
+
+exports.newHeatmapLayerInto = () ->
+  return new HeatmapOverlay(cfg =
+    radius: 0.01
+    maxOpacity: 400
+    minOpacity: 300
+    scaleRadius: true
+    useLocalExtrema: true
+    gradient:
+      0.1: '#900'
+      0.25: '#f96'
+      0.5: '#fd9'
+      0.75: '#ffd'
+      1: 'white'
+  )
+
 ##
 # Local functions
 ##
-createHeatmapLayerInto = (map) ->
+exports.createHeatmapLayerInto = (map) ->
   heatmapLayer = new HeatmapOverlay(cfg =
     radius: 0.01
     maxOpacity: 400
