@@ -26,9 +26,12 @@ exports.loadTimeDimension = (map) ->
     timeSliderDragUpdate: true
   timeDimensionControl = new (L.Control.TimeDimension)(timeDimensionControlOptions)
   map.addControl timeDimensionControl
-
-  testFIRELayer = L.timeDimension.layer.fireHeatMap()
-  testFIRELayer.addTo(map);
+  # add fire layer
+  fireLayer = L.timeDimension.layer.fireHeatMap()
+  fireLayer.addTo(map);
+  # add window layer
+  #windowLayer = L.timeDimension.layer.windowMap()
+  #windowLayer.addTo(map);
 
 L.TimeDimension.Layer.FIREHeatMap = L.TimeDimension.Layer.extend({
   initialize: (options) ->
