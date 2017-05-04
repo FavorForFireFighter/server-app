@@ -5,9 +5,11 @@ exports = this
 current = {}
 $ ->
   if $('#bus_stop_new_map').is(':visible')
+    console.log('***************called********************')
     current.map = create_leaflet_map 'bus_stop_new_map'
     initMarker()
     setMarker()
+    loadTimeDimension(map)
     $('#bus_stop_prefecture_id').on 'change', (e) ->
       id = $(e.currentTarget).val()
       $prefecture_location = $('#prefecture_location_' + id)

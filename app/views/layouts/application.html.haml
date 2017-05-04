@@ -11,6 +11,7 @@
       = javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.1/html5shiv.js"
     = stylesheet_link_tag "application", :media => "all"
     = stylesheet_link_tag "/libs/leaflet/leaflet.css", :media => "all"
+    = stylesheet_link_tag "/libs/leaflet.timedimension.control.min.css", :media => "all"
     = favicon_link_tag 'apple-touch-icon-144x144-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '144x144'
     = favicon_link_tag 'apple-touch-icon-114x114-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '114x114'
     = favicon_link_tag 'apple-touch-icon-72x72-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '72x72'
@@ -29,6 +30,8 @@
     = javascript_include_tag "https://d3js.org/d3-selection.v1.min.js"
     = javascript_include_tag "https://d3js.org/d3-timer.v1.min.js"
     = javascript_include_tag "https://d3js.org/d3-transition.v1.min.js"
+    = javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/leaflet.fullscreen/1.4.2/Control.FullScreen.min.js"
+
     = javascript_include_tag "application"
 
     - if !devise_controller?
