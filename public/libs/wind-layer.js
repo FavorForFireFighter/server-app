@@ -6,9 +6,13 @@ function createWindLayerInto(map) {
   function putParticle(svgLayer, fire, wind) {
 
     var index = (90-Math.round(fire.lat))*360 + Math.round(fire.lng)
+
+    // 適当な調節。ほんとは縮尺取ってちゃんと合わせたい
+    const speed = map.getZoom()^2;
+
     var v = {
-      x: wind[0].data[index] * 10,
-      y: -wind[1].data[index] * 10
+      x: wind[0].data[index] * speed,
+      y: -wind[1].data[index] * speed
     };
 
     var size = 5;
@@ -66,6 +70,8 @@ function createWindLayerInto(map) {
   });
 
   function loadData(fireData, windData) {
+    clearTimer();
+    fitLayer();
 
     var bounds = map.getBounds();
     var northWest = bounds.getNorthWest();

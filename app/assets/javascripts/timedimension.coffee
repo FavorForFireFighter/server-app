@@ -104,9 +104,8 @@ L.TimeDimension.Layer.WindMap = L.TimeDimension.Layer.extend({
   isReady: (time) ->
     return (this._currentLoadedTime == time);
 
-  #_update: () ->
-    #this._baseLayer.setData(this._currentTimeData);
-  #  return true;
+  _update: () ->
+    return true;
 
   _getDataForTime: (time) ->
     console.log('loaded(Wind): ' + time)
