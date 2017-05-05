@@ -2,4 +2,4 @@
 ja:
   top:
     message1: Favor 4 Fire Fighters(F4) helps fire fighters to identify where and how a fire is spreading by combines satellite data with crowd-sourced data from people on the ground near areas of concern.
-    message2: You can see fire maps, or submit fire report from this tool.
+    message2_html: You can see fire maps, or submit fire report from this tool.<br/>This tool is created by Space Apps Challenge Osaka, a hackathon for solving challenges issued by NASA. Yuu can see detail infromation from <a href="https://2017.spaceappschallenge.org/challenges/warning-danger-ahead/and-you-can-help-fight-fires/teams/f4-favor-4-fire-fighters/project">our project page</a>
