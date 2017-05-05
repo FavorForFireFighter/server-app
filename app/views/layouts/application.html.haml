@@ -55,6 +55,8 @@
             %li= link_to t('application.search_bus'), bus_stops_path
             - if user_signed_in?
               %li= link_to t('application.create_bus'), new_bus_stop_path
+            - else
+              %li= link_to t('application.login_to_report'), new_user_session_path
           %ul.nav.navbar-nav.navbar-right
             - if user_signed_in?
               - if is_admin?
