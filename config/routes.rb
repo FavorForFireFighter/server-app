@@ -29,9 +29,10 @@ Rails.application.routes.draw do
   get 'users/:id/photos', to: "users#photos", as: "user_photos"
 
   resources :bus_stops, :except => [:destroy]
-  get 'bus_stops/:id/photos/new', to: "bus_stops#photos_new", as: "new_bus_stop_photos"
-  post 'bus_stops/:id/photos/create', to: "bus_stops#photos_create", as: "bus_stop_photos"
-  delete 'bus_stops/:id/photos/:photo_id', to: "bus_stops#photos_destroy", as: "destroy_bus_stop_photos"
+  resources :reports, :controller => :bus_stops, :except => [:destroy]
+  get 'reports/:id/photos/new', to: "bus_stops#photos_new", as: "new_bus_stop_photos"
+  post 'reports/:id/photos/create', to: "bus_stops#photos_create", as: "bus_stop_photos"
+  delete 'reports/:id/photos/:photo_id', to: "bus_stops#photos_destroy", as: "destroy_bus_stop_photos"
 
   resources :bus_route_information, :only => [:show, :edit, :update]
 

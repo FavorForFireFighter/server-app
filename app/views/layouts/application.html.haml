@@ -52,9 +52,9 @@
             = t('application.title')
         .navbar-collapse.collapse.navbar-responsive-collapse
           %ul.nav.navbar-nav
-            %li= link_to t('application.search_bus'), bus_stops_path
+            %li= link_to t('application.search_bus'), reports_path
             - if user_signed_in?
-              %li= link_to t('application.create_bus'), new_bus_stop_path
+              %li= link_to t('application.create_bus'), new_report_path
             - else
               %li= link_to t('application.login_to_report'), new_user_session_path
           %ul.nav.navbar-nav.navbar-right

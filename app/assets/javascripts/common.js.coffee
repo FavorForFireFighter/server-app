@@ -231,8 +231,8 @@ createTableLine = (val, marker) ->
   return tr
 
 createActionButtons = (id) ->
-  path = "bus_stops/"
-  if location.pathname.indexOf("bus_stops/") isnt -1
+  path = "reports/"
+  if location.pathname.indexOf("reports/") isnt -1
     path = ""
   $show = $('<a>').addClass("btn btn-default").attr("href", path + id).text("Detail")
   return $('<td>').append($show)
